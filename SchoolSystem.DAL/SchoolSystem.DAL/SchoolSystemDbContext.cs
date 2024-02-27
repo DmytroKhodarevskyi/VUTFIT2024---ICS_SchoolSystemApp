@@ -1,7 +1,7 @@
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAL;
+namespace SchoolSystem.DAL;
 public class SchoolSystemDbContext : DbContext
 {
     private readonly bool _seedDemoData;
