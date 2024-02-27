@@ -9,3 +9,4 @@ public class Student
     
     public string Photo { get; set; }
 }
+
