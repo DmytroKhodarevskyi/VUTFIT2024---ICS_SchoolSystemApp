@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using CarPool.Common.Tests;
-using CarPool.Common.Tests.Factories;
+using SchoolSystem.Tests;
+using SchoolSystem.DAL.Factories;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
@@ -12,29 +12,24 @@ public class DbContextTestsBase : IAsyncLifetime
 {
 	protected DbContextTestsBase(ITestOutputHelper output)
 	{
-		XUnitTestOutputConverter converter = new(output);
-		Console.SetOut(converter);
-
-		// DbContextFactory = new DbContextTestingInMemoryFactory(GetType().Name, seedTestingData: true);
-		// DbContextFactory = new DbContextLocalDBTestingFactory(GetType().FullName!, seedTestingData: true);
 		DbContextFactory = new DbContextSQLiteTestingFactory(GetType().FullName!, seedTestingData: true);
 
-		CarPoolDbContextSUT = DbContextFactory.CreateDbContext();
+		SchoolSystemDbContextSUT = DbContextFactory.CreateDbContext();
 	}
 
-	protected IDbContextFactory<CarPoolDbContext> DbContextFactory { get; }
-	protected CarPoolDbContext CarPoolDbContextSUT { get; }
+	protected IDbContextFactory<SchoolSystemDbContext> DbContextFactory { get; }
+	protected SchoolSystemDbContext SchoolSystemDbContextSUT { get; }
 
 
 	public async Task InitializeAsync()
 	{
-		await CarPoolDbContextSUT.Database.EnsureDeletedAsync();
-		await CarPoolDbContextSUT.Database.EnsureCreatedAsync();
+		await SchoolSystemDbContextSUT.Database.EnsureDeletedAsync();
+		await SchoolSystemDbContextSUT.Database.EnsureCreatedAsync();
 	}
 
 	public async Task DisposeAsync()
 	{
-		await CarPoolDbContextSUT.Database.EnsureDeletedAsync();
-		await CarPoolDbContextSUT.DisposeAsync();
+		await SchoolSystemDbContextSUT.Database.EnsureDeletedAsync();
+		await SchoolSystemDbContextSUT.DisposeAsync();
 	}
 }
