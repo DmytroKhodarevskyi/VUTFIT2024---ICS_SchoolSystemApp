@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.DAL", "SchoolSystem.\SchoolSystem.DAL.csproj", "{CD707674-794E-4722-8816-0DED134B5891}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.DAL", "SchoolSystem\SchoolSystem.DAL.csproj", "{CD707674-794E-4722-8816-0DED134B5891}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
