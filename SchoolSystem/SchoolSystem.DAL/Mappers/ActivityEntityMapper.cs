@@ -1,5 +1,7 @@
 
-using SchoolSystem.DAL.Entities;
+// using SchoolSystem.DAL;
+
+using DAL.Entities;
 
 namespace SchoolSystem.DAL.Mappers;
 
