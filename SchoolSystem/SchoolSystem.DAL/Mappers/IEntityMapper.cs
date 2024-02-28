@@ -3,7 +3,8 @@ using DAL.Entities;
 
 namespace SchoolSystem.DAL.Mappers;
 
-public interface IEntityMapper<IEntity>
+public interface IEntityMapper<in TEntity>
+    where TEntity : IEntity
 {
-    void MapToExistingEntity(IEntity existingEntity, IEntity newEntity);
+    void MapToExistingEntity(TEntity existingEntity, TEntity newEntity);
 }
