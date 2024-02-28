@@ -20,7 +20,7 @@ public class SchoolSystemDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<StudentEntity>()
             .HasMany(s => s.Subjects)
-            .WithMany(e => e.Student);
+            .WithMany(e => e.Students);
 
         modelBuilder.Entity<SubjectEntity>()
             .HasMany(s => s.Activities)

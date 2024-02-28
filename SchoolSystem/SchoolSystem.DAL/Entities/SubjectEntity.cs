@@ -5,5 +5,7 @@ public record SubjectEntity : IEntity
     public Guid Id { get; set; } = Guid.NewGuid();
     public required string Name { get; set; }
     public required string Abbreviation { get; set; }
-    public ICollections<ActivityEntity> Activities { get; set; } = new List<ActivityEntity>();
+    public ICollection<ActivityEntity> Activities { get; set; } = new List<ActivityEntity>();
+
+    public ICollection<StudentEntity> Students { get; set; } = new List<StudentEntity>();
 }
