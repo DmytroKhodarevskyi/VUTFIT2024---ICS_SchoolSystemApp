@@ -21,5 +21,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  
+    <ItemGroup>
+        <ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
+    </ItemGroup>
 
 </Project>
