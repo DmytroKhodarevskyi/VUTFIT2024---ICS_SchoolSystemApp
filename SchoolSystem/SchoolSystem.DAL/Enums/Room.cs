@@ -1,4 +1,4 @@
-namespace DAL.Entities;
+namespace DAL.Enums;
 
 public enum Room
 {
