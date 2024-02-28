@@ -1,7 +1,7 @@
 
 using DAL.Entities;
 
-namespace SchoolSystem.DAL.Mappers;
+namespace DAL.Mappers;
 
 public interface IEntityMapper<in TEntity>
     where TEntity : IEntity

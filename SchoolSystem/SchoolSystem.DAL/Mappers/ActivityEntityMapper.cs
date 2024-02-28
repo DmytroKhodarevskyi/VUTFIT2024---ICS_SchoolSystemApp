@@ -3,7 +3,7 @@
 
 using DAL.Entities;
 
-namespace SchoolSystem.DAL.Mappers;
+namespace DAL.Mappers;
 
 public class ActivityEntityMapper : IEntityMapper<ActivityEntity>
 {

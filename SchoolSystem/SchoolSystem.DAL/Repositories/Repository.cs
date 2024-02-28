@@ -1,8 +1,10 @@
+// namespace SchoolSystem.DAL.Repositories;
+namespace DAL.Repositories;
+
 using DAL.Entities;
 using DAL.Mappers;
 using Microsoft.EntityFrameworkCore;
 
-namespace CookBook.DAL.Repositories;
 
 public class Repository<TEntity>(
     DbContext dbContext,
