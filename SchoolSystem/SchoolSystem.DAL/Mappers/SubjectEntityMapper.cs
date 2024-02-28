@@ -11,3 +11,4 @@ public class SubjectEntityMapper : IEntityMapper<SubjectEntity>
         existingEntity.Abbreviation = newEntity.Abbreviation;
     }
 }
+
