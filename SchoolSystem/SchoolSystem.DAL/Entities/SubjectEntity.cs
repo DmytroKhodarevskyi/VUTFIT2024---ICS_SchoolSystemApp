@@ -1,6 +1,6 @@
 namespace DAL.Entities;
 
-public record SubjectEntity
+public record SubjectEntity : IEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 

@@ -1,6 +1,6 @@
 namespace DAL.Entities;
 
-public record ActivityEntity
+public record ActivityEntity : IEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     
