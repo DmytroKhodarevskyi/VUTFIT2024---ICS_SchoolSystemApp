@@ -22,4 +22,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
