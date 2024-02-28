@@ -20,7 +20,7 @@ public class SchoolSystemDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<StudentEntity>()
             .HasMany(s => s.Subjects)
-            .WithMany(e => e.Student)
+            .WithMany(e => e.Student);
 
         modelBuilder.Entity<SubjectEntity>()
             .HasMany(s => s.Activities)
@@ -32,8 +32,8 @@ public class SchoolSystemDbContext : DbContext
             .WithOne(e => e.Activity)
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<EvaluationEntity>()
-            .HasOne(s => s.Studet)
-            .WithMany(e => e.Evaluations)
+            .HasOne(s => s.Student)
+            .WithMany(e => e.Evaluations);
 
         // if (seedDemoData) {
         // }

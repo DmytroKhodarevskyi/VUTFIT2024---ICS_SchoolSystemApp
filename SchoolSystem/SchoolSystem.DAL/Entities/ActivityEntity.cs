@@ -9,6 +9,7 @@ public record ActivityEntity : IEntity
     public required Room Room { get; set; }
     public required int Tag { get; set; }
     public string? Description { get; set; }
+    public ICollections<EvaluationEntity> Evaluations { get; set; } = new List<EvaluationEntity>();
     
 
 }
