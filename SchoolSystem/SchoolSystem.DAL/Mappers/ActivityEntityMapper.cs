@@ -1,0 +1,16 @@
+
+using SchoolSystem.DAL.Entities;
+
+namespace SchoolSystem.DAL.Mappers;
+
+public class ActivityEntityMapper : IEntityMapper<ActivityEntity>
+{
+    public void MapToExistingEntity(ActivityEntity existingEntity, ActivityEntity newEntity)
+    {
+        existingEntity.Start = newEntity.Start;
+        existingEntity.End = newEntity.End;
+        existingEntity.Room = newEntity.Room;
+        existingEntity.Tag = newEntity.Tag;
+        existingEntity.Description = newEntity.Description;
+    }
+}
