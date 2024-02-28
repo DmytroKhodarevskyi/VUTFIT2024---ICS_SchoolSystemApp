@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using SchoolSystem.Tests;
+using SchoolSystem.DAL;
 using SchoolSystem.DAL.Factories;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
