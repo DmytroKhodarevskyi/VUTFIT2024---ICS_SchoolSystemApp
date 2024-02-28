@@ -8,5 +8,6 @@ public record StudentEntity : IEntity
     public required string Surname { get; set; }
     
     public string? Photo { get; set; }
+    public ICollections<SubjectsEntity> Subjects { get; set; } = new List<SubjectsEntity>();
 }
 
