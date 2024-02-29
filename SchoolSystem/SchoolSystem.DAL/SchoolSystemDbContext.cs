@@ -5,7 +5,7 @@ namespace SchoolSystem.DAL;
 public class SchoolSystemDbContext : DbContext
 {
     private readonly bool _seedDemoData;
-    public SchoolSystemDbContext(DbContextOptions<SchoolSystemDbContext> options, bool seedDemoData = false) : base(options)
+    public SchoolSystemDbContext(DbContextOptions options, bool seedDemoData = false) : base(options)
     {
         _seedDemoData = seedDemoData;
     }
