@@ -3,7 +3,7 @@ namespace DAL.Entities;
 
 public record ActivityEntity : IEntity
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; } 
     
     public required DateTime Start { get; set; }
     public required DateTime End { get; set; }

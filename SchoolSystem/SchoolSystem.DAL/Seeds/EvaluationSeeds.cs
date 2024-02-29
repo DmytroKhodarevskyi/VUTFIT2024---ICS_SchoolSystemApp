@@ -29,6 +29,7 @@ public static class EvaluationSeeds
     
     public static void Seed(ModelBuilder modelBuilder) =>
         modelBuilder.Entity<EvaluationEntity>().HasData(
-            Evaluation1, Evaluation2 with{ Activity = null,
+            Evaluation1 with{ Activity = null,
+                Student = null} , Evaluation2 with{ Activity = null,
                 Student = null});
 }

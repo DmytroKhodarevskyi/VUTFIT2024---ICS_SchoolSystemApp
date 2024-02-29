@@ -4,7 +4,7 @@ namespace DAL.Entities;
 
 public record StudentEntity : IEntity
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
     
     public required string Name { get; set; }
     public required string Surname { get; set; }
