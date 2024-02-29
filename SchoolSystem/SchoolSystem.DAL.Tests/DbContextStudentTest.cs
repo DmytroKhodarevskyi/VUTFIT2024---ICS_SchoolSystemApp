@@ -1,5 +1,7 @@
-using Common.Tests;
-using Common.Tests.Seeds;
+using System;
+using System.Collections.Generic;
+using SchoolSystem.Common.Tests;
+using SchoolSystem.Common.Tests.Seeds;
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -7,7 +9,7 @@ using Xunit.Abstractions;
 
 namespace SchoolSystem.DAL.Tests
 {
-    public class DbContextStudentTest
+    public class DbContextStudentTest : DbContextTestsBase
     {
         public DbContextStudentTest(ITestOutputHelper output) : base(output)
         {
@@ -25,10 +27,10 @@ namespace SchoolSystem.DAL.Tests
             SchoolSystemDbContextSUT.Students.Add(student);
             await SchoolSystemDbContextSUT.SaveChangesAsync();
 
-            await using var dbx = await DbContextFactory.CreateDbContextAsync();
-            var actualStudent = await dbx.Students
-                .SingleAsync(i => i.Id == entity.Id);
-            DeepAssert.Equal(student, actualEntity);
+            await using var dbContext = await DbContextFactory.CreateDbContextAsync();
+            var actualStudent = await dbContext.Students
+                .SingleAsync(i => i.Id == student.Id);
+            DeepAssert.Equal(student, actualStudent);
         }
 
         [Fact]
@@ -50,9 +52,8 @@ namespace SchoolSystem.DAL.Tests
             await using var dbx = await DbContextFactory.CreateDbContextAsync();
             var actualStudent = await dbx.Students
                 .Include(i => i.Activities)
-                .ThenInclude(i => i.Activity)
-                .SingleAsync(i => i.Id == entity.Id);
-            DeepAssert.Equal(student, actualEntity);
+                .SingleAsync(i => i.Id == student.Id);
+            DeepAssert.Equal(student, actualStudent);
         }
 
         [Fact]
@@ -65,8 +66,8 @@ namespace SchoolSystem.DAL.Tests
                 Activities = new List<ActivityEntity>
                 {
                     ActivitySeeds.Activity1
-                }
-                Evaluiations = new List<EvaluationEntity>
+                },
+                Evaluations = new List<EvaluationEntity>
                 {
                     EvaluationSeeds.Evaluation1
                 }
@@ -78,9 +79,8 @@ namespace SchoolSystem.DAL.Tests
             await using var dbx = await DbContextFactory.CreateDbContextAsync();
             var actualStudent = await dbx.Students
                 .Include(i => i.Activities)
-                .ThenInclude(i => i.Evaluation)
-                .SingleAsync(i => i.Id == entity.Id);
-            DeepAssert.Equal(student, actualEntity);
+                .SingleAsync(i => i.Id == student.Id);
+            DeepAssert.Equal(student, actualStudent);
         }
 
         [Fact]
@@ -93,9 +93,8 @@ namespace SchoolSystem.DAL.Tests
         [Fact]
         public async Task GetById_IncludingActivity()
         {
-            var entity = await CookBookDbContextSUT.Recipes
+            var entity = await SchoolSystemDbContextSUT.Students
                 .Include(i => i.Activities)
-                .ThenInclude(i => i.Activity)
                 .SingleAsync(i => i.Id == StudentSeeds.Student1.Id);
 
             DeepAssert.Equal(StudentSeeds.Student1, entity);
@@ -104,13 +103,13 @@ namespace SchoolSystem.DAL.Tests
         [Fact]
         public async Task UpdateStudent()
         {
-            var baseEntity = StudentSeeds.StudentEntityUpdated
+            var baseEntity = StudentSeeds.StudentEntityUpdated;
             var newEntity = baseEntity with
             {
                 Name = "Denis",
                 Surname = "Chernenko",
             };
-            SchoolSystemDbContextSUT.Recipes.Update(newEntity);
+            SchoolSystemDbContextSUT.Students.Update(newEntity);
             await SchoolSystemDbContextSUT.SaveChangesAsync();
 
             //Assert
@@ -123,7 +122,7 @@ namespace SchoolSystem.DAL.Tests
         public async Task DeleteStudent()
         {
             var entity = StudentSeeds.StudentEntityDeleted;
-            SchoolSystemDbContextSUT.Students.Remove(SchoolSystemDbContextSUT.Students.Single(i => i.Id == entity.Id);
+            SchoolSystemDbContextSUT.Students.Remove(SchoolSystemDbContextSUT.Students.Single(i => i.Id == entity.Id));
             await SchoolSystemDbContextSUT.SaveChangesAsync();
 
             //Assert

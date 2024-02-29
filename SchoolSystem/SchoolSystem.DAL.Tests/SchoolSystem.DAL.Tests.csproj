@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SchoolSystem.Common.Tests\SchoolSystem.Common.Tests.csproj" />
     <ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
   </ItemGroup>
 

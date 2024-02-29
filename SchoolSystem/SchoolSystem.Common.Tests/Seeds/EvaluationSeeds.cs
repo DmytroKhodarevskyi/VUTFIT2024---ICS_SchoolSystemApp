@@ -6,7 +6,7 @@ namespace SchoolSystem.Common.Tests.Seeds;
 
 public static class EvaluationSeeds
 {
-    public static readonly EvaluationEntity EmptyEvaluation = new()
+    public static readonly EvaluationEntity EmptyEvaluationEntity = new()
     {
         Id = default,
         Score = default,
@@ -15,36 +15,37 @@ public static class EvaluationSeeds
     
     public static readonly EvaluationEntity Evaluation1 = new()
     {
-        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+        Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166e112"),
         Score = 2,
         Description = "Test",
     };
     
     public static readonly EvaluationEntity Evaluation2 = new()
     {
-        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+        Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c666122e12e"),
         Score = 3,
         Description = "Test",
     };
     
     public static readonly EvaluationEntity EvaluationEntityWithNoStudAct = Evaluation1 with 
-        { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), 
+        { 
+            Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c666111e12e"), 
             Student = null,
             Activity = null };
     
-    public static readonly EvaluationEntity EvaluationEntityUpdated1 = Evaluation1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+    public static readonly EvaluationEntity EvaluationEntityUpdated1 = Evaluation1 with { Id = Guid.Parse("00000000-0000-1233-0000-000000000004"),
         Student = null,
         Activity = null };
     
-    public static readonly EvaluationEntity EvaluationEntityDeleted1 = Evaluation1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000005"),
+    public static readonly EvaluationEntity EvaluationEntityDeleted1 = Evaluation1 with { Id = Guid.Parse("00000000-0000-0000-4231-000000000005"),
         Student = null,
         Activity = null };
     
-    public static readonly EvaluationEntity EvaluationEntityUpdate2 = Evaluation2 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+    public static readonly EvaluationEntity EvaluationEntityUpdate2 = Evaluation2 with { Id = Guid.Parse("0d4fa150-3123-4d46-a511-4c666166e12e"),
         Student = null,
         Activity = null };
     
-    public static readonly EvaluationEntity EvaluationEntityDelete2 = Evaluation2 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000007"),
+    public static readonly EvaluationEntity EvaluationEntityDelete2 = Evaluation2 with { Id = Guid.Parse("0d4fa150-1234-4d46-a511-4c666166e12e"),
         Student = null,
         Activity = null };
     
@@ -56,13 +57,13 @@ public static class EvaluationSeeds
         Evaluation2.Activity = ActivitySeeds.Activity2;
     }
     
-    public static void Seed(ModelBuilder modelBuilder) =>
+    public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<EvaluationEntity>().HasData(
-            Evaluation1, Evaluation2 with {Student = null, Activity = null},
+            Evaluation1 with {Student = null, Activity = null}, Evaluation2 with {Student = null, Activity = null},
             EvaluationEntityWithNoStudAct,
             EvaluationEntityUpdated1,
             EvaluationEntityDeleted1,
             EvaluationEntityUpdate2,
             EvaluationEntityDelete2
             );
-}    
+}
