@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolSystem.DAL;
 
@@ -10,9 +11,11 @@ using SchoolSystem.DAL;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SchoolSystemDbContext))]
-    partial class SchoolSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240229164528_FixMigration")]
+    partial class FixMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
@@ -38,7 +41,7 @@ namespace DAL.Migrations
                     b.Property<Guid?>("StudentEntityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("SubjectId")
+                    b.Property<Guid>("SubjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Tag")
@@ -59,7 +62,7 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ActivityId")
+                    b.Property<Guid>("ActivityId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -68,7 +71,7 @@ namespace DAL.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid?>("StudentId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -145,7 +148,8 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Entities.SubjectEntity", "Subject")
                         .WithMany("Activities")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Subject");
                 });
@@ -155,11 +159,14 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Entities.ActivityEntity", "Activity")
                         .WithMany("Evaluations")
                         .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DAL.Entities.StudentEntity", "Student")
                         .WithMany("Evaluations")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Activity");
 

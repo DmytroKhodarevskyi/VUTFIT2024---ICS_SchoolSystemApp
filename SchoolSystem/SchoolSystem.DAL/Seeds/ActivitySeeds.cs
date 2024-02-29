@@ -36,5 +36,5 @@ public static class ActivitySeeds
     
     public static void Seed(ModelBuilder modelBuilder) =>
         modelBuilder.Entity<ActivityEntity>().HasData(
-            Activity1, Activity2 with{ Subject = null, Evaluations = Array.Empty<EvaluationEntity>()});
+            Activity1 with{ Subject = null, Evaluations = Array.Empty<EvaluationEntity>()}, Activity2 with{ Subject = null, Evaluations = Array.Empty<EvaluationEntity>()});
 }    

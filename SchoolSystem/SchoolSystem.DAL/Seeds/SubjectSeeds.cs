@@ -30,5 +30,5 @@ public static class SubjectSeeds
     
     public static void Seed(ModelBuilder modelBuilder) =>
         modelBuilder.Entity<SubjectEntity>().HasData(
-            IZP, IUS with {Activities = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentEntity>()});
+            IZP with {Activities = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentEntity>()}, IUS with {Activities = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentEntity>()});
 }    
