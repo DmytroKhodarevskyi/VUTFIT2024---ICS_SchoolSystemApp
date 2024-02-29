@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using SchoolSystem.DAL;
 using SchoolSystem.DAL.Factories;
 using Microsoft.EntityFrameworkCore;
+using SchoolSystem.Common.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -12,7 +13,9 @@ public class DbContextTestsBase : IAsyncLifetime
 {
     protected DbContextTestsBase(ITestOutputHelper output)
     {
-        DbContextFactory = new DbContextSqLiteFactory(GetType().FullName!, seedTestingData: true);
+        XUnitTestOutputConverter converter = new(output);
+        Console.SetOut(converter);
+        DbContextFactory = new SchoolSystemDbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
         SchoolSystemDbContextSUT = DbContextFactory.CreateDbContext();
     }
 

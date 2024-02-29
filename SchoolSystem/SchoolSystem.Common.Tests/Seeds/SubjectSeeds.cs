@@ -15,33 +15,34 @@ public static class SubjectSeeds
     
     public static readonly SubjectEntity IZP = new()
     {
-        Id = Guid.Parse("00000000-0000-0000-0000-0000000000089"),
+        Id = Guid.Parse("0d4fa150-ad80-4d46-a51a-4c666166ec5e"),
+
         Name = "IZP",
         Abbreviation = "IZP",
     };
     
     public static readonly SubjectEntity IUS = new()
     {
-        Id = Guid.Parse("00000000-0000-0000-0000-0000000000078"),
+        Id = Guid.Parse("0d4fa150-ad80-4da6-a511-4c666166ec5e"),
         Name = "IUS",
         Abbreviation = "IUS",
     };
     
     public static readonly SubjectEntity SubjectEntityWithNoStudAct = IZP with 
-        { Id = Guid.Parse("00000000-0000-0000-0000-0000000000067"), 
+        { Id = Guid.Parse("0d4fa150-aa80-4d46-a511-4c666166e12e"),
             Students = Array.Empty<StudentEntity>(), 
             Activities = Array.Empty<ActivityEntity>()};
     
-    public static readonly SubjectEntity SubjectEntityUpdated = IZP with { Id = Guid.Parse("00000000-0000-0000-0000-0000000000056"),
+    public static readonly SubjectEntity SubjectEntityUpdated = IZP with { Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166e12e"),
         Students = Array.Empty<StudentEntity>(), 
         Activities = Array.Empty<ActivityEntity>()};
-    public static readonly SubjectEntity SubjectEntityDeleted = IZP with { Id = Guid.Parse("00000000-0000-0000-0000-0000000000045"),
+    public static readonly SubjectEntity SubjectEntityDeleted = IZP with { Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4a666166e12e"),
         Students = Array.Empty<StudentEntity>(), 
         Activities = Array.Empty<ActivityEntity>()};
-    public  static readonly SubjectEntity SubjectEntityUpdate2 = IUS with { Id = Guid.Parse("00000000-0000-0000-0000-0000000000034"),
+    public  static readonly SubjectEntity SubjectEntityUpdate2 = IUS with { Id = Guid.Parse("0d4fa350-ad80-4d46-a511-4c666166e12e"),
         Students = Array.Empty<StudentEntity>(), 
         Activities = Array.Empty<ActivityEntity>()};
-    public static readonly SubjectEntity SubjectEntityDelete2 = IUS with { Id = Guid.Parse("00000000-0000-0000-0000-0000000000023"),
+    public static readonly SubjectEntity SubjectEntityDelete2 = IUS with { Id = Guid.Parse("0d4f1250-ad80-4d46-a511-4c666166e12e"),
         Students = Array.Empty<StudentEntity>(), 
         Activities = Array.Empty<ActivityEntity>()};
 
@@ -53,9 +54,9 @@ public static class SubjectSeeds
         IUS.Activities.Add(ActivitySeeds.Activity2);
     }
     
-    public static void Seed(ModelBuilder modelBuilder) =>
+    public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<SubjectEntity>().HasData(
-            IZP, IUS with{ Students = Array.Empty<StudentEntity>(), Activities = Array.Empty<ActivityEntity>()},
+            IZP with{ Students = Array.Empty<StudentEntity>(), Activities = Array.Empty<ActivityEntity>()}, IUS with{ Students = Array.Empty<StudentEntity>(), Activities = Array.Empty<ActivityEntity>()},
             SubjectEntityWithNoStudAct,
             SubjectEntityUpdated,
             SubjectEntityDeleted,

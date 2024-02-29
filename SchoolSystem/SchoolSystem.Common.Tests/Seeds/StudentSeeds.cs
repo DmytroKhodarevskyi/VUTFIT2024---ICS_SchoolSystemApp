@@ -16,49 +16,49 @@ public static class StudentSeeds
 
     public static readonly StudentEntity Student1 = new()
     {
-        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+        Id = Guid.Parse("0dafa150-ad80-4d46-a511-4c666166e12e"),
         Name = "John",
         Surname = "Doe",
         Photo = "https://www.google.com",
     };
     
     public static readonly StudentEntity StudentEntityWithNoSubjActivEval = Student1 with 
-        { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), 
+        { Id = Guid.Parse("00000000-0000-0000-0ac6-000000000002"), 
             Subjects = Array.Empty<SubjectEntity>(), 
             Activities = Array.Empty<ActivityEntity>(),
             Evaluations = Array.Empty<EvaluationEntity>() };
-    public static readonly StudentEntity StudentEntityUpdated = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+    public static readonly StudentEntity StudentEntityUpdated = Student1 with { Id = Guid.Parse("00000000-0000-2346-0000-000000000003"),
         Subjects = Array.Empty<SubjectEntity>(), 
         Activities = Array.Empty<ActivityEntity>(),
         Evaluations = Array.Empty<EvaluationEntity>() };
-    public static readonly StudentEntity StudentEntityDeleted = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
-        Subjects = Array.Empty<SubjectEntity>(), 
-        Activities = Array.Empty<ActivityEntity>(),
-        Evaluations = Array.Empty<EvaluationEntity>() };
-    
-    public static readonly StudentEntity StudentSubjectEntityUpdate = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000005"),
-        Subjects = Array.Empty<SubjectEntity>(), 
-        Activities = Array.Empty<ActivityEntity>(),
-        Evaluations = Array.Empty<EvaluationEntity>() };
-    public static readonly StudentEntity StudentSubjectEntityDelete = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000055"),
+    public static readonly StudentEntity StudentEntityDeleted = Student1 with { Id = Guid.Parse("00000000-0000-0000-7345-000000000004"),
         Subjects = Array.Empty<SubjectEntity>(), 
         Activities = Array.Empty<ActivityEntity>(),
         Evaluations = Array.Empty<EvaluationEntity>() };
     
-    public static readonly StudentEntity StudentActivityEntityUpdate = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+    public static readonly StudentEntity StudentSubjectEntityUpdate = Student1 with { Id = Guid.Parse("000000aa-0000-0000-0000-000000000005"),
         Subjects = Array.Empty<SubjectEntity>(), 
         Activities = Array.Empty<ActivityEntity>(),
         Evaluations = Array.Empty<EvaluationEntity>() };
-    public static readonly StudentEntity StudentActivityEntityDelete = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000007"),
+    public static readonly StudentEntity StudentSubjectEntityDelete = Student1 with { Id = Guid.Parse("0000a000-0000-0000-0000-000000000055"),
         Subjects = Array.Empty<SubjectEntity>(), 
         Activities = Array.Empty<ActivityEntity>(),
         Evaluations = Array.Empty<EvaluationEntity>() };
     
-    public static readonly StudentEntity StudentEvaluationEntityUpdate = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000008"),
+    public static readonly StudentEntity StudentActivityEntityUpdate = Student1 with { Id = Guid.Parse("00000000-1557-0000-0000-000000000006"),
         Subjects = Array.Empty<SubjectEntity>(), 
         Activities = Array.Empty<ActivityEntity>(),
         Evaluations = Array.Empty<EvaluationEntity>() };
-    public static readonly StudentEntity StudentEvaluationEntityDelete = Student1 with { Id = Guid.Parse("00000000-0000-0000-0000-000000000009"),
+    public static readonly StudentEntity StudentActivityEntityDelete = Student1 with { Id = Guid.Parse("00000000-1488-0000-0000-000000000007"),
+        Subjects = Array.Empty<SubjectEntity>(), 
+        Activities = Array.Empty<ActivityEntity>(),
+        Evaluations = Array.Empty<EvaluationEntity>() };
+    
+    public static readonly StudentEntity StudentEvaluationEntityUpdate = Student1 with { Id = Guid.Parse("00000000-8888-0000-0000-000000000008"),
+        Subjects = Array.Empty<SubjectEntity>(), 
+        Activities = Array.Empty<ActivityEntity>(),
+        Evaluations = Array.Empty<EvaluationEntity>() };
+    public static readonly StudentEntity StudentEvaluationEntityDelete = Student1 with { Id = Guid.Parse("00000000-5555-0000-0000-000000000009"),
         Subjects = Array.Empty<SubjectEntity>(), 
         Activities = Array.Empty<ActivityEntity>(),
         Evaluations = Array.Empty<EvaluationEntity>() };
