@@ -66,4 +66,4 @@ public static class EvaluationSeeds
             EvaluationEntityUpdate2,
             EvaluationEntityDelete2
             );
-}    
+}

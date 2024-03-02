@@ -33,13 +33,13 @@ public static class SubjectSeeds
             Students = Array.Empty<StudentEntity>(), 
             Activities = Array.Empty<ActivityEntity>()};
     
-    public static readonly SubjectEntity SubjectEntityUpdated = IZP with { Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166e12e"),
+    public static readonly SubjectEntity SubjectEntityUpdated = IZP with { Id = Guid.Parse("0d4fa150-ad30-4d46-a511-4c666166e12e"),
         Students = Array.Empty<StudentEntity>(), 
         Activities = Array.Empty<ActivityEntity>()};
-    public static readonly SubjectEntity SubjectEntityDeleted = IZP with { Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4a666166e12e"),
+    public static readonly SubjectEntity SubjectEntityDeleted = IZP with { Id = Guid.Parse("0d4fa150-ad20-4d46-a511-4a666166e12e"),
         Students = Array.Empty<StudentEntity>(), 
         Activities = Array.Empty<ActivityEntity>()};
-    public  static readonly SubjectEntity SubjectEntityUpdate2 = IUS with { Id = Guid.Parse("0d4fa350-ad80-4d46-a511-4c666166e12e"),
+    public  static readonly SubjectEntity SubjectEntityUpdate2 = IUS with { Id = Guid.Parse("0d4fa350-ad10-4d46-a511-4c666166e12e"),
         Students = Array.Empty<StudentEntity>(), 
         Activities = Array.Empty<ActivityEntity>()};
     public static readonly SubjectEntity SubjectEntityDelete2 = IUS with { Id = Guid.Parse("0d4f1250-ad80-4d46-a511-4c666166e12e"),
