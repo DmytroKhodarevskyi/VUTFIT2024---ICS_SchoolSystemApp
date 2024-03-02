@@ -23,10 +23,17 @@
     </PackageReference>
   </ItemGroup>
 
+
+    <ItemGroup>
+      <ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
+      <ProjectReference Include="..\SchoolSystem.Common.Tests\SchoolSystem.Common.Tests.csproj" />
+    </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\SchoolSystem.Common.Tests\SchoolSystem.Common.Tests.csproj" />
     <ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
   </ItemGroup>
   
+
 
 </Project>
