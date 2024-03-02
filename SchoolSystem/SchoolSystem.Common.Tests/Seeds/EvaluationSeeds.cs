@@ -13,6 +13,13 @@ public static class EvaluationSeeds
         Description = default!,
     };
     
+    public static readonly EvaluationEntity EvaluationWithNothing = new()
+    {
+        Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c888166e112"),
+        Score = 2,
+        Description = "Test",
+    };
+    
     public static readonly EvaluationEntity Evaluation1 = new()
     {
         Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166e112"),
@@ -49,13 +56,13 @@ public static class EvaluationSeeds
         Student = null,
         Activity = null };
     
-    static EvaluationSeeds()
-    {
-        Evaluation1.Student = StudentSeeds.Student1;
-        Evaluation2.Student = StudentSeeds.Student1;
-        Evaluation1.Activity = ActivitySeeds.Activity1;
-        Evaluation2.Activity = ActivitySeeds.Activity2;
-    }
+    // static EvaluationSeeds()
+    // {
+    //     // Evaluation1.Student = StudentSeeds.Student1;
+    //     Evaluation2.Student = StudentSeeds.Student1;
+    //     // Evaluation1.Activity = ActivitySeeds.Activity1;
+    //     Evaluation2.Activity = ActivitySeeds.Activity2;
+    // }
     
     public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<EvaluationEntity>().HasData(
