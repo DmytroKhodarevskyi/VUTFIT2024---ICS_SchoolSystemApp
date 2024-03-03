@@ -56,8 +56,8 @@ public static readonly ActivityEntity Activity1 = new()
 
     static ActivitySeeds()
     {
-        Activity1.Subject = SubjectSeeds.IZP;
-        Activity2.Subject = SubjectSeeds.IUS;
+        // Activity1.Subject = SubjectSeeds.IZP;
+        // Activity2.Subject = SubjectSeeds.IUS;
         Activity1.Evaluations.Add(EvaluationSeeds.Evaluation1);
         Activity2.Evaluations.Add(EvaluationSeeds.Evaluation2);
     }
@@ -71,5 +71,4 @@ public static readonly ActivityEntity Activity1 = new()
             ActivityEntityUpdate2,
             ActivityEntityDelete2
             );
-    
 }
