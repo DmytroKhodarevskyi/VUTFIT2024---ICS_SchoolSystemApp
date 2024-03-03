@@ -16,7 +16,7 @@ public static class StudentSeeds
 
     public static readonly StudentEntity Student1 = new()
     {
-        Id = Guid.Parse("0dafa150-ad80-4d46-a511-4c666166e12e"),
+        Id = Guid.Parse("0dafa151-ac90-4d46-a513-4c666166e12e"),
         Name = "John",
         Surname = "Doe",
         Photo = "https://www.google.com",
@@ -27,6 +27,7 @@ public static class StudentSeeds
             Subjects = Array.Empty<SubjectEntity>()};
     public static readonly StudentEntity StudentEntityUpdated = Student1 with { Id = Guid.Parse("00000000-0000-2346-0000-000000000003"),
         Subjects = Array.Empty<SubjectEntity>()};
+
     public static readonly StudentEntity StudentEntityDeleted = Student1 with { Id = Guid.Parse("00000000-0000-0000-7345-000000000004"),
         Subjects = Array.Empty<SubjectEntity>() };
     
