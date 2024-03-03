@@ -46,7 +46,11 @@ public class DbContextActivityTest : DbContextTestsBase
             Room = Room.D105,
             Tag = 1,
             Description = "Test",
-            Subject = SubjectSeeds.IZP
+            Subject = SubjectSeeds.EmptySubject with
+            {
+                Name = "Math",
+                Abbreviation = "MTH",
+            }
         };
 
         // Act
@@ -78,7 +82,7 @@ public class DbContextActivityTest : DbContextTestsBase
             var actualActivityEntity = await dbContext.Activities
                 .Include(i => i.Subject)
                 .SingleAsync(i => i.Id == entity.Id);
-            // Assert.Equal(entity, actualActivityEntity);
+            Assert.Equal(entity, actualActivityEntity);
         }
         catch (Exception ex)
         {
