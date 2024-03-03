@@ -18,15 +18,11 @@ public static class StudentSeeds
     {
         Student1.Subjects.Add(SubjectSeeds.IZP);
         Student1.Subjects.Add(SubjectSeeds.IUS);
-        Student1.Activities.Add(ActivitySeeds.Activity1);
-        Student1.Activities.Add(ActivitySeeds.Activity2);
-        Student1.Evaluations.Add(EvaluationSeeds.Evaluation1);
-        Student1.Evaluations.Add(EvaluationSeeds.Evaluation2);
+
     }
     
     public static void Seed(ModelBuilder modelBuilder) =>
         modelBuilder.Entity<StudentEntity>().HasData(
-            Student1 with{Subjects = Array.Empty<SubjectEntity>(),
-                Activities = Array.Empty<ActivityEntity>(), 
-                Evaluations = Array.Empty<EvaluationEntity>()});
-}
+            Student1 with{Subjects = Array.Empty<SubjectEntity>()});
+}    
+

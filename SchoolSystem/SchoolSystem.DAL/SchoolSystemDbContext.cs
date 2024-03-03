@@ -32,9 +32,7 @@ public class SchoolSystemDbContext : DbContext
             .WithOne(e => e.Activity)
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<EvaluationEntity>()
-            .HasOne(s => s.Student)
-            .WithMany(e => e.Evaluations);
-
+            .HasOne(s => s.Student);
         // if (seedDemoData) {
         // }
     }

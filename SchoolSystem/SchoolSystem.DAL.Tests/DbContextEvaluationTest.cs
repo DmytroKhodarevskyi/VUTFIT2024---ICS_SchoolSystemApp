@@ -71,7 +71,7 @@ public class DbContextEvaluationTest : DbContextTestsBase
             .Include(e => e.Activity)
             .SingleAsync(e => e.Id == entity.Id);
 
-        DeepAssert.Equal(entity, actualEvaluationEntity);
+        Assert.Equal(entity, actualEvaluationEntity);
     }
 
     [Fact]
