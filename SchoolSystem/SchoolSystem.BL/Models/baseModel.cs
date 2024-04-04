@@ -1,8 +1,8 @@
-using System;
+
 
 namespace SchoolSystem.BL.Models
 {
-    public interface IModel
+    public abstract record baseModel : IModel
     {
         public Guid Id { get; set; }
     }
