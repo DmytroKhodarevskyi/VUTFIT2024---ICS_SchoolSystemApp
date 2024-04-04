@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-
-namespace SchoolSystem.DAL.UnitOfWork;
+using SchoolSystem.DAL;
+namespace DAL.UnitOfWork;
 
 public class UnitOfWorkFactory(IDbContextFactory<SchoolSystemDbContext> dbContextFactory) : IUnitOfWorkFactory
 {

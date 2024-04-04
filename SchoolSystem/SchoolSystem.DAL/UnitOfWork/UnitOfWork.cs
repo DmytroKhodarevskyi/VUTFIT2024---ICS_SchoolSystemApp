@@ -3,7 +3,7 @@ using DAL.Mappers;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace SchoolSystem.DAL.UnitOfWork;
+namespace DAL.UnitOfWork;
 
 public sealed class UnitOfWork(DbContext dbContext) : IUnitOfWork
 {
