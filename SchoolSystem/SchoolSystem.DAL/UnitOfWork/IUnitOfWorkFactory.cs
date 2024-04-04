@@ -1,4 +1,4 @@
-namespace SchoolSystem.DAL.UnitOfWork;
+namespace DAL.UnitOfWork;
 
 public interface IUnitOfWorkFactory
 {

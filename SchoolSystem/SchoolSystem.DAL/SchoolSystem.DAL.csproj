@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <!-- Use the same version for all EF Core related packages -->
+        <PackageReference Include="AutoMapper" Version="13.0.1" />
         <PackageReference Include="CompareNETObjects" Version="4.83.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">

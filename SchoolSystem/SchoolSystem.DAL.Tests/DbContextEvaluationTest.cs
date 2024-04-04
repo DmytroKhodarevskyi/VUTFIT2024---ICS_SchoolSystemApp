@@ -40,7 +40,7 @@ public class DbContextEvaluationTest : DbContextTestsBase
     
     public async Task AddEvaluationWithStudentAndActivity()
     {
-        var entity = EvaluationSeeds.EmptyEvaluationEntity with
+        var evaluationEntity = EvaluationSeeds.EmptyEvaluationEntity with
         {
             Score = 2,
             Description = "Test",
@@ -61,7 +61,7 @@ public class DbContextEvaluationTest : DbContextTestsBase
         };
         
         // Act
-        SchoolSystemDbContextSUT.Evaluations.Add(entity);
+        SchoolSystemDbContextSUT.Evaluations.Add(evaluationEntity);
         await SchoolSystemDbContextSUT.SaveChangesAsync();
         
         // Assert
@@ -69,9 +69,10 @@ public class DbContextEvaluationTest : DbContextTestsBase
         var actualEvaluationEntity = await dbContext.Evaluations
             .Include(e => e.Student)
             .Include(e => e.Activity)
-            .SingleAsync(e => e.Id == entity.Id);
+            .SingleAsync(e => e.Id == evaluationEntity.Id);
 
-        Assert.Equal(entity, actualEvaluationEntity);
+        DeepAssert.Equal(evaluationEntity, actualEvaluationEntity);
+
     }
 
     [Fact]
