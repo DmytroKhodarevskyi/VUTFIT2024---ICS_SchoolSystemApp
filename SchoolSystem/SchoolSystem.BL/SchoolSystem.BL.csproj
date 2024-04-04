@@ -12,5 +12,11 @@
       <PackageReference Include="AutoMapper.Extensions.EnumMapping" Version="3.2.0" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     </ItemGroup>
+	
+    <ItemGroup>
+      <ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
+      <ProjectReference Include="..\SchoolSystem.Common.Tests\SchoolSystem.Common.Tests.csproj" />
+    </ItemGroup>
+
 
 </Project>
