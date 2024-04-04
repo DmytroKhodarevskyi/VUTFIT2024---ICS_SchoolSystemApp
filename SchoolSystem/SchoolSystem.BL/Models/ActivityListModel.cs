@@ -5,16 +5,14 @@ using DAL.Enums;
 namespace SchoolSystem.BL.Models;
 
 public record ActivityListModel(
-    DateTime Start,
-    DateTime End,
     int Tag,
-    Room Room
+    Room Room,
+    string Description
     ) : baseModel
 {
-    public DateTime Start { get; set; }
-    public DateTime End { get; set; }
     public int Tag { get; set; }
     public Room Room { get; set; }
+    public string Description { get; set; }
     
     class MapperProfile : Profile
     {
@@ -25,6 +23,6 @@ public record ActivityListModel(
         }
     }
     
-    public static ActivityListModel Empty => new(DateTime.Now, DateTime.Now, 1, default);
+    public static ActivityListModel Empty => new( 1, default, string.Empty);
     
 }
