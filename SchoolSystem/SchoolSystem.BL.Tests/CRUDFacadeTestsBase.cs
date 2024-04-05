@@ -7,6 +7,7 @@ using SchoolSystem.Common.Tests;
 using SchoolSystem.DAL;
 using Xunit;
 using Xunit.Abstractions;
+using Mapper = AutoMapper.Mapper;
 
 namespace SchoolSystem.BL.Tests;
 
@@ -20,21 +21,20 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
         //DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedDALTestingData: true);
         var services = new ServiceCollection();
         string databaseName = "SchoolSystemDbContext"; 
-        services.AddDbContext<SchoolSystemDbContext>(options =>
+        services.AddDbContextFactory<SchoolSystemDbContext>(options =>
             options.UseSqlite($"Data Source={databaseName};Cache=Shared"));
-
         var serviceProvider = services.BuildServiceProvider();
 
+        DbContextFactory = serviceProvider.GetRequiredService<IDbContextFactory<SchoolSystemDbContext>>();
 
         var configuration = new MapperConfiguration(cfg =>
             {
                 
                 cfg.AddCollectionMappers();
-
-                using var dbContext = DbContextFactory.CreateDbContext();
                 cfg.UseEntityFrameworkCoreModel<SchoolSystemDbContext>(serviceProvider);
             }
         );
+
         Mapper = new Mapper(configuration);
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory, Mapper);
 
