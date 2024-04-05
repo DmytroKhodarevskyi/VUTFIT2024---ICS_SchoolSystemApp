@@ -18,7 +18,7 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
         Console.SetOut(converter);
 
         //DbContextFactory = new DbContextSQLiteTestingFactory(GetType().FullName!, seedDALTestingData: true);
-        DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
+        DbContextFactory = new SchoolSystemDbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
 
 
         var configuration = new MapperConfiguration(cfg =>
@@ -27,7 +27,7 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
                 cfg.AddCollectionMappers();
 
                 using var dbContext = DbContextFactory.CreateDbContext();
-                cfg.UseEntityFrameworkCoreModel<SchoolSystemDbContext>();
+                cfg.UseEntityFrameworkCoreModel<SchoolSystemDbContext>(dbContext.Model);
             }
         );
         Mapper = new Mapper(configuration);
