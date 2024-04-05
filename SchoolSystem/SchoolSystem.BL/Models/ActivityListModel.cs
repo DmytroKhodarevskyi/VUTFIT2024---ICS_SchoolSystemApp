@@ -12,7 +12,7 @@ public record ActivityListModel(
 {
     public int Tag { get; set; }
     public Room Room { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     
     class MapperProfile : Profile
     {

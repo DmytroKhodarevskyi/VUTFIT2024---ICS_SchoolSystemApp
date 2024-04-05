@@ -3,7 +3,7 @@ using DAL.Entities;
 
 namespace SchoolSystem.BL.Models;
 
-public class EvaluationListModel(int Score)
+public record EvaluationListModel(int Score)
 {
     public int Score { get; set; }
     
@@ -11,8 +11,10 @@ public class EvaluationListModel(int Score)
     {
         public MapperProfile()
         {
-            CreateMap<EvaluationListModel, EvaluationEntity>()
-                .ReverseMap();
+            CreateMap<EvaluationEntity, EvaluationListModel>()
+                .ReverseMap()
+                .ForMember(entity => entity.Student, expression => expression.Ignore())
+                .ForMember(entity => entity.Activity, expression => expression.Ignore());
         }
     }
     
