@@ -11,7 +11,8 @@ public class EvaluationListModel(int Score)
     {
         public MapperProfile()
         {
-            CreateMap<EvaluationEntity, EvaluationListModel>();
+            CreateMap<EvaluationListModel, EvaluationEntity>()
+                .ReverseMap();
         }
     }
     
