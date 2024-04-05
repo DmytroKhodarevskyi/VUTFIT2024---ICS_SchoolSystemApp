@@ -10,20 +10,15 @@ public record ActivityListModel(
     string Description
     ) : baseModel
 {
-    public DateTime Start { get; set; }
-    public DateTime End { get; set; }
-    public int Tag { get; set; } = Tag;
-    public Room Room { get; set; } = Room;
-    public string Description { get; set; } = Description;
+    public int Tag { get; set; }
+    public Room Room { get; set; }
+    public string? Description { get; set; }
     
     class MapperProfile : Profile
     {
         public MapperProfile()
         {
-            CreateMap<ActivityEntity, ActivityListModel>()
-                .ForMember(entity => entity.Start, expression => expression.Ignore())
-                .ForMember(entity => entity.End, expression => expression.Ignore())
-                .ReverseMap();
+            CreateMap<ActivityEntity, ActivityListModel>();
         }
     }
     

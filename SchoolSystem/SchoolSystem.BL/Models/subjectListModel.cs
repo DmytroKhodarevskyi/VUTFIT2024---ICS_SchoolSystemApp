@@ -8,12 +8,17 @@ namespace SchoolSystem.BL.Models
         public string Name { get; set; } = Name;
         public string Abbreviation { get; set; } = Abbreviation;
         
+        
         public class Mapper : Profile
         {
             public Mapper()
             {
                 CreateMap<SubjectEntity, subjectListModel>();
-                CreateMap<subjectListModel, SubjectEntity>().ReverseMap();
+
+                CreateMap<StudentSubjectEntity, subjectListModel>()
+                    .ConstructUsing(src => new subjectListModel("", ""))
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Subject!.Name))
+                    .ForMember(dest => dest.Abbreviation, opt => opt.MapFrom(src => src.Subject!.Abbreviation));
             }
         }
         

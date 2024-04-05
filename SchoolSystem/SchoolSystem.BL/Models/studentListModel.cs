@@ -10,11 +10,13 @@ namespace SchoolSystem.BL.Models
         public string Surname { get; set; } = Surname;
         
         
+        
         public class Mapper : Profile
         {
             public Mapper()
             {
-                CreateMap<StudentEntity, studentListModel>().ReverseMap();
+                CreateMap<StudentEntity, studentListModel>();
+
             }
         }       
         public static studentListModel Empty => new(string.Empty, string.Empty);

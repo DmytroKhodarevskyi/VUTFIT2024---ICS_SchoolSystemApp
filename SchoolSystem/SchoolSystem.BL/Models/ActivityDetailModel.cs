@@ -16,7 +16,7 @@ public record ActivityDetailModel(
     public DateTime End { get; set; }
     public Room Room { get; set; }
     public int Tag { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     // public ICollection<EvaluationEntity>? Evaluations { get; set; } = new List<EvaluationEntity>();
     //
     public SubjectEntity? Subject { get; set; }
@@ -24,7 +24,7 @@ public record ActivityDetailModel(
     {
         public MapperProfile()
         {
-            CreateMap<ActivityDetailModel, ActivityEntity>()
+            CreateMap<ActivityEntity, ActivityDetailModel>()
                 .ReverseMap()
                 .ForMember(entity => entity.Subject, expression => expression.Ignore());
         }

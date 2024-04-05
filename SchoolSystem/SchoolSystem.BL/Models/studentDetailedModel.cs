@@ -10,11 +10,15 @@ namespace SchoolSystem.BL.Models
         public string Surname { get; set; } = Surname;
         public string? Photo { get; set; }
         
+        public List<subjectListModel> Subjects { get; init; } = new();
+        
         public class Mapper : Profile
         {
             public Mapper()
             {
-                CreateMap<StudentEntity, studentDetailedModel>().ReverseMap();
+                CreateMap<StudentEntity, studentDetailedModel>()
+                    .ReverseMap()
+                    .ForMember(dest => dest.Subjects, opt => opt.Ignore());
             }
         }
         
