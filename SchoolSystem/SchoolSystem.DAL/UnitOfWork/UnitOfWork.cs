@@ -1,3 +1,4 @@
+using AutoMapper;
 using DAL.Entities;
 using DAL.Mappers;
 using DAL.Repositories;
@@ -5,16 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.UnitOfWork;
 
-public sealed class UnitOfWork(DbContext dbContext) : IUnitOfWork
+public sealed class UnitOfWork : IUnitOfWork
 {
-    private readonly DbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+    private readonly DbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public IRepository<TEntity> GetRepository<TEntity, TEntityMapper>()
-        where TEntity : class, IEntity
-        where TEntityMapper : IEntityMapper<TEntity>, new()
-        => new Repository<TEntity>(_dbContext, new TEntityMapper());
+    public UnitOfWork(DbContext dbContext, IMapper mapper)
+    {
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _mapper = mapper;
+    }
 
-    public async Task CommitAsync() => await _dbContext.SaveChangesAsync().ConfigureAwait(false);
+    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity => new Repository<TEntity>(_dbContext, _mapper);
 
-    public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync().ConfigureAwait(false);
+    public async Task CommitAsync() => await _dbContext.SaveChangesAsync();
+
+    public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync();
 }
