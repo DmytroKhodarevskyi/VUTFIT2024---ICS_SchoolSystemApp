@@ -9,6 +9,7 @@ namespace SchoolSystem.BL.Models
         public string Name { get; set; } = Name;
         public string Surname { get; set; } = Surname;
         
+        
         public class Mapper : Profile
         {
             public Mapper()
