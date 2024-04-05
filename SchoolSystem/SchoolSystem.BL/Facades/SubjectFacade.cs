@@ -1,0 +1,125 @@
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using SchoolSystem.BL.Models;
+using DAL.Entities;
+using DAL.UnitOfWork;
+
+
+
+namespace SchoolSystem.BL.Facades;
+
+
+public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subjectDetailedModel>
+{
+    private readonly IMapper _mapper;
+    private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+
+    public SubjectFacade(IMapper mapper, IUnitOfWorkFactory unitOfWorkFactory) : base(mapper, unitOfWorkFactory)
+    {
+        _mapper = mapper;
+        _unitOfWorkFactory = unitOfWorkFactory;
+    }
+
+    public async Task<subjectDetailedModel> GetSubjectByName(string name)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+     
+        var dbSet = uow.GetRepository<SubjectEntity>().Get()
+            .Where(x => x.Name == name);
+        
+        return _mapper.Map<subjectDetailedModel>(dbSet);
+    }
+    
+    public async Task<subjectDetailedModel> GetSubjectByAbbr(string abbreviation)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+     
+        var dbSet = uow.GetRepository<SubjectEntity>().Get()
+            .Where(x => x.Abbreviation == abbreviation);
+        
+        return _mapper.Map<subjectDetailedModel>(dbSet);
+    }
+    
+    
+    public async Task<IEnumerable<subjectListModel>> GetSubjectsByNameAsync(string name)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+
+        var query = uow.GetRepository<SubjectEntity>()
+            .Get()
+            .Where(subject => subject.Name.Contains(name));
+
+        return await _mapper.ProjectTo<subjectListModel>(query).ToArrayAsync();
+    }
+    
+    public async Task<IEnumerable<subjectListModel>> GetSubjectsByAbbrAsync(string abbreviation)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+
+        var query = uow.GetRepository<SubjectEntity>()
+            .Get()
+            .Where(subject => subject.Abbreviation.Contains(abbreviation));
+
+        return await _mapper.ProjectTo<subjectListModel>(query).ToArrayAsync();
+    }
+
+    public async Task<IEnumerable<studentListModel>> GetStudentsByNameSubject(string name)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+
+        var query = uow.GetRepository<StudentSubjectEntity>()
+            .Get()
+            .Where(studentSubject => studentSubject.Subject != null && studentSubject.Subject.Name.Contains(name))
+            .Select(studentSubject => studentSubject.Student);
+
+        // Project the student entities to studentListModel using AutoMapper
+        var students = await _mapper.ProjectTo<studentListModel>(query).ToListAsync().ConfigureAwait(false);
+
+        return students;
+    }
+    
+    public async Task<IEnumerable<studentListModel>> GetStudentsByAbbrSubject(string abbreviation)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+
+        var query = uow.GetRepository<StudentSubjectEntity>()
+            .Get()
+            .Where(studentSubject => studentSubject.Subject != null && studentSubject.Subject.Abbreviation.Contains(abbreviation))
+            .Select(studentSubject => studentSubject.Student);
+
+        // Project the student entities to studentListModel using AutoMapper
+        var students = await _mapper.ProjectTo<studentListModel>(query).ToListAsync().ConfigureAwait(false);
+
+        return students;
+    }
+
+    
+    public async Task<IEnumerable<ActivityListModel>> GetActivitiesByNameSubject(string name)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+
+        var query = uow.GetRepository<ActivityEntity>()
+            .Get()
+            .Where(activity => activity.Subject != null && activity.Subject.Name.Contains(name));
+
+        return await _mapper.ProjectTo<ActivityListModel>(query).ToArrayAsync();
+    }
+}
+
+    
+
+
+
+// public async Task<subjectDetailedModel> GetSubjectByName(string name)
+// {
+//     await using var uow = _unitOfWorkFactory.Create();
+//     
+//     // Retrieve the subject entity based on its name
+//     var subjectEntity = await uow.GetRepository<SubjectEntity>()
+//         .Get()
+//         .FirstOrDefaultAsync(x => x.Name == name)
+//         .ConfigureAwait(false);
+//     
+//     // Map the retrieved subject entity to subjectDetailedModel
+//     return _mapper.Map<subjectDetailedModel>(subjectEntity);
+// }
