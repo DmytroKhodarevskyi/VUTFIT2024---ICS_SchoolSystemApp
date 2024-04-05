@@ -19,10 +19,10 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
         Console.SetOut(converter);
 
         //DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedDALTestingData: true);
-        DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
         var services = new ServiceCollection();
+        string databaseName = "SchoolSystemDbContext"; 
         services.AddDbContext<SchoolSystemDbContext>(options =>
-            options.UseSqlite("Your connection string here"));
+            options.UseSqlite($"Data Source={databaseName};Cache=Shared"));
 
         var serviceProvider = services.BuildServiceProvider();
 
