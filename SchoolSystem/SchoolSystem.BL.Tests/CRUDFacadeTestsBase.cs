@@ -2,7 +2,6 @@
 using AutoMapper.EquivalencyExpression;
 using DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using SchoolSystem.Common.Tests;
 using SchoolSystem.Common.Tests.Factories;
 using SchoolSystem.DAL;
@@ -18,13 +17,8 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
         XUnitTestOutputConverter converter = new(output);
         Console.SetOut(converter);
 
-        //DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedDALTestingData: true);
+        //DbContextFactory = new DbContextSQLiteTestingFactory(GetType().FullName!, seedDALTestingData: true);
         DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
-        var services = new ServiceCollection();
-        services.AddDbContext<SchoolSystemDbContext>(options =>
-            options.UseSqlite("Your connection string here"));
-
-        var serviceProvider = services.BuildServiceProvider();
 
 
         var configuration = new MapperConfiguration(cfg =>
@@ -33,7 +27,7 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
                 cfg.AddCollectionMappers();
 
                 using var dbContext = DbContextFactory.CreateDbContext();
-                cfg.UseEntityFrameworkCoreModel<SchoolSystemDbContext>(serviceProvider);
+                cfg.UseEntityFrameworkCoreModel<SchoolSystemDbContext>();
             }
         );
         Mapper = new Mapper(configuration);
