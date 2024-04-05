@@ -4,7 +4,6 @@ using DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolSystem.Common.Tests;
-using SchoolSystem.Common.Tests.Factories;
 using SchoolSystem.DAL;
 using Xunit;
 using Xunit.Abstractions;
