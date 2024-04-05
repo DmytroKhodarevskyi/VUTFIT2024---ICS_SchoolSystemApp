@@ -54,9 +54,7 @@ public class CRUDFacade<TEntity, TListModel, TDetailModel>(
     
         IUnitOfWork uow = _unitOfWorkFactory.Create();
         IRepository<TEntity> repository = uow.GetRepository<TEntity>();
-        var query = repository
-            .Get().Where(e => e.Id == model.Id);
-        var entity = _mapper.ProjectTo<TEntity>(query).SingleOrDefault() ?? _mapper.Map<TEntity>(model);
+        var entity = _mapper.Map<TEntity>(model);
 
         if (await repository.ExistsAsync(entity).ConfigureAwait(false))
         {
