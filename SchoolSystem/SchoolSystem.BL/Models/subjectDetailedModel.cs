@@ -8,6 +8,7 @@ namespace SchoolSystem.BL.Models
         public string Name { get; set; } = Name;
         public string Abbreviation { get; set; } = Abbreviation;
         public List<studentListModel> Students { get; init; } = new();
+        public List<ActivityListModel> Activities { get; init; } = new();
         
         public class Mapper : Profile
         {
@@ -15,13 +16,11 @@ namespace SchoolSystem.BL.Models
             {
                 CreateMap<SubjectEntity, subjectDetailedModel>()
                     .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students));
-                // Assuming SubjectEntity has a property named Students representing the collection of students
-                // Adjust this according to the actual structure of your entities
-                // This assumes that studentListModel can be directly mapped from the entity
-                // If additional conversion logic is required, you can provide a custom mapping for studentListModel
-                // Example: .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students.Select(student => ConvertToStudentListModel(student))));
                 
-                CreateMap<subjectDetailedModel, SubjectEntity>().ReverseMap();
+                CreateMap<subjectDetailedModel, SubjectEntity>()
+                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students
+                        .Select(s => new StudentSubjectEntity() { StudentId = s.Id, SubjectId = src.Id })))
+                    .ForMember(dest => dest.Activities, opt => opt.Ignore());
             }
         }
         

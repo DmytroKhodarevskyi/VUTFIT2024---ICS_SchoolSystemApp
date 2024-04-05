@@ -18,8 +18,7 @@ public record ActivityListModel(
     {
         public MapperProfile()
         {
-            CreateMap<ActivityListModel, ActivityEntity>()
-                .ReverseMap();
+            CreateMap<ActivityEntity, ActivityListModel>();
         }
     }
     
