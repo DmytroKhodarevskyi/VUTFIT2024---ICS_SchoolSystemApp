@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.Common.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.BL", "SchoolSystem.BL\SchoolSystem.BL.csproj", "{F83E8550-5D9F-4822-93D8-A843C440D5B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.BL.Tests", "SchoolSystem.BL.Tests\SchoolSystem.BL.Tests.csproj", "{767350DB-6037-4C54-B5C4-6C0239408DF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F83E8550-5D9F-4822-93D8-A843C440D5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F83E8550-5D9F-4822-93D8-A843C440D5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F83E8550-5D9F-4822-93D8-A843C440D5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{767350DB-6037-4C54-B5C4-6C0239408DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{767350DB-6037-4C54-B5C4-6C0239408DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{767350DB-6037-4C54-B5C4-6C0239408DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{767350DB-6037-4C54-B5C4-6C0239408DF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
