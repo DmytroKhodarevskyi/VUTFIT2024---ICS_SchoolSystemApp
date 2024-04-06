@@ -5,6 +5,7 @@ public record ActivityEntity : IEntity
 {
     public Guid Id { get; set; } 
     
+    public required string Name { get; set; }
     public required DateTime Start { get; set; }
     public required DateTime End { get; set; }
     public required Room Room { get; set; }

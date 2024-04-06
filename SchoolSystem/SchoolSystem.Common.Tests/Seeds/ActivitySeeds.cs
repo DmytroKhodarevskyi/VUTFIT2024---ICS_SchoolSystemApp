@@ -9,6 +9,7 @@ public static class ActivitySeeds
     public static readonly ActivityEntity EmptyActivity = new()
     {
            Id = default,
+           Name =   default,
             Start = default,
             End = default,
             Room = default,
@@ -19,6 +20,7 @@ public static class ActivitySeeds
 public static readonly ActivityEntity Activity1 = new()
     {
         Id = Guid.Parse("00000000-0000-aaaa-0000-000000000001"),
+        Name =  "IZP",
         Start = DateTime.Now,
         End = DateTime.Now,
         Room = Room.D105,
@@ -29,6 +31,7 @@ public static readonly ActivityEntity Activity1 = new()
     public static readonly ActivityEntity Activity2 = new()
     {
         Id = Guid.Parse("00000000-0000-12cc-0000-000000000002"),
+        Name =  "IUS",
         Start = DateTime.Now,
         End = DateTime.Now,
         Room = Room.D104,

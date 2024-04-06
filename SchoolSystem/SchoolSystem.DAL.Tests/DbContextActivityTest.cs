@@ -81,6 +81,7 @@ public class DbContextActivityTest : DbContextTestsBase
         // Arrange
         var entity = ActivitySeeds.EmptyActivity with
         {
+            Name = "Test",
             Start = new DateTime(2020, 03, 24, 03, 34, 50),
             End = new DateTime(2020, 03, 24, 08, 30, 50),
             Room = Room.D105,
@@ -150,6 +151,7 @@ public class DbContextActivityTest : DbContextTestsBase
 
         var entity = new ActivityEntity
         {
+            Name = "Test",
             Id = activityToUpdate.Id, // Retain the original Id
             Start = activityToUpdate.Start.AddHours(1),
             End = activityToUpdate.End.AddHours(1),
