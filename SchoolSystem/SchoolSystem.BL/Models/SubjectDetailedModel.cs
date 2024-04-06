@@ -7,15 +7,17 @@ namespace SchoolSystem.BL.Models
     {
         public string Name { get; set; } = Name;
         public string Abbreviation { get; set; } = Abbreviation;
-        public List<StudentListModel> Students { get; init; } = new();
-        public List<ActivityListModel> Activities { get; init; } = new();
+        public List<StudentDetailedModel> Students { get; init; } = new();
+        public List<ActivityDetailModel> Activities { get; init; } = new();
         
         public class MapperProfile : Profile
         {
             public MapperProfile()
             {
                 CreateMap<SubjectEntity, SubjectDetailedModel>()
-                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students));
+                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students))
+                    .ForMember(dest => dest.Activities, opt => opt.Ignore());
+
                 
                 CreateMap<SubjectDetailedModel, SubjectEntity>()
                     .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students

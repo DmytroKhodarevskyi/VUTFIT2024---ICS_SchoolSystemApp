@@ -5,16 +5,14 @@ namespace SchoolSystem.BL.Models;
 
 public record EvaluationDetailModel(
     int Score,
-    string? Description,
-    StudentEntity? Student,
-    ActivityEntity? Activity
-    ): baseModel
+    string? Description
+) : baseModel
 {
-    public int Score { get; set; }
-    public string? Description { get; set; }
-    public StudentEntity? Student { get; set; }
-    public ActivityEntity? Activity { get; set; }
-    
+    public int Score { get; set; } = Score;
+    public string? Description { get; set; } = Description;
+    public StudentDetailedModel? Student { get; set; }
+    public ActivityDetailModel? Activity { get; set; }
+
     public class MapperProfile : Profile
     {
         public MapperProfile()
@@ -25,6 +23,6 @@ public record EvaluationDetailModel(
                 .ForMember(entity => entity.Activity, expression => expression.Ignore());
         }
     }
-    
-    public static EvaluationDetailModel Empty => new(1, String.Empty, default, default);
+
+    public static EvaluationDetailModel Empty => new(1, String.Empty);
 }

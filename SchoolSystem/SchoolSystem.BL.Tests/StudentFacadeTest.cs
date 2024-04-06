@@ -2,6 +2,7 @@ using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Facades;
 using SchoolSystem.BL.Models;
+using SchoolSystem.Common.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -33,7 +34,7 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
 
        var student = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
-       Assert.Equal(expectedStudent, student);
+       DeepAssert.Equal(expectedStudent, student);
     }
 
 
