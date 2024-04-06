@@ -2,6 +2,7 @@ using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Facades;
 using SchoolSystem.BL.Models;
+using SchoolSystem.Common.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -33,7 +34,7 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
 
        var student = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
-       Assert.Equal(expectedStudent, student);
+       DeepAssert.Equal(expectedStudent, student);
     }
 
 
@@ -41,13 +42,13 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
     public async Task GetStudentsByNameAsync_ReturnsCorrectStudents()
     {
         // Arrange
-        var students = new List<StudentEntity>
+        var students = new List<StudentDetailedModel>
         {
-            new StudentEntity { Name = "Emily", Surname = "Smith", Id = Guid.Parse("0d2fa150-ad80-4d46-a511-4c888166e112") },
-            new StudentEntity { Name = "Emma", Surname = "Johnson", Id = Guid.Parse("1d4fa150-ad80-4d46-a511-4c888166e112") }
+            new StudentDetailedModel("Emily", "Smith", "photo.jpg") {Id = Guid.Parse("0d2fa150-ad80-4d46-a511-4c888166e112") },
+            new StudentDetailedModel("Emma", "Johnson", "photo2.jpg") {  Id = Guid.Parse("1d4fa150-ad80-4d46-a511-4c888166e112") }
         };
+        students.ForEach(async (StudentDetailedModel s) => await _studentFacadeSUT.SaveAsync(s).ConfigureAwait(false));
 
-        
         var results = await _studentFacadeSUT.GetStudentsByNameAsync("Em");
 
         // Assert
