@@ -92,18 +92,7 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subject
 
         return students;
     }
-
     
-    public async Task<IEnumerable<ActivityListModel>> GetActivitiesByNameSubject(string name)
-    {
-        await using var uow = _unitOfWorkFactory.Create();
-
-        var query = uow.GetRepository<ActivityEntity>()
-            .Get()
-            .Where(activity => activity.Subject != null && activity.Subject.Name.Contains(name));
-
-        return await _mapper.ProjectTo<ActivityListModel>(query).ToArrayAsync();
-    }
 }
 
     
