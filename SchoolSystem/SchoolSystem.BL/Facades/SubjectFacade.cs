@@ -23,13 +23,13 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, SubjectListModel, Subject
     public async Task<SubjectDetailedModel> GetSubjectByName(string name)
     {
         await using var uow = _unitOfWorkFactory.Create();
-     
+
         var dbSet = uow.GetRepository<SubjectEntity>().Get()
             .Where(x => x.Name == name);
-        
-        return _mapper.Map<SubjectDetailedModel>(dbSet);
+
+        return await _mapper.ProjectTo<SubjectDetailedModel>(dbSet).FirstOrDefaultAsync().ConfigureAwait(false);
     }
-    
+
     public async Task<SubjectDetailedModel> GetSubjectByAbbr(string abbreviation)
     {
         await using var uow = _unitOfWorkFactory.Create();
@@ -37,7 +37,7 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, SubjectListModel, Subject
         var dbSet = uow.GetRepository<SubjectEntity>().Get()
             .Where(x => x.Abbreviation == abbreviation);
         
-        return _mapper.Map<SubjectDetailedModel>(dbSet);
+        return await  _mapper.ProjectTo<SubjectDetailedModel>(dbSet).FirstOrDefaultAsync().ConfigureAwait(false);;
     }
     
     
@@ -63,35 +63,35 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, SubjectListModel, Subject
         return await _mapper.ProjectTo<SubjectListModel>(query).ToArrayAsync();
     }
 
-    public async Task<IEnumerable<StudentListModel>> GetStudentsByNameSubject(string name)
-    {
-        await using var uow = _unitOfWorkFactory.Create();
-
-        var query = uow.GetRepository<StudentSubjectEntity>()
-            .Get()
-            .Where(studentSubject => studentSubject.Subject != null && studentSubject.Subject.Name.Contains(name))
-            .Select(studentSubject => studentSubject.Student);
-
-        // Project the student entities to studentListModel using AutoMapper
-        var students = await _mapper.ProjectTo<StudentListModel>(query).ToListAsync().ConfigureAwait(false);
-
-        return students;
-    }
-    
-    public async Task<IEnumerable<StudentListModel>> GetStudentsByAbbrSubject(string abbreviation)
-    {
-        await using var uow = _unitOfWorkFactory.Create();
-
-        var query = uow.GetRepository<StudentSubjectEntity>()
-            .Get()
-            .Where(studentSubject => studentSubject.Subject != null && studentSubject.Subject.Abbreviation.Contains(abbreviation))
-            .Select(studentSubject => studentSubject.Student);
-
-        // Project the student entities to studentListModel using AutoMapper
-        var students = await _mapper.ProjectTo<StudentListModel>(query).ToListAsync().ConfigureAwait(false);
-
-        return students;
-    }
+    // public async Task<IEnumerable<StudentListModel>> GetStudentsByNameSubject(string name)
+    // {
+    //     await using var uow = _unitOfWorkFactory.Create();
+    //
+    //     var query = uow.GetRepository<StudentSubjectEntity>()
+    //         .Get()
+    //         .Where(studentSubject => studentSubject.Subject != null && studentSubject.Subject.Name.Contains(name))
+    //         .Select(studentSubject => studentSubject.Student);
+    //
+    //     // Project the student entities to studentListModel using AutoMapper
+    //     var students = await _mapper.ProjectTo<StudentListModel>(query).ToListAsync().ConfigureAwait(false);
+    //
+    //     return students;
+    // }
+    //
+    // public async Task<IEnumerable<StudentListModel>> GetStudentsByAbbrSubject(string abbreviation)
+    // {
+    //     await using var uow = _unitOfWorkFactory.Create();
+    //
+    //     var query = uow.GetRepository<StudentSubjectEntity>()
+    //         .Get()
+    //         .Where(studentSubject => studentSubject.Subject != null && studentSubject.Subject.Abbreviation.Contains(abbreviation))
+    //         .Select(studentSubject => studentSubject.Student);
+    //
+    //     // Project the student entities to studentListModel using AutoMapper
+    //     var students = await _mapper.ProjectTo<StudentListModel>(query).ToListAsync().ConfigureAwait(false);
+    //
+    //     return students;
+    // }
     
 }
 
