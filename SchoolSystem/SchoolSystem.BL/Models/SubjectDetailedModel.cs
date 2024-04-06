@@ -7,8 +7,8 @@ namespace SchoolSystem.BL.Models
     {
         public string Name { get; set; } = Name;
         public string Abbreviation { get; set; } = Abbreviation;
-        public List<StudentDetailedModel> Students { get; init; } = new();
-        public List<ActivityDetailModel> Activities { get; init; } = new();
+        public List<StudentListModel> Students { get; init; } = new();
+        public List<ActivityListModel> Activities { get; init; } = new();
         
         public class MapperProfile : Profile
         {
@@ -20,8 +20,7 @@ namespace SchoolSystem.BL.Models
 
                 
                 CreateMap<SubjectDetailedModel, SubjectEntity>()
-                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students
-                        .Select(s => new StudentSubjectEntity() { StudentId = s.Id, SubjectId = src.Id })))
+                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students))
                     .ForMember(dest => dest.Activities, opt => opt.Ignore());
             }
         }

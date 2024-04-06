@@ -13,13 +13,9 @@ namespace SchoolSystem.BL.Models
         {
             public MapperProfile()
             {
-                CreateMap<SubjectEntity, SubjectListModel>();
+                CreateMap<SubjectEntity, SubjectListModel>().ReverseMap();
 
-                CreateMap<StudentSubjectEntity, SubjectListModel>()
-                    .ConstructUsing(src => new SubjectListModel("", ""))
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Subject!.Name))
-                    .ForMember(dest => dest.Abbreviation, opt => opt.MapFrom(src => src.Subject!.Abbreviation));
-            }
+                 }
         }
         
         public static SubjectListModel Empty => new(string.Empty, string.Empty);

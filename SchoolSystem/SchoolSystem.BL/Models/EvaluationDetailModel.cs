@@ -18,9 +18,9 @@ public record EvaluationDetailModel(
         public MapperProfile()
         {
             CreateMap<EvaluationEntity, EvaluationDetailModel>()
-                .ReverseMap()
-                .ForMember(entity => entity.Student, expression => expression.Ignore())
-                .ForMember(entity => entity.Activity, expression => expression.Ignore());
+                .ForMember(dest => dest.Student, opt => opt.MapFrom(src => src.Student))
+                .ForMember(dest => dest.Activity, opt => opt.MapFrom(src => src.Activity))
+                .ReverseMap();
         }
     }
 

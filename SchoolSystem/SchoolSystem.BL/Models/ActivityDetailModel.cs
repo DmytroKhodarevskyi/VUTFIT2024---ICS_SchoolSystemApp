@@ -18,8 +18,8 @@ public record ActivityDetailModel(
     public Room Room { get; set; }   = Room;
     public int Tag { get; set; }    = Tag;
     public string? Description { get; set; } = Description;
-    // public ICollection<EvaluationEntity>? Evaluations { get; set; } = new List<EvaluationEntity>();
-    //
+    public ICollection<EvaluationListModel>? Evaluations { get; set; } = new List<EvaluationListModel>();
+    
     public SubjectDetailedModel? Subject { get; set; }
     public class MapperProfile : Profile
     {
