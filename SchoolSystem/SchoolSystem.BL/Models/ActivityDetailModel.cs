@@ -12,14 +12,14 @@ public record ActivityDetailModel(
     string Description
     ) : baseModel
 {
-    public DateTime Start { get; set; }
-    public DateTime End { get; set; }
-    public Room Room { get; set; }
-    public int Tag { get; set; }
-    public string? Description { get; set; }
+    public DateTime Start { get; set; } = Start;
+    public DateTime End { get; set; } = End;
+    public Room Room { get; set; } = Room;
+    public int Tag { get; set; } = Tag;
+    public string? Description { get; set; } = Description;
     // public ICollection<EvaluationEntity>? Evaluations { get; set; } = new List<EvaluationEntity>();
     //
-    public SubjectEntity? Subject { get; set; }
+    public SubjectEntity? Subject { get; set; } 
     public class MapperProfile : Profile
     {
         public MapperProfile()

@@ -18,13 +18,14 @@ public class ActivityFacade : CRUDFacade<ActivityEntity, ActivityListModel, Acti
         _unitOfWorkFactory = unitOfWorkFactory;
     }
     
-    public async Task<List<ActivityListModel>> GetRoomActivities(Room room)
+    public async Task<IEnumerable<ActivityListModel>> GetRoomActivities(Room room)
     {
         await using var uow = _unitOfWorkFactory.Create();
         var dbSet = uow.GetRepository<ActivityEntity>().Get()
             .Where(x => x.Room == room);
 
-        return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+        // return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+        return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToArrayAsync();
     }
     
     public async Task<List<ActivityListModel>> GetActivitiesAfter(DateTime after)
@@ -32,6 +33,15 @@ public class ActivityFacade : CRUDFacade<ActivityEntity, ActivityListModel, Acti
         await using var uow = _unitOfWorkFactory.Create();
         var dbSet = uow.GetRepository<ActivityEntity>().Get()
             .Where(x => x.Start > after);
+
+        return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+    }
+    
+    public async Task<List<ActivityListModel>> GetActivitiesBefore(DateTime before)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+        var dbSet = uow.GetRepository<ActivityEntity>().Get()
+            .Where(x => x.Start < before);
 
         return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToListAsync().ConfigureAwait(false);
     }

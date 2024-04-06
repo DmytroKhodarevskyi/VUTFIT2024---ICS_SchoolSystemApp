@@ -10,8 +10,8 @@ public record EvaluationDetailModel(
     ActivityEntity? Activity
     ): baseModel
 {
-    public int Score { get; set; }
-    public string? Description { get; set; }
+    public int Score { get; set; } = Score;
+    public string? Description { get; set; } = Description;
     public StudentEntity? Student { get; set; }
     public ActivityEntity? Activity { get; set; }
     

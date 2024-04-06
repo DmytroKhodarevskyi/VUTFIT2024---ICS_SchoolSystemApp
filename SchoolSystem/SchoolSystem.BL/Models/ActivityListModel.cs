@@ -10,9 +10,9 @@ public record ActivityListModel(
     string Description
     ) : baseModel
 {
-    public int Tag { get; set; }
-    public Room Room { get; set; }
-    public string? Description { get; set; }
+    public int Tag { get; set; } = Tag;
+    public Room Room { get; set; } = Room;
+    public string? Description { get; set; } = Description;
     
     public class MapperProfile : Profile
     {
