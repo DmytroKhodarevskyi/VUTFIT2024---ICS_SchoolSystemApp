@@ -33,7 +33,7 @@ public class EvaluationFacade : CRUDFacade<EvaluationEntity, EvaluationListModel
         // await using var uow = UnitOfWorkFactory.Create();
         var dbSet = uow.GetRepository<EvaluationEntity>().Get()
             .Include(x => x.Student)
-            .Where(x => x.Student.Name == Name && x.Student.Surname == Surname);
+            .Where(x => x.Student != null && x.Student.Name == Name && x.Student.Surname == Surname);
 
         // var model = _mapper.ProjectTo<EvaluationListModel>(dbSet).ToListAsync().ConfigureAwait(false);
         return await _mapper.ProjectTo<EvaluationListModel>(dbSet).ToListAsync().ConfigureAwait(false);
