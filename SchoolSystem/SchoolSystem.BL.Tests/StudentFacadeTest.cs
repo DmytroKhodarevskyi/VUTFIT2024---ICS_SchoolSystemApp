@@ -32,9 +32,9 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
        await _studentFacadeSUT.SaveAsync(expectedStudent);
 
        //Assert
-       await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-       var userFromDb = await dbxAssert.Students.SingleAsync(i => i.Id == expectedStudent.Id);
-       Assert.Equal(expectedStudent, Mapper.Map<StudentDetailedModel>(userFromDb));
+       var student = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
+       
+       Assert.Equal(expectedStudent, student);
     }
 
 

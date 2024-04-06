@@ -22,8 +22,8 @@ public class StudentFacade : CRUDFacade<StudentEntity, StudentListModel, Student
         var dbSet = uow.GetRepository<StudentEntity>().Get()
             .Where(x => x.Name == Name && x.Surname == Surname);
 
-        // return await Mapper.ProjectTo<studentDetailedModel>(dbSet).ToListAsync().ConfigureAwait(false);
-        return _mapper.Map<StudentDetailedModel>(dbSet);
+         return await _mapper.ProjectTo<StudentDetailedModel>(dbSet).FirstOrDefaultAsync().ConfigureAwait(false);
+        //return _mapper.Map<StudentDetailedModel>(dbSet);
     }
     
     public async Task<IEnumerable<StudentListModel>> GetStudentsByNameAsync(string name)
