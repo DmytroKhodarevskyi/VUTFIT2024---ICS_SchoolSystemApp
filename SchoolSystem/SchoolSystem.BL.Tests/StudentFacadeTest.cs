@@ -31,7 +31,6 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
         }; //{ Name = "John", Surname = "Doe", Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c888166e112")};
        await _studentFacadeSUT.SaveAsync(expectedStudent);
 
-       //Assert
        var student = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
        Assert.Equal(expectedStudent, student);
@@ -48,14 +47,8 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
             new StudentEntity { Name = "Emma", Surname = "Johnson", Id = Guid.Parse("1d4fa150-ad80-4d46-a511-4c888166e112") }
         };
 
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        context.Students.AddRange(students);
-        await context.SaveChangesAsync();
-
-        var studentFacade = new StudentFacade(Mapper, UnitOfWorkFactory);
-
-        // Act
-        var results = await studentFacade.GetStudentsByNameAsync("Em");
+        
+        var results = await _studentFacadeSUT.GetStudentsByNameAsync("Em");
 
         // Assert
         Assert.NotNull(results);
