@@ -3,27 +3,27 @@ using DAL.Entities;
 
 namespace SchoolSystem.BL.Models
 {
-    public record subjectDetailedModel(string Name, string Abbreviation) : baseModel
+    public record SubjectDetailedModel(string Name, string Abbreviation) : baseModel
     {
         public string Name { get; set; } = Name;
         public string Abbreviation { get; set; } = Abbreviation;
-        public List<studentListModel> Students { get; init; } = new();
+        public List<StudentListModel> Students { get; init; } = new();
         public List<ActivityListModel> Activities { get; init; } = new();
         
-        public class Mapper : Profile
+        public class MapperProfile : Profile
         {
-            public Mapper()
+            public MapperProfile()
             {
-                CreateMap<SubjectEntity, subjectDetailedModel>()
+                CreateMap<SubjectEntity, SubjectDetailedModel>()
                     .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students));
                 
-                CreateMap<subjectDetailedModel, SubjectEntity>()
+                CreateMap<SubjectDetailedModel, SubjectEntity>()
                     .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students
                         .Select(s => new StudentSubjectEntity() { StudentId = s.Id, SubjectId = src.Id })))
                     .ForMember(dest => dest.Activities, opt => opt.Ignore());
             }
         }
         
-        public static subjectDetailedModel Empty => new(string.Empty, string.Empty);
+        public static SubjectDetailedModel Empty => new(string.Empty, string.Empty);
     }
 }

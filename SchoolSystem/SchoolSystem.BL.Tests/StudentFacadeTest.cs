@@ -21,10 +21,10 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
     public async Task GetStudentByNameSurname_ReturnsCorrectStudent()
     {
         // Arrange
-        var expectedStudent = new studentDetailedModel(
+        var expectedStudent = new StudentDetailedModel(
             Name: "John",
             Surname: "Doe",
-            Photo: null
+            Photo: "photo.jpg"
         )
         {
             Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c888166e112"),
@@ -34,7 +34,7 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
        //Assert
        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
        var userFromDb = await dbxAssert.Students.SingleAsync(i => i.Id == expectedStudent.Id);
-       Assert.Equal(expectedStudent, Mapper.Map<studentDetailedModel>(userFromDb));
+       Assert.Equal(expectedStudent, Mapper.Map<StudentDetailedModel>(userFromDb));
     }
 
 

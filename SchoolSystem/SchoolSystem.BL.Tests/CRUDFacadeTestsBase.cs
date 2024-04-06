@@ -3,6 +3,7 @@ using AutoMapper.EquivalencyExpression;
 using DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests;
 using SchoolSystem.DAL;
 using Xunit;
@@ -29,12 +30,18 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
 
         var configuration = new MapperConfiguration(cfg =>
             {
-                
+                cfg.AddProfile<StudentDetailedModel.MapperProfile>();
+                cfg.AddProfile<StudentListModel.MapperProfile>();
+                cfg.AddProfile<EvaluationDetailModel.MapperProfile>();
+                cfg.AddProfile<EvaluationListModel.MapperProfile>();
+                cfg.AddProfile<SubjectDetailedModel.MapperProfile>();
+                cfg.AddProfile<SubjectListModel.MapperProfile>();
+                cfg.AddProfile<ActivityDetailModel.MapperProfile>();
+                cfg.AddProfile<ActivityListModel.MapperProfile>();
                 cfg.AddCollectionMappers();
                 cfg.UseEntityFrameworkCoreModel<SchoolSystemDbContext>(serviceProvider);
             }
         );
-
         Mapper = new Mapper(configuration);
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory, Mapper);
 

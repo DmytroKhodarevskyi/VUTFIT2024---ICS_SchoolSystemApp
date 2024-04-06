@@ -15,7 +15,7 @@ public record EvaluationDetailModel(
     public StudentEntity? Student { get; set; }
     public ActivityEntity? Activity { get; set; }
     
-    class MapperProfile : Profile
+    public class MapperProfile : Profile
     {
         public MapperProfile()
         {

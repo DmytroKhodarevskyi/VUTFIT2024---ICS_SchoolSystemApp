@@ -13,7 +13,7 @@ public class CRUDFacade<TEntity, TListModel, TDetailModel>(
     IUnitOfWorkFactory unitOfWorkFactory
 )
     where TEntity : class, IEntity
-    where TListModel : IModel
+    where TListModel : class, IModel
     where TDetailModel : class, IModel
 {
     private readonly IMapper _mapper = mapper;
@@ -59,13 +59,13 @@ public class CRUDFacade<TEntity, TListModel, TDetailModel>(
         if (await repository.ExistsAsync(entity).ConfigureAwait(false))
         {
             TEntity updatedEntity = await repository.UpdateAsync(entity).ConfigureAwait(false);
-            result = _mapper.Map(updatedEntity, model);
+            result = _mapper.Map<TDetailModel>(updatedEntity);
         }
         else
         {
             entity.Id = Guid.NewGuid();
             TEntity insertedEntity = await repository.InsertAsync(entity);
-            result = _mapper.Map(insertedEntity, model);
+            result = _mapper.Map<TDetailModel>(insertedEntity);
         }
 
         await uow.CommitAsync().ConfigureAwait(false);

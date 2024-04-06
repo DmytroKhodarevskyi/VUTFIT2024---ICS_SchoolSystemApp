@@ -9,7 +9,7 @@ using DAL.UnitOfWork;
 namespace SchoolSystem.BL.Facades;
 
 
-public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subjectDetailedModel>
+public class SubjectFacade : CRUDFacade<SubjectEntity, SubjectListModel, SubjectDetailedModel>
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
@@ -20,28 +20,28 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subject
         _unitOfWorkFactory = unitOfWorkFactory;
     }
 
-    public async Task<subjectDetailedModel> GetSubjectByName(string name)
+    public async Task<SubjectDetailedModel> GetSubjectByName(string name)
     {
         await using var uow = _unitOfWorkFactory.Create();
      
         var dbSet = uow.GetRepository<SubjectEntity>().Get()
             .Where(x => x.Name == name);
         
-        return _mapper.Map<subjectDetailedModel>(dbSet);
+        return _mapper.Map<SubjectDetailedModel>(dbSet);
     }
     
-    public async Task<subjectDetailedModel> GetSubjectByAbbr(string abbreviation)
+    public async Task<SubjectDetailedModel> GetSubjectByAbbr(string abbreviation)
     {
         await using var uow = _unitOfWorkFactory.Create();
      
         var dbSet = uow.GetRepository<SubjectEntity>().Get()
             .Where(x => x.Abbreviation == abbreviation);
         
-        return _mapper.Map<subjectDetailedModel>(dbSet);
+        return _mapper.Map<SubjectDetailedModel>(dbSet);
     }
     
     
-    public async Task<IEnumerable<subjectListModel>> GetSubjectsByNameAsync(string name)
+    public async Task<IEnumerable<SubjectListModel>> GetSubjectsByNameAsync(string name)
     {
         await using var uow = _unitOfWorkFactory.Create();
 
@@ -49,10 +49,10 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subject
             .Get()
             .Where(subject => subject.Name.Contains(name));
 
-        return await _mapper.ProjectTo<subjectListModel>(query).ToArrayAsync();
+        return await _mapper.ProjectTo<SubjectListModel>(query).ToArrayAsync();
     }
     
-    public async Task<IEnumerable<subjectListModel>> GetSubjectsByAbbrAsync(string abbreviation)
+    public async Task<IEnumerable<SubjectListModel>> GetSubjectsByAbbrAsync(string abbreviation)
     {
         await using var uow = _unitOfWorkFactory.Create();
 
@@ -60,10 +60,10 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subject
             .Get()
             .Where(subject => subject.Abbreviation.Contains(abbreviation));
 
-        return await _mapper.ProjectTo<subjectListModel>(query).ToArrayAsync();
+        return await _mapper.ProjectTo<SubjectListModel>(query).ToArrayAsync();
     }
 
-    public async Task<IEnumerable<studentListModel>> GetStudentsByNameSubject(string name)
+    public async Task<IEnumerable<StudentListModel>> GetStudentsByNameSubject(string name)
     {
         await using var uow = _unitOfWorkFactory.Create();
 
@@ -73,12 +73,12 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subject
             .Select(studentSubject => studentSubject.Student);
 
         // Project the student entities to studentListModel using AutoMapper
-        var students = await _mapper.ProjectTo<studentListModel>(query).ToListAsync().ConfigureAwait(false);
+        var students = await _mapper.ProjectTo<StudentListModel>(query).ToListAsync().ConfigureAwait(false);
 
         return students;
     }
     
-    public async Task<IEnumerable<studentListModel>> GetStudentsByAbbrSubject(string abbreviation)
+    public async Task<IEnumerable<StudentListModel>> GetStudentsByAbbrSubject(string abbreviation)
     {
         await using var uow = _unitOfWorkFactory.Create();
 
@@ -88,7 +88,7 @@ public class SubjectFacade : CRUDFacade<SubjectEntity, subjectListModel, subject
             .Select(studentSubject => studentSubject.Student);
 
         // Project the student entities to studentListModel using AutoMapper
-        var students = await _mapper.ProjectTo<studentListModel>(query).ToListAsync().ConfigureAwait(false);
+        var students = await _mapper.ProjectTo<StudentListModel>(query).ToListAsync().ConfigureAwait(false);
 
         return students;
     }

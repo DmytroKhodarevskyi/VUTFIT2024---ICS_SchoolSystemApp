@@ -6,7 +6,7 @@ using DAL.UnitOfWork;
 
 namespace SchoolSystem.BL.Facades;
 
-public class StudentFacade : CRUDFacade<StudentEntity, studentListModel, studentDetailedModel>
+public class StudentFacade : CRUDFacade<StudentEntity, StudentListModel, StudentDetailedModel>
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
@@ -15,7 +15,7 @@ public class StudentFacade : CRUDFacade<StudentEntity, studentListModel, student
         _mapper = mapper;
         _unitOfWorkFactory = unitOfWorkFactory;
     }
-    public async Task<studentDetailedModel> GetStudentByNameSurname(string Name, string Surname)
+    public async Task<StudentDetailedModel> GetStudentByNameSurname(string Name, string Surname)
     {
         await using var uow = _unitOfWorkFactory.Create();
         // await using var uow = UnitOfWorkFactory.Create();
@@ -23,10 +23,10 @@ public class StudentFacade : CRUDFacade<StudentEntity, studentListModel, student
             .Where(x => x.Name == Name && x.Surname == Surname);
 
         // return await Mapper.ProjectTo<studentDetailedModel>(dbSet).ToListAsync().ConfigureAwait(false);
-        return _mapper.Map<studentDetailedModel>(dbSet);
+        return _mapper.Map<StudentDetailedModel>(dbSet);
     }
     
-    public async Task<IEnumerable<studentListModel>> GetStudentsByNameAsync(string name)
+    public async Task<IEnumerable<StudentListModel>> GetStudentsByNameAsync(string name)
     {
         await using var uow = _unitOfWorkFactory.Create();
 
@@ -34,6 +34,6 @@ public class StudentFacade : CRUDFacade<StudentEntity, studentListModel, student
             .Get()
             .Where(student => student.Name.Contains(name));
 
-        return await _mapper.ProjectTo<studentListModel>(query).ToArrayAsync();
+        return await _mapper.ProjectTo<StudentListModel>(query).ToArrayAsync();
     }
 }

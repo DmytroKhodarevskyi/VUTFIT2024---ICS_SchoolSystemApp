@@ -14,7 +14,7 @@ public record ActivityListModel(
     public Room Room { get; set; }
     public string? Description { get; set; }
     
-    class MapperProfile : Profile
+    public class MapperProfile : Profile
     {
         public MapperProfile()
         {
