@@ -1,21 +1,19 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Models;
 using DAL.Entities;
+using DAL.Mappers;
 using DAL.UnitOfWork;
+using SchoolSystem.BL.Facades.Interfaces;
+using SchoolSystem.BL.Mappers;
 
 namespace SchoolSystem.BL.Facades;
 
-public class EvaluationFacade : CrudFacade<,,,>
-{
-    private readonly IMapper _mapper;
-    private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-    
-    public EvaluationFacade(IMapper mapper, IUnitOfWorkFactory unitOfWorkFactory) : base(mapper, unitOfWorkFactory)
-    {
-        _mapper = mapper;
-        _unitOfWorkFactory = unitOfWorkFactory;
-    }
+public class EvaluationFacade(
+    IUnitOfWorkFactory unitOfWorkFactory,
+    EvaluationModelMapper mapper)
+    : 
+        CrudFacade<EvaluationEntity, EvaluationListModel, EvaluationDetailModel, EvaluationEntityMapper>(
+            unitOfWorkFactory, mapper), IEvaluationFacade;
     
     public async Task<List<EvaluationListModel>> GetPassedScores(int minimum)
     {

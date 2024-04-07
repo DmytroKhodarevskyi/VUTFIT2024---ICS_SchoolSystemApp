@@ -1,22 +1,20 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Models;
 using DAL.Entities;
 using DAL.Enums;
+using DAL.Mappers;
 using DAL.UnitOfWork;
+using SchoolSystem.BL.Facades.Interfaces;
+using SchoolSystem.BL.Mappers;
 
 namespace SchoolSystem.BL.Facades;
 
-public class ActivityFacade : CrudFacade<,,,>
-{
-    private readonly IMapper _mapper;
-    private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-    
-    public ActivityFacade(IMapper mapper, IUnitOfWorkFactory unitOfWorkFactory) : base(mapper, unitOfWorkFactory)
-    {
-        _mapper = mapper;
-        _unitOfWorkFactory = unitOfWorkFactory;
-    }
+public class ActivityFacade(
+    IUnitOfWorkFactory unitOfWorkFactory,
+    ActivityModelMapper mapper)
+    :
+        CrudFacade<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>(
+            unitOfWorkFactory, mapper), IActivityFacade;
     
     public async Task<List<ActivityListModel>> GetRoomActivities(Room room)
     {

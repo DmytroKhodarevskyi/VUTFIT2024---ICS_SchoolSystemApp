@@ -13,16 +13,16 @@ namespace SchoolSystem.BL.Facades;
 
 public abstract class
     CrudFacade<TEntity, TListModel, TDetailModel, TEntityMapper>(
-        IUnitOfWorkFactory unitOfWorkFactory,
-        IModelMapper<TEntity, TListModel, TDetailModel> modelMapper)
+        IUnitOfWorkFactory _unitOfWorkFactory,
+        IModelMapper<TEntity, TListModel, TDetailModel> _mapper)
     : IFacade<TEntity, TListModel, TDetailModel>
     where TEntity : class, IEntity
     where TListModel : IModel
     where TDetailModel : class, IModel
     where TEntityMapper : IEntityMapper<TEntity>, new()
 {
-    protected readonly IModelMapper<TEntity, TListModel, TDetailModel> ModelMapper = modelMapper;
-    protected readonly IUnitOfWorkFactory UnitOfWorkFactory = unitOfWorkFactory;
+    protected readonly IModelMapper<TEntity, TListModel, TDetailModel> ModelMapper = _mapper;
+    protected readonly IUnitOfWorkFactory UnitOfWorkFactory = _unitOfWorkFactory;
 
     protected virtual string IncludesNavigationPathDetail => string.Empty;
 

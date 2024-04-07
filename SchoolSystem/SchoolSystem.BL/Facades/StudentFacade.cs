@@ -1,20 +1,20 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Models;
 using DAL.Entities;
+using DAL.Mappers;
 using DAL.UnitOfWork;
+using SchoolSystem.BL.Facades.Interfaces;
+using SchoolSystem.BL.Mappers;
 
 namespace SchoolSystem.BL.Facades;
 
-public class StudentFacade : CrudFacade<,,,>
-{
-    private readonly IMapper _mapper;
-    private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-    public StudentFacade(IMapper mapper, IUnitOfWorkFactory unitOfWorkFactory) : base(mapper, unitOfWorkFactory)
-    {
-        _mapper = mapper;
-        _unitOfWorkFactory = unitOfWorkFactory;
-    }
+public class  StudentFacade(
+    IUnitOfWorkFactory unitOfWorkFactory,
+    StudentModelMapper mapper)
+    : 
+        CrudFacade<StudentEntity, StudentListModel, StudentDetailedModel, StudentEntityMapper>(
+            unitOfWorkFactory, mapper), IStudentFacade;
+
     public async Task<IEnumerable<StudentDetailedModel>> GetStudentByNameSurname(string Name, string Surname)
     {
         await using var uow = _unitOfWorkFactory.Create();
