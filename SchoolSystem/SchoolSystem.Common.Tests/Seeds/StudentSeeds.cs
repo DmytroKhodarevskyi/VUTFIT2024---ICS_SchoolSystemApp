@@ -21,7 +21,21 @@ public static class StudentSeeds
         Surname = "Doe",
         Photo = "https://www.google.com",
     };
-    
+    public static readonly StudentEntity Student2 = new()
+    {
+        Id = Guid.Parse("0dafa151-ac90-4d46-a513-4c666166e12e"),
+        Name = "Dima",
+        Surname = "Trifanov",
+        Photo = "https://www.mellstryit.com",
+    };
+    public static readonly StudentEntity Student3 = new()
+    {
+        Id = Guid.Parse("0dafa151-ac90-4d46-a513-4c666166e12e"),
+        Name = "Dima",
+        Surname = "Khodarevsky",
+        Photo = "https://www.mellstryit.com",
+    };
+
     public static readonly StudentEntity StudentEntityWithNoSubjActivEval = Student1 with 
         { Id = Guid.Parse("00000000-0000-0000-0ac6-000000000002"), 
             StudentSubjects = Array.Empty<StudentSubjectEntity>()};
@@ -54,6 +68,8 @@ static StudentSeeds()
 public static void Seed(this ModelBuilder modelBuilder) =>
     modelBuilder.Entity<StudentEntity>().HasData(
         Student1 with {StudentSubjects = Array.Empty<StudentSubjectEntity>()},
+        Student2 with {StudentSubjects = Array.Empty<StudentSubjectEntity>()},
+        Student3 with {StudentSubjects = Array.Empty<StudentSubjectEntity>()},
         StudentEntityWithNoSubjActivEval,
         StudentEntityUpdated,
         StudentEntityDeleted,
