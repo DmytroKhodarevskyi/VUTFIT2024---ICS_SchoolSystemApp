@@ -1,14 +1,15 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests;
+using SchoolSystem.Common.Tests.Factories;
 using SchoolSystem.DAL;
 using Xunit;
 using Xunit.Abstractions;
-using Mapper = AutoMapper.Mapper;
 
 namespace SchoolSystem.BL.Tests;
 
@@ -19,14 +20,14 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
         XUnitTestOutputConverter converter = new(output);
         Console.SetOut(converter);
 
-        //DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedDALTestingData: true);
-        var services = new ServiceCollection();
-        string databaseName = "SchoolSystemDbContext"; 
-        services.AddDbContextFactory<SchoolSystemDbContext>(options =>
-            options.UseSqlite($"Data Source={databaseName};Cache=Shared"));
-        var serviceProvider = services.BuildServiceProvider();
+        DbContextFactory = new SchoolSystemDbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
+        // var services = new ServiceCollection();
+        // string databaseName = "SchoolSystemDbContext"; 
+        // services.AddDbContextFactory<SchoolSystemDbContext>(options =>
+        //     options.UseSqlite($"Data Source={databaseName};Cache=Shared"));
+        // var serviceProvider = services.BuildServiceProvider();
 
-        DbContextFactory = serviceProvider.GetRequiredService<IDbContextFactory<SchoolSystemDbContext>>();
+        //DbContextFactory = serviceProvider.GetRequiredService<IDbContextFactory<SchoolSystemDbContext>>()
 
         var configuration = new MapperConfiguration(cfg =>
             {
@@ -39,7 +40,8 @@ public class CRUDFacadeTestsBase: IAsyncLifetime
                 cfg.AddProfile<ActivityDetailModel.MapperProfile>();
                 cfg.AddProfile<ActivityListModel.MapperProfile>();
                 cfg.AddCollectionMappers();
-                cfg.UseEntityFrameworkCoreModel<SchoolSystemDbContext>(serviceProvider);
+                var serviceProvider = DbContextFactory.CreateDbContext();
+                cfg.UseEntityFrameworkCoreModel(serviceProvider.Model);
             }
         );
         Mapper = new Mapper(configuration);

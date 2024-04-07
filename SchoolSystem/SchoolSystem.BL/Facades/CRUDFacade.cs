@@ -66,7 +66,6 @@ public class CRUDFacade<TEntity, TListModel, TDetailModel>(
             entity.Id = model.Id;
             TEntity insertedEntity = await repository.InsertAsync(entity);
             result = _mapper.Map<TDetailModel>(insertedEntity);
-            
         }
         var test =  _mapper.Map<TEntity>(result);
         await uow.CommitAsync().ConfigureAwait(false);

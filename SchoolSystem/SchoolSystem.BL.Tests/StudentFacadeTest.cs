@@ -28,13 +28,13 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
             Photo: "photo.jpg"
         )
         {
-            Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c888166e112"),
+            Id = Guid.Parse("0d4aa150-ad80-4d46-a511-4c888166e112"),
         }; //{ Name = "John", Surname = "Doe", Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c888166e112")};
        await _studentFacadeSUT.SaveAsync(expectedStudent);
 
-       var student = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
+       var students = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
-       DeepAssert.Equal(expectedStudent, student);
+       DeepAssert.Contains(expectedStudent, students);
     }
 
 
@@ -42,13 +42,13 @@ public sealed class StudentFacadeTest : CRUDFacadeTestsBase
     public async Task GetStudentsByNameAsync_ReturnsCorrectStudents()
     {
         // Arrange
-        var students = new List<StudentEntity>
+        var students = new List<StudentDetailedModel>
         {
-            new StudentEntity { Name = "Emily", Surname = "Smith", Id = Guid.Parse("0d2fa150-ad80-4d46-a511-4c888166e112") },
-            new StudentEntity { Name = "Emma", Surname = "Johnson", Id = Guid.Parse("1d4fa150-ad80-4d46-a511-4c888166e112") }
+            new StudentDetailedModel ( "Emily", "Smith", "fwefe") { Id = Guid.Parse("0d2fa150-ad80-4d46-a511-4c888166e112") },
+            new StudentDetailedModel ( "Emma", "Johnson", "fwefe") { Id = Guid.Parse("1d4fa150-ad80-4d46-a511-4c888166e112") }
         };
 
-        
+        students.ForEach(async (StudentDetailedModel x) => await _studentFacadeSUT.SaveAsync(x));
         var results = await _studentFacadeSUT.GetStudentsByNameAsync("Em");
 
         // Assert

@@ -10,7 +10,9 @@ public record EvaluationDetailModel(
 {
     public int Score { get; set; } = Score;
     public string? Description { get; set; } = Description;
+    public Guid? ActivityId { get; set; }
     public StudentDetailedModel? Student { get; set; }
+    public Guid? StudentId { get; set; }
     public ActivityDetailModel? Activity { get; set; }
 
     public class MapperProfile : Profile

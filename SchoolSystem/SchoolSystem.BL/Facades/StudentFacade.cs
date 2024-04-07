@@ -15,14 +15,14 @@ public class StudentFacade : CRUDFacade<StudentEntity, StudentListModel, Student
         _mapper = mapper;
         _unitOfWorkFactory = unitOfWorkFactory;
     }
-    public async Task<StudentDetailedModel> GetStudentByNameSurname(string Name, string Surname)
+    public async Task<IEnumerable<StudentDetailedModel>> GetStudentByNameSurname(string Name, string Surname)
     {
         await using var uow = _unitOfWorkFactory.Create();
         // await using var uow = UnitOfWorkFactory.Create();
         var dbSet = uow.GetRepository<StudentEntity>().Get()
             .Where(x => x.Name == Name && x.Surname == Surname);
 
-         return await _mapper.ProjectTo<StudentDetailedModel>(dbSet).FirstOrDefaultAsync().ConfigureAwait(false);
+         return await _mapper.ProjectTo<StudentDetailedModel>(dbSet).ToArrayAsync().ConfigureAwait(false);
         //return _mapper.Map<StudentDetailedModel>(dbSet);
     }
     

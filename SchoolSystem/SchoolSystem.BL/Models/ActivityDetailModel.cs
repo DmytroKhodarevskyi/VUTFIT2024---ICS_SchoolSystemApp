@@ -20,6 +20,7 @@ public record ActivityDetailModel(
     public string? Description { get; set; } = Description;
     public ICollection<EvaluationListModel>? Evaluations { get; set; } = new List<EvaluationListModel>();
     
+    public Guid? SubjectId { get; set; }
     public SubjectDetailedModel? Subject { get; set; }
     public class MapperProfile : Profile
     {

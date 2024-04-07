@@ -48,28 +48,26 @@ public sealed class EvaluationFacadeTest : CRUDFacadeTestsBase
             Id = Guid.Parse("0d4fa150-ad30-4d46-a511-4c888166e112"),
         };
         activity1.Subject = subjectDet;
-        // var activity2 = new ActivityDetailModel(Start: DateTime.Now, End: DateTime.Now.AddDays(1), Name: "Test",
-        //     Description: "Test", Room: Room.D104, Tag: 1)
-        // {
-        //     Id = Guid.Parse("0d4fa150-ad40-4d46-a511-4c888166e112"),
-        // };
-        // await _activityFacadeSUT.SaveAsync(activity2);
+        var activity2 = new ActivityDetailModel(Start: DateTime.Now, End: DateTime.Now.AddDays(1), Name: "Test",
+            Description: "Test", Room: Room.D104, Tag: 1)
+        {
+            Id = Guid.Parse("0d4fa150-ad40-4d46-a511-4c888166e112"),
+        };
         var evaluation1 = new EvaluationDetailModel(Score: 5, Description: "Test")
         {
             Id = Guid.Parse("0d4fa150-ad50-4d46-a511-4c888166e112"),
             
         };
-        evaluation1.Student = student;
+        evaluation1.StudentId = student.Id;
         evaluation1.Activity = activity1;
         await _evaluationFacadeSUT.SaveAsync(evaluation1);
-        // var evaluation2 = new EvaluationDetailModel(Score: 10, Description: "Test")
-        // {
-        //     Id = Guid.Parse("0d4fa150-ad60-4d46-a511-4c888166e112"),
-        //     Student = student,
-        //     Activity = activity2
-        // };
-        // await _evaluationFacadeSUT.SaveAsync(evaluation2);
-        var test = _evaluationFacadeSUT.GetAsync();
+        var evaluation2 = new EvaluationDetailModel(Score: 10, Description: "Test")
+        {
+            Id = Guid.Parse("0d4fa150-ad60-4d46-a511-4c888166e112"),
+        };
+        evaluation2.StudentId = student.Id;
+        evaluation2.Activity = activity2;
+        await _evaluationFacadeSUT.SaveAsync(evaluation2);
         var evaluation = await _evaluationFacadeSUT.GetFinalEvaluationOfStudentForSubject(student.Name, student.Surname, subjectList.Name);
         
         // Assert

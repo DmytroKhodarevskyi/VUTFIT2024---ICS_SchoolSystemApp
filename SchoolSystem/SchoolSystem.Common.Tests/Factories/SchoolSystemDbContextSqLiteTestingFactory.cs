@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL.Entities;
 using SchoolSystem.DAL;
 
-namespace SchoolSystem.Common.Tests;
+namespace SchoolSystem.Common.Tests.Factories;
 
 public class SchoolSystemDbContextSqLiteTestingFactory(string databaseName, bool seedTestingData = false) : IDbContextFactory<SchoolSystemDbContext>
 {

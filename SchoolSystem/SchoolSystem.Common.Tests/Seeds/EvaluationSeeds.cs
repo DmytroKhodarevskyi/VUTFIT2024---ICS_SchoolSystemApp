@@ -56,13 +56,13 @@ public static class EvaluationSeeds
         Student = null,
         Activity = null };
     
-    // static EvaluationSeeds()
-    // {
-    //     // Evaluation1.Student = StudentSeeds.Student1;
-    //     Evaluation2.Student = StudentSeeds.Student1;
-    //     // Evaluation1.Activity = ActivitySeeds.Activity1;
-    //     Evaluation2.Activity = ActivitySeeds.Activity2;
-    // }
+    static EvaluationSeeds()
+    {
+        Evaluation1.Student = StudentSeeds.Student1;
+        Evaluation2.Student = StudentSeeds.Student1;
+        Evaluation1.Activity = ActivitySeeds.Activity1;
+        Evaluation2.Activity = ActivitySeeds.Activity2;
+    }
     
     public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<EvaluationEntity>().HasData(
