@@ -21,9 +21,13 @@ public class EvaluationFacade :
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByStudent(Guid studentId)
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByStudent(Guid? studentId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        if (studentId is null)
+        {
+            return new List<EvaluationListModel>();
+        }
 
         List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
             .Where(e => e.StudentId == studentId)
@@ -32,9 +36,14 @@ public class EvaluationFacade :
         return ModelMapper.MapToListModel(query);
     }
     
-    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid activityId)
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid? activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        
+        if (activityId is null)
+        {
+            return new List<EvaluationListModel>();
+        }
 
         List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
             .Where(e => e.ActivityId == activityId)
@@ -43,9 +52,14 @@ public class EvaluationFacade :
         return ModelMapper.MapToListModel(query);
     }
     
-    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivityAndStudent(Guid activityId, Guid studentId)
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivityAndStudent(Guid? activityId, Guid? studentId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        
+        if (activityId is null || studentId is null)
+        {
+            return new List<EvaluationListModel>();
+        }
 
         List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
             .Where(e => e.ActivityId == activityId && e.StudentId == studentId)

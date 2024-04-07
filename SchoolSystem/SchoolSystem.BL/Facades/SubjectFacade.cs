@@ -15,24 +15,24 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
         mapper), ISubjectFacade
 {
     private readonly IUnitOfWorkFactory _unitOfWorkFactory = unitOfWorkFactory;
-    public async Task<SubjectDetailedModel> GetSubjectByName(string name)
+    public async Task<IEnumerable<SubjectListModel>> GetSubjectByName(string name)
     {
         await using var uow = unitOfWorkFactory.Create();
-     
+
         var dbSet = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
-            .Where(x => x.Name == name);
+            .Where(x => x.Name == name).ToList();
         
-        return mapper.MapToDetailModel(dbSet.FirstOrDefault());
+        return mapper.MapToListModel(dbSet);
     }
     
-    public async Task<SubjectDetailedModel> GetSubjectByAbbr(string abbreviation)
+    public async Task<IEnumerable<SubjectListModel>> GetSubjectsByAbrAsync(string name)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-     
+        await using var uow = unitOfWorkFactory.Create();
+
         var dbSet = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
-            .Where(x => x.Abbreviation == abbreviation);
+            .Where(x => x.Abbreviation == name).ToList();
         
-        return mapper.MapToDetailModel(dbSet.FirstOrDefault());
+        return mapper.MapToListModel(dbSet);
     }
     
     
@@ -41,7 +41,7 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
         await using var uow = _unitOfWorkFactory.Create();
 
         var dbSet = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
-            .Where(subject => subject.Name.Contains(name));
+            .Where(subject => subject.Name.Contains(name)).ToList();
 
         return mapper.MapToListModel(dbSet);
     }
@@ -51,7 +51,7 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
         await using var uow = _unitOfWorkFactory.Create();
 
         var dbSet = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
-            .Where(subject => subject.Abbreviation.Contains(abbreviation));
+            .Where(subject => subject.Abbreviation.Contains(abbreviation)).ToList();
 
         return mapper.MapToListModel(dbSet);
     }
