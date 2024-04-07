@@ -1,6 +1,7 @@
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Facades;
+using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests;
 using Xunit;
@@ -8,29 +9,122 @@ using Xunit.Abstractions;
 
 namespace SchoolSystem.BL.Tests;
 
-public sealed class StudentFacadeTest : CRUDFacadeTestsBase
+public sealed class StudentFacadeTests : CRUDFacadeTestsBase
 {
-    private readonly StudentFacade _studentFacadeSUT;
-
-    public StudentFacadeTest(ITestOutputHelper output) : base(output)
+    private readonly IStudentFacade _studentFacadeSUT;
+    
+    public StudentFacadeTests(ITestOutputHelper output) : base(output)
     {
-        _studentFacadeSUT = new StudentFacade(Mapper, UnitOfWorkFactory);
+        _studentFacadeSUT = new StudentFacade(UnitOfWorkFactory, StudentModelMapper);
     }
+    
+    [Fact]
+    public async Task Create_WithNonExistingItem_DoesNotThrow()
+    {
+        var model = new StudentDetailedModel()
+        {
+            Id = Guid.Empty,
+            Name = @"John",
+            Surname = @"Doe",
+        };
 
+        var _ = await _studentFacadeSUT.SaveAsync(model);
+    }
+    
+    [Fact]
+    public async Task GetAll_Single_SeededEskil()
+    {
+        var students = await _studentFacadeSUT.GetAsync();
+        var student = students.Single(i => i.Id == StudentSeeds.Eskil.Id);
 
+        DeepAssert.Equal(StudentModelMapper.MapToListModel(StudentSeeds.Eskil), student);
+    }
+    
+    [Fact]
+    public async Task GetById_SeededEskil()
+    {
+        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.Eskil.Id);
+
+        DeepAssert.Equal(StudentModelMapper.MapToDetailModel(StudentSeeds.Eskil), ingredient);
+    }
+    
+    [Fact]
+    public async Task GetById_NonExistent()
+    {
+        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.EmptyStudent.Id);
+
+        Assert.Null(ingredient);
+    }
+    
+    [Fact]
+    public async Task SeededEskil_DeleteById_Deleted()
+    {
+        await _studentFacadeSUT.DeleteAsync(StudentSeeds.Eskil.Id);
+
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        Assert.False(await dbxAssert.Students.AnyAsync(i => i.Id == StudentSeeds.Eskil.Id));
+    }
+    
+    [Fact]
+    public async Task Delete_StudentWithCourse_Throws()
+    {
+        //Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _studentFacadeSUT.DeleteAsync(StudentSeeds.Aboba.Id));
+    }
+    
+    [Fact]
+    public async Task NewStudent_InsertOrUpdate_StudentAdded()
+    {
+        //Arrange
+        var student = new StudentDetailedModel()
+        {
+            Id = Guid.Empty,
+            Name = "John",
+            Surname = "Doe",
+        };
+
+        //Act
+        student = await _studentFacadeSUT.SaveAsync(student);
+
+        //Assert
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        var studentFromDb = await dbxAssert.Students.SingleAsync(i => i.Id == student.Id);
+        DeepAssert.Equal(student, StudentModelMapper.MapToDetailModel(studentFromDb));
+    }
+    
+    [Fact]
+    public async Task SeededEskil_InsertOrUpdate_StudentUpdated()
+    {
+        //Arrange
+        var student = new StudentDetailedModel()
+        {
+            Id = StudentSeeds.Eskil.Id,
+            Name = StudentSeeds.Eskil.Name,
+            Surname = StudentSeeds.Eskil.Surname,
+        };
+        student.Name += "updated";
+        student.Surname += "updated";
+
+        //Act
+        await _studentFacadeSUT.SaveAsync(student);
+
+        //Assert
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        var studentFromDb = await dbxAssert.Students.SingleAsync(i => i.Id == student.Id);
+        DeepAssert.Equal(student, StudentModelMapper.MapToDetailModel(studentFromDb));
+    }
+    
     [Fact]
     public async Task GetStudentByNameSurname_ReturnsCorrectStudent()
     {
         // Arrange
-        var expectedStudent = new StudentDetailedModel(
-            Name: "John",
-            Surname: "Doe",
-            Photo: "photo.jpg"
-        )
+        var student = new StudentDetailedModel()
         {
-            Id = Guid.Parse("0d4aa150-ad80-4d46-a511-4c888166e112"),
-        }; //{ Name = "John", Surname = "Doe", Id = Guid.Parse("0d4fa150-ad80-4d46-a511-4c888166e112")};
-       await _studentFacadeSUT.SaveAsync(expectedStudent);
+            Id = StudentSeeds.Eskil.Id,
+            Name = StudentSeeds.Eskil.Name,
+            Surname = StudentSeeds.Eskil.Surname,
+        };
+       await _studentFacadeSUT.SaveAsync(student);
 
        var students = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
