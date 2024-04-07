@@ -11,8 +11,8 @@ public record ActivityEntity : IEntity
     public required Room Room { get; set; }
     public required int Tag { get; set; }
     public string? Description { get; set; }
-    // public ICollection<EvaluationEntity>? Evaluations { get; set; } = new List<EvaluationEntity>();
+    public ICollection<EvaluationEntity>? Evaluations { get; set; } = new List<EvaluationEntity>();
     public Guid? SubjectId { get; set; }
 
-    // public SubjectEntity? Subject { get; set; }
+     public SubjectEntity? Subject { get; set; }
 }
