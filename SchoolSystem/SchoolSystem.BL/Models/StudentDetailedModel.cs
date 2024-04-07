@@ -17,7 +17,9 @@ namespace SchoolSystem.BL.Models
             public MapperProfile()
             {
                 CreateMap<StudentEntity, StudentDetailedModel>()
-                    .ReverseMap();
+                    .ForMember(s => s.Subjects, opt => opt.MapFrom(src => src.StudentSubjects))
+                    .ReverseMap()
+                    .ForMember(dest => dest.StudentSubjects, opt => opt.MapFrom(src => src.Subjects));
             }
         }
         

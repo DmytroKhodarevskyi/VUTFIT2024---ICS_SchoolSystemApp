@@ -1,5 +1,4 @@
 using DAL.Entities;
-using DAL.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace SchoolSystem.DAL;
@@ -25,6 +24,7 @@ public class SchoolSystemDbContext : DbContext
         modelBuilder.Entity<EvaluationEntity>().HasKey(e => e.Id);
         modelBuilder.Entity<StudentEntity>().HasKey(s => s.Id);
         
+
         modelBuilder.Entity<StudentEntity>()
             .HasMany<EvaluationEntity>()
             .WithOne(s => s.Student);
@@ -68,20 +68,20 @@ public class SchoolSystemDbContext : DbContext
                 .WithMany()
                 .HasForeignKey(cs => cs.StudentId)
                 .OnDelete(DeleteBehavior.Restrict); */
-        
+
         // modelBuilder.Entity<ActivityEntity>()
         //     .HasMany(s => s.Evaluations)
         //     .WithOne(e => e.Activity)
         //     .OnDelete(DeleteBehavior.Cascade);
         // modelBuilder.Entity<EvaluationEntity>()
         //     .HasOne(s => s.Student);
-        if (_seedDemoData)
-        {
-            ActivitySeeds.Seed(modelBuilder);	
-            StudentSeeds.Seed(modelBuilder);
-            SubjectSeeds.Seed(modelBuilder);
-            EvaluationSeeds.Seed(modelBuilder);
-        }
+        // if (_seedDemoData)
+        // {
+        //     ActivitySeeds.Seed(modelBuilder);	
+        //     StudentSeeds.Seed(modelBuilder);
+        //     SubjectSeeds.Seed(modelBuilder);
+        //     EvaluationSeeds.Seed(modelBuilder);
+        // }
     }
 
 }

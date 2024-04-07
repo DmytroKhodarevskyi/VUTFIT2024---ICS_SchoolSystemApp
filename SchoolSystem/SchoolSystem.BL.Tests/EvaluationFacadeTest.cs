@@ -58,14 +58,14 @@ public sealed class EvaluationFacadeTest : CRUDFacadeTestsBase
             Id = Guid.Parse("0d4fa150-ad50-4d46-a511-4c888166e112"),
             
         };
-        evaluation1.StudentId = student.Id;
+        evaluation1.Student = student;
         evaluation1.Activity = activity1;
         await _evaluationFacadeSUT.SaveAsync(evaluation1);
         var evaluation2 = new EvaluationDetailModel(Score: 10, Description: "Test")
         {
             Id = Guid.Parse("0d4fa150-ad60-4d46-a511-4c888166e112"),
         };
-        evaluation2.StudentId = student.Id;
+        evaluation2.Student = student;
         evaluation2.Activity = activity2;
         await _evaluationFacadeSUT.SaveAsync(evaluation2);
         var evaluation = await _evaluationFacadeSUT.GetFinalEvaluationOfStudentForSubject(student.Name, student.Surname, subjectList.Name);

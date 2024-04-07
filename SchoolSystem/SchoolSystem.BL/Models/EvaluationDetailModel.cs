@@ -20,9 +20,10 @@ public record EvaluationDetailModel(
         public MapperProfile()
         {
             CreateMap<EvaluationEntity, EvaluationDetailModel>()
-                .ForMember(dest => dest.Student, opt => opt.MapFrom(src => src.Student))
-                .ForMember(dest => dest.Activity, opt => opt.MapFrom(src => src.Activity))
+                .ForMember(dest => dest.Student, opt => opt.MapFrom(src => src.StudentId))
+                .ForMember(dest => dest.Activity, opt => opt.MapFrom(src => src.ActivityId))
                 .ReverseMap();
+            
         }
     }
 

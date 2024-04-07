@@ -1,77 +1,123 @@
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
+using System.Collections;
+using System.Reflection;
 using DAL.Entities;
+using DAL.Mappers;
 using DAL.Repositories;
 using DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
-using SchoolSystem.BL.Models;
 
-namespace SchoolSystem.BL.Facades;
+namespace ICS_PROJECT.BL.Facades;
 
-public class CRUDFacade<TEntity, TListModel, TDetailModel>(
-    IMapper mapper,
-    IUnitOfWorkFactory unitOfWorkFactory
-)
+// Based on ICS Cookbook ( GPL-3.0 license ): 
+// https://github.com/nesfit/ICS/tree/master?tab=GPL-3.0-1-ov-file#readme
+
+public abstract class
+    FacadeBase<TEntity, TListModel, TDetailModel, TEntityMapper>(
+        IUnitOfWorkFactory unitOfWorkFactory,
+        IModelMapper<TEntity, TListModel, TDetailModel> modelMapper)
+    : IFacade<TEntity, TListModel, TDetailModel>
     where TEntity : class, IEntity
-    where TListModel : class, IModel
+    where TListModel : IModel
     where TDetailModel : class, IModel
+    where TEntityMapper : IEntityMapper<TEntity>, new()
 {
-    private readonly IMapper _mapper = mapper;
-    private readonly IUnitOfWorkFactory _unitOfWorkFactory = unitOfWorkFactory;
-    
-    public async Task DeleteAsync(TDetailModel model) => await this.DeleteAsync(model.Id);
+    protected readonly IModelMapper<TEntity, TListModel, TDetailModel> ModelMapper = modelMapper;
+    protected readonly IUnitOfWorkFactory UnitOfWorkFactory = unitOfWorkFactory;
+
+    protected virtual string IncludesNavigationPathDetail => string.Empty;
 
     public async Task DeleteAsync(Guid id)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-        uow.GetRepository<TEntity>().Delete(id);
-        await uow.CommitAsync().ConfigureAwait(false);
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        try
+        {
+            uow.GetRepository<TEntity, TEntityMapper>().Delete(id);
+            await uow.CommitAsync().ConfigureAwait(false);
+        }
+        catch (DbUpdateException e)
+        {
+            throw new InvalidOperationException("Entity deletion failed.", e);
+        }
     }
 
-    public async Task<TDetailModel?> GetAsync(Guid id)
+    public virtual async Task<TDetailModel?> GetAsync(Guid id)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-        var query = uow
-            .GetRepository<TEntity>()
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+
+        IQueryable<TEntity> query = uow.GetRepository<TEntity, TEntityMapper>().Get();
+
+        if (string.IsNullOrWhiteSpace(IncludesNavigationPathDetail) is false)
+        {
+            query = query.Include(IncludesNavigationPathDetail);
+        }
+
+        TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id);
+
+        return entity is null
+            ? null
+            : ModelMapper.MapToDetailModel(entity);
+    }
+
+    public virtual async Task<IEnumerable<TListModel>> GetAsync()
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        List<TEntity> entities = await uow
+            .GetRepository<TEntity, TEntityMapper>()
             .Get()
-            .Where(e => e.Id == id);
-        return await _mapper.ProjectTo<TDetailModel>(query).SingleOrDefaultAsync().ConfigureAwait(false);
+            .ToListAsync();
+
+        return ModelMapper.MapToListModel(entities);
     }
 
-    public async Task<IEnumerable<TListModel>> GetAsync()
-    {
-        await using var uow = _unitOfWorkFactory.Create();
-        var query = uow
-            .GetRepository<TEntity>()
-            .Get();
-        return await _mapper.ProjectTo<TListModel>(query).ToArrayAsync().ConfigureAwait(false);
-    }
-
-    public async Task<TDetailModel> SaveAsync(TDetailModel model)
+    public virtual async Task<TDetailModel> SaveAsync(TDetailModel model)
     {
         TDetailModel result;
-        
-    
-        IUnitOfWork uow = _unitOfWorkFactory.Create();
-        IRepository<TEntity> repository = uow.GetRepository<TEntity>();
-        var entity = _mapper.Map<TEntity>(model);
 
-        if (await repository.ExistsAsync(entity).ConfigureAwait(false))
+        GuardCollectionsAreNotSet(model);
+
+        TEntity entity = ModelMapper.MapToEntity(model);
+
+        IUnitOfWork uow = UnitOfWorkFactory.Create();
+        IRepository<TEntity> repository = uow.GetRepository<TEntity, TEntityMapper>();
+
+        if (await repository.ExistsAsync(entity))
         {
-            TEntity updatedEntity = await repository.UpdateAsync(entity).ConfigureAwait(false);
-            result = _mapper.Map<TDetailModel>(updatedEntity);
+            TEntity updatedEntity = await repository.UpdateAsync(entity);
+            result = ModelMapper.MapToDetailModel(updatedEntity);
         }
         else
         {
-            entity.Id = model.Id;
+            entity.Id = Guid.NewGuid();
             TEntity insertedEntity = await repository.InsertAsync(entity);
-            result = _mapper.Map<TDetailModel>(insertedEntity);
+            result = ModelMapper.MapToDetailModel(insertedEntity);
         }
-        var test =  _mapper.Map<TEntity>(result);
-        await uow.CommitAsync().ConfigureAwait(false);
+
+        await uow.CommitAsync();
 
         return result;
     }
-}
 
-    
+    /// <summary>
+    /// This Guard ensures that there is a clear understanding of current infrastructure limitations.
+    /// This version of BL/DAL infrastructure does not support insertion or update of adjacent entities.
+    /// WARN: Does not guard navigation properties.
+    /// </summary>
+    /// <param name="model">Model to be inserted or updated</param>
+    /// <exception cref="InvalidOperationException"></exception>
+    private static void GuardCollectionsAreNotSet(TDetailModel model)
+    {
+        IEnumerable<PropertyInfo> collectionProperties = model
+            .GetType()
+            .GetProperties()
+            .Where(i => typeof(ICollection).IsAssignableFrom(i.PropertyType));
+
+        foreach (PropertyInfo collectionProperty in collectionProperties)
+        {
+            if (collectionProperty.GetValue(model) is ICollection { Count: > 0 })
+            {
+                throw new InvalidOperationException(
+                    "Current BL and DAL infrastructure disallows insert or update of models with adjacent collections.");
+            }
+        }
+    }
+}

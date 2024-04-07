@@ -1,4 +1,3 @@
-using SchoolSystem.Common.Tests.Seeds;
 using SchoolSystem.DAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,12 +9,12 @@ public class SchoolSystemTestingDbContext(DbContextOptions contextOptions, bool 
     {
         base.OnModelCreating(modelBuilder);
 
-        if (seedTestingData)
-        {
-            StudentSeeds.Seed(modelBuilder);
-            SubjectSeeds.Seed(modelBuilder);
-            ActivitySeeds.Seed(modelBuilder);
-            EvaluationSeeds.Seed(modelBuilder);
-        }
+        // if (seedTestingData)
+        // {
+        //     // StudentSeeds.Seed(modelBuilder);
+        //     // SubjectSeeds.Seed(modelBuilder);
+        //     ActivitySeeds.Seed(modelBuilder);
+        //     EvaluationSeeds.Seed(modelBuilder);
+        // }
     }
 }

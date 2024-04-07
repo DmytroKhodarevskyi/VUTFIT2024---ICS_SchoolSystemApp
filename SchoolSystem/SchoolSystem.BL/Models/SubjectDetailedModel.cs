@@ -15,12 +15,12 @@ namespace SchoolSystem.BL.Models
             public MapperProfile()
             {
                 CreateMap<SubjectEntity, SubjectDetailedModel>()
-                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students))
+                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.StudentSubjects))
                     .ForMember(dest => dest.Activities, opt => opt.Ignore());
 
                 
                 CreateMap<SubjectDetailedModel, SubjectEntity>()
-                    .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students))
+                    .ForMember(dest => dest.StudentSubjects, opt => opt.MapFrom(src => src.Students))
                     .ForMember(dest => dest.Activities, opt => opt.Ignore());
             }
         }
