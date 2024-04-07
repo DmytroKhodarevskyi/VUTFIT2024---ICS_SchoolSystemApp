@@ -6,7 +6,7 @@ using DAL.UnitOfWork;
 
 namespace SchoolSystem.BL.Facades;
 
-public class EvaluationFacade : CRUDFacade<EvaluationEntity, EvaluationListModel, EvaluationDetailModel>
+public class EvaluationFacade : CrudFacade<,,,>
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;

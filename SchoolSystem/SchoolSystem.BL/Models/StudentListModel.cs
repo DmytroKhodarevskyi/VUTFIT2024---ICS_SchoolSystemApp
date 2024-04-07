@@ -4,21 +4,16 @@ using DAL.Entities;
 
 namespace SchoolSystem.BL.Models
 {
-    public record StudentListModel(string Name, string Surname) : baseModel
+    public record StudentListModel() : baseModel
     {
-        public string Name { get; set; } = Name;
-        public string Surname { get; set; } = Surname;
+        public string Name { get; set; }
+        public string Surname { get; set; } 
         
-        
-        
-        public class MapperProfile : Profile
+        public static StudentListModel Empty => new()
         {
-            public MapperProfile()
-            {
-                CreateMap<StudentEntity, StudentListModel>();
-
-            }
-        }       
-        public static StudentListModel Empty => new(string.Empty, string.Empty);
+            Id = Guid.NewGuid(),
+            Name = string.Empty,
+            Surname = string.Empty
+        };
     }
 }

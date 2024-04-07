@@ -9,7 +9,7 @@ using DAL.UnitOfWork;
 namespace SchoolSystem.BL.Facades;
 
 
-public class SubjectFacade : CRUDFacade<SubjectEntity, SubjectListModel, SubjectDetailedModel>
+public class SubjectFacade : CrudFacade<,,,>
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;

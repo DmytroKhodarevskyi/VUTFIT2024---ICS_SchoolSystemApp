@@ -5,14 +5,14 @@ using DAL.Mappers;
 using DAL.Repositories;
 using DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using SchoolSystem.BL.Facades.Interfaces;
+using SchoolSystem.BL.Mappers;
+using SchoolSystem.BL.Models;
 
-namespace ICS_PROJECT.BL.Facades;
-
-// Based on ICS Cookbook ( GPL-3.0 license ): 
-// https://github.com/nesfit/ICS/tree/master?tab=GPL-3.0-1-ov-file#readme
+namespace SchoolSystem.BL.Facades;
 
 public abstract class
-    FacadeBase<TEntity, TListModel, TDetailModel, TEntityMapper>(
+    CrudFacade<TEntity, TListModel, TDetailModel, TEntityMapper>(
         IUnitOfWorkFactory unitOfWorkFactory,
         IModelMapper<TEntity, TListModel, TDetailModel> modelMapper)
     : IFacade<TEntity, TListModel, TDetailModel>
@@ -96,14 +96,7 @@ public abstract class
 
         return result;
     }
-
-    /// <summary>
-    /// This Guard ensures that there is a clear understanding of current infrastructure limitations.
-    /// This version of BL/DAL infrastructure does not support insertion or update of adjacent entities.
-    /// WARN: Does not guard navigation properties.
-    /// </summary>
-    /// <param name="model">Model to be inserted or updated</param>
-    /// <exception cref="InvalidOperationException"></exception>
+    
     private static void GuardCollectionsAreNotSet(TDetailModel model)
     {
         IEnumerable<PropertyInfo> collectionProperties = model

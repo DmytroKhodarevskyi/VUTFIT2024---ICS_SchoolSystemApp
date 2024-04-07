@@ -7,12 +7,18 @@ public class StudentModelMapper : ModelMapperBase<StudentEntity, StudentListMode
 {
     public override StudentListModel MapToListModel(StudentEntity? entity) => entity is null
         ? StudentListModel.Empty
-        : new StudentListModel(entity.Name, entity.Surname) { Id = entity.Id };
+        : new StudentListModel() { Id = entity.Id };
 
     public override StudentDetailedModel MapToDetailModel(StudentEntity? entity) =>
         entity is null
             ? StudentDetailedModel.Empty
-            : new StudentDetailedModel(entity.Name, entity.Surname, entity.Photo) { Id = entity.Id };
+            : new StudentDetailedModel()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Surname = entity.Surname,
+                Photo = entity.Photo
+            };
 
     public override StudentEntity MapToEntity(StudentDetailedModel model) =>
         new() { Id = model.Id, Name = model.Name, Surname = model.Surname, Photo = model.Photo };

@@ -1,8 +1,7 @@
-﻿
-namespace SchoolSystem.BL.Facades;
+﻿using DAL.Entities;
+using SchoolSystem.BL.Models;
 
-// Based on ICS Cookbook ( GPL-3.0 license ): 
-// https://github.com/nesfit/ICS/tree/master?tab=GPL-3.0-1-ov-file#readme
+namespace SchoolSystem.BL.Facades.Interfaces;
 
 public interface IFacade<TEntity, TListModel, TDetailModel>
     where TEntity : class, IEntity

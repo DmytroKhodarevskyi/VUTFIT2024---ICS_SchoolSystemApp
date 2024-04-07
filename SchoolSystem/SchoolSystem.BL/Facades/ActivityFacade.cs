@@ -7,7 +7,7 @@ using DAL.UnitOfWork;
 
 namespace SchoolSystem.BL.Facades;
 
-public class ActivityFacade : CRUDFacade<ActivityEntity, ActivityListModel, ActivityDetailModel>
+public class ActivityFacade : CrudFacade<,,,>
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;

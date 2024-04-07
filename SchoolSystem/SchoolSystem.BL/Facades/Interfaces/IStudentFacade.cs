@@ -1,6 +1,6 @@
-using ICS_PROJECT.BL.Models;
-using ICS_PROJECT.DAL.Entities;
+using DAL.Entities;
+using SchoolSystem.BL.Models;
 
-namespace ICS_PROJECT.BL.Facades;
+namespace SchoolSystem.BL.Facades.Interfaces;
 
-public interface IStudentFacade : IFacade<StudentEntity, StudentListModel, StudentDetailModel>;
+public interface IStudentFacade : IFacade<StudentEntity, StudentListModel, StudentDetailedModel>;
