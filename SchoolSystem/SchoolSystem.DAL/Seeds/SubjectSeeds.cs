@@ -24,11 +24,11 @@ public static class SubjectSeeds
     {
         IZP.Activities.Add(ActivitySeeds.Activity1);
         IUS.Activities.Add(ActivitySeeds.Activity2);
-        IUS.Students.Add(StudentSeeds.Student1);
-        IZP.Students.Add(StudentSeeds.Student1);
+        // IUS.Students.Add(StudentSeeds.Student1);
+        // IZP.Students.Add(StudentSeeds.Student1);
     }
     
     public static void Seed(ModelBuilder modelBuilder) =>
         modelBuilder.Entity<SubjectEntity>().HasData(
-            IZP with {Activities = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentEntity>()}, IUS with {Activities = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentEntity>()});
+            IZP with {Activities = Array.Empty<ActivityEntity>(), StudentSubjects = Array.Empty<StudentSubjectEntity>()}, IUS with {Activities = Array.Empty<ActivityEntity>(), StudentSubjects = Array.Empty<StudentSubjectEntity>()});
 }    

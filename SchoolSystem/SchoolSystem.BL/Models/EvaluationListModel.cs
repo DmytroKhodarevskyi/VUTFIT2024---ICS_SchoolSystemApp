@@ -3,23 +3,19 @@ using DAL.Entities;
 
 namespace SchoolSystem.BL.Models;
 
-public record EvaluationListModel(int Score): baseModel
+public record EvaluationListModel(): baseModel
 {
-    public int Score { get; set; } = Score;
+    public required int Score { get; set; }
     public string? Description { get; set; }
-    public StudentDetailedModel? Student { get; set; }
-    public ActivityDetailModel? Activity { get; set; }
+    public Guid? StudentId { get; set; }
+    public Guid? ActivityId { get; set; }
     
-    public class MapperProfile : Profile
+    public static EvaluationListModel Empty => new()
     {
-        public MapperProfile()
-        {
-            CreateMap<EvaluationEntity, EvaluationListModel>()
-                .ForMember(entity => entity.Student, expression => expression.Ignore())
-                .ForMember(entity => entity.Activity, expression => expression.Ignore())
-                .ReverseMap();
-        }
-    }
-    
-    public static EvaluationListModel Empty => new(1);
+        Id = Guid.NewGuid(),
+        Score = 0,
+        Description = string.Empty,
+        StudentId = Guid.Empty,
+        ActivityId = Guid.Empty
+    };
 }

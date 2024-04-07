@@ -12,6 +12,7 @@ public record ActivityEntity : IEntity
     public required int Tag { get; set; }
     public string? Description { get; set; }
     public ICollection<EvaluationEntity>? Evaluations { get; set; } = new List<EvaluationEntity>();
-    
-    public SubjectEntity? Subject { get; set; }
+    public Guid? SubjectId { get; set; }
+
+     public SubjectEntity? Subject { get; set; }
 }
