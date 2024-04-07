@@ -27,9 +27,38 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
 
         IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
 
-        
+        query = query.Where(e => e.SubjectId == subjectId);
+        if (start != null)
+        {
+            query = query.Where(e => e.Start >= start);
+        }
+        if (end != null)
+        {
+            query = query.Where(e => e.End <= end);
+        }
+        if(tag != 0)
+        {
+            query = query.Where(e => e.Tag == tag);
+        }
+        if (studentId != Guid.Empty )
+        {
+            query = query.Where(e => e.Evaluations!.Any(e => e.StudentId == studentId));
+        }
+        query = query.OrderBy(e => e.Start);
+    
+        var entities = await query.ToListAsync();
+       return ModelMapper.MapToListModel(entities);
+    }
+    
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncListBySubject(Guid subjectId)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
-        return ModelMapper.MapToListModel(entities);
+        List<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get()
+            .Where(e => e.SubjectId == subjectId)
+            .ToList();
+        
+        return ModelMapper.MapToListModel(query);
     }
     
 }
