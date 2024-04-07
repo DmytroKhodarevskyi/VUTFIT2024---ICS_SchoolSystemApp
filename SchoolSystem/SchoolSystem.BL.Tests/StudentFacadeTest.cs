@@ -33,16 +33,16 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task GetAll_Single_SeededEskil()
+    public async Task GetAll_Single_SeededStudent1()
     {
         var students = await _studentFacadeSUT.GetAsync();
         var student = students.Single(i => i.Id == StudentSeeds.Student1.Id);
 
-        DeepAssert.Equal(StudentMapper.MapToListModel(StudentSeeds.Student1), student);
+        Assert.Equal(StudentMapper.MapToListModel(StudentSeeds.Student1), student);
     }
     
     [Fact]
-    public async Task GetById_SeededEskil()
+    public async Task GetById_SeededStudent1()
     {
         var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.Student1.Id);
 

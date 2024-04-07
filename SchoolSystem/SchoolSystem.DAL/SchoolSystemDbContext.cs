@@ -1,4 +1,5 @@
 using DAL.Entities;
+using DAL.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace SchoolSystem.DAL;
@@ -75,13 +76,13 @@ public class SchoolSystemDbContext : DbContext
         //     .OnDelete(DeleteBehavior.Cascade);
         // modelBuilder.Entity<EvaluationEntity>()
         //     .HasOne(s => s.Student);
-        // if (_seedDemoData)
-        // {
-        //     ActivitySeeds.Seed(modelBuilder);	
-        //     StudentSeeds.Seed(modelBuilder);
-        //     SubjectSeeds.Seed(modelBuilder);
-        //     EvaluationSeeds.Seed(modelBuilder);
-        // }
+        if (_seedDemoData)
+        {
+            ActivitySeeds.Seed(modelBuilder);	
+            StudentSeeds.Seed(modelBuilder);
+            SubjectSeeds.Seed(modelBuilder);
+            EvaluationSeeds.Seed(modelBuilder);
+        }
     }
 
 }
