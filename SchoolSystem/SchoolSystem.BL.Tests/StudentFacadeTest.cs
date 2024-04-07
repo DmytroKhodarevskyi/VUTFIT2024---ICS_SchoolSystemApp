@@ -4,6 +4,7 @@ using SchoolSystem.BL.Facades;
 using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests;
+using SchoolSystem.Common.Tests.Seeds;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -11,11 +12,11 @@ namespace SchoolSystem.BL.Tests;
 
 public sealed class StudentFacadeTests : CRUDFacadeTestsBase
 {
-    private readonly IStudentFacade _studentFacadeSUT;
+    private readonly StudentFacade _studentFacadeSUT;
     
     public StudentFacadeTests(ITestOutputHelper output) : base(output)
     {
-        _studentFacadeSUT = new StudentFacade(UnitOfWorkFactory, StudentModelMapper);
+        _studentFacadeSUT = new StudentFacade(UnitOfWorkFactory, StudentMapper);
     }
     
     [Fact]
@@ -35,23 +36,23 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     public async Task GetAll_Single_SeededEskil()
     {
         var students = await _studentFacadeSUT.GetAsync();
-        var student = students.Single(i => i.Id == StudentSeeds.Eskil.Id);
+        var student = students.Single(i => i.Id == StudentSeeds.Student1.Id);
 
-        DeepAssert.Equal(StudentModelMapper.MapToListModel(StudentSeeds.Eskil), student);
+        DeepAssert.Equal(StudentMapper.MapToListModel(StudentSeeds.Student1), student);
     }
     
     [Fact]
     public async Task GetById_SeededEskil()
     {
-        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.Eskil.Id);
+        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.Student1.Id);
 
-        DeepAssert.Equal(StudentModelMapper.MapToDetailModel(StudentSeeds.Eskil), ingredient);
+        DeepAssert.Equal(StudentMapper.MapToDetailModel(StudentSeeds.Student1), ingredient);
     }
     
     [Fact]
     public async Task GetById_NonExistent()
     {
-        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.EmptyStudent.Id);
+        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.EmptyStudentEntity.Id);
 
         Assert.Null(ingredient);
     }
@@ -59,17 +60,17 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     [Fact]
     public async Task SeededEskil_DeleteById_Deleted()
     {
-        await _studentFacadeSUT.DeleteAsync(StudentSeeds.Eskil.Id);
+        await _studentFacadeSUT.DeleteAsync(StudentSeeds.Student1.Id);
 
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        Assert.False(await dbxAssert.Students.AnyAsync(i => i.Id == StudentSeeds.Eskil.Id));
+        Assert.False(await dbxAssert.Students.AnyAsync(i => i.Id == StudentSeeds.Student1.Id));
     }
     
     [Fact]
     public async Task Delete_StudentWithCourse_Throws()
     {
         //Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _studentFacadeSUT.DeleteAsync(StudentSeeds.Aboba.Id));
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _studentFacadeSUT.DeleteAsync(StudentSeeds.StudentEvaluationEntityUpdate.Id));
     }
     
     [Fact]
@@ -89,7 +90,7 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
         var studentFromDb = await dbxAssert.Students.SingleAsync(i => i.Id == student.Id);
-        DeepAssert.Equal(student, StudentModelMapper.MapToDetailModel(studentFromDb));
+        DeepAssert.Equal(student, StudentMapper.MapToDetailModel(studentFromDb));
     }
     
     [Fact]
@@ -98,9 +99,9 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
         //Arrange
         var student = new StudentDetailedModel()
         {
-            Id = StudentSeeds.Eskil.Id,
-            Name = StudentSeeds.Eskil.Name,
-            Surname = StudentSeeds.Eskil.Surname,
+            Id = StudentSeeds.StudentEvaluationEntityUpdate.Id,
+            Name = StudentSeeds.StudentEvaluationEntityUpdate.Name,
+            Surname = StudentSeeds.StudentEvaluationEntityUpdate.Surname,
         };
         student.Name += "updated";
         student.Surname += "updated";
@@ -111,7 +112,7 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
         var studentFromDb = await dbxAssert.Students.SingleAsync(i => i.Id == student.Id);
-        DeepAssert.Equal(student, StudentModelMapper.MapToDetailModel(studentFromDb));
+        DeepAssert.Equal(student, StudentMapper.MapToDetailModel(studentFromDb));
     }
     
     [Fact]
@@ -120,35 +121,27 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
         // Arrange
         var student = new StudentDetailedModel()
         {
-            Id = StudentSeeds.Eskil.Id,
-            Name = StudentSeeds.Eskil.Name,
-            Surname = StudentSeeds.Eskil.Surname,
+            Id = StudentSeeds.StudentEvaluationEntityUpdate.Id,
+            Name = StudentSeeds.StudentEvaluationEntityUpdate.Name,
+            Surname = StudentSeeds.StudentEvaluationEntityUpdate.Surname,
         };
        await _studentFacadeSUT.SaveAsync(student);
 
        var students = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
-       DeepAssert.Contains(expectedStudent, students);
+       DeepAssert.Contains(student, students);
     }
 
 
     [Fact]
     public async Task GetStudentsByNameAsync_ReturnsCorrectStudents()
     {
-        // Arrange
-        var students = new List<StudentDetailedModel>
-        {
-            new StudentDetailedModel ( "Emily", "Smith", "fwefe") { Id = Guid.Parse("0d2fa150-ad80-4d46-a511-4c888166e112") },
-            new StudentDetailedModel ( "Emma", "Johnson", "fwefe") { Id = Guid.Parse("1d4fa150-ad80-4d46-a511-4c888166e112") }
-        };
-
-        students.ForEach(async (StudentDetailedModel x) => await _studentFacadeSUT.SaveAsync(x));
-        var results = await _studentFacadeSUT.GetStudentsByNameAsync("Em");
+        var results = await _studentFacadeSUT.GetStudentsByNameAsync(StudentSeeds.Student2.Name);
 
         // Assert
         Assert.NotNull(results);
         Assert.Equal(2, results.Count());
-        Assert.Contains(results, s => s.Name == "Emily");
-        Assert.Contains(results, s => s.Name == "Emma");
+        Assert.Contains(results, s => s.Name == "Dima");
+        Assert.Contains(results, s => s.Surname == "Trifanov");
     }
 }
