@@ -9,6 +9,7 @@ public static class ActivitySeeds
     public static readonly ActivityEntity Activity1 = new()
     {
         Id = Guid.Parse("00000000-0000-0000-0000-000000000005"),
+        Name =  "IZP",
         Start = new DateTime(2022, 1, 1, 8, 0, 0),
         End = new DateTime(2022, 1, 1, 9, 0, 0),
         Room = Room.D104,
@@ -19,6 +20,7 @@ public static class ActivitySeeds
     public static readonly ActivityEntity Activity2 = new()
     {
         Id = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+        Name =  "IUS",
         Start = new DateTime(2022, 1, 1, 9, 0, 0),
         End = new DateTime(2022, 1, 1, 10, 0, 0),
         Room = Room.D105,

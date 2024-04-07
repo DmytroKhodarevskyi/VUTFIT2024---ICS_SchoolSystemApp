@@ -4,24 +4,26 @@ using DAL.Enums;
 
 namespace SchoolSystem.BL.Models;
 
-public record ActivityListModel(
-    int Tag,
-    Room Room,
-    string Description
-    ) : baseModel
+public record ActivityListModel() : baseModel
 {
-    public int Tag { get; set; } = Tag;
-    public Room Room { get; set; } = Room;
-    public string? Description { get; set; } = Description;
+    public  required string Name { get; set; } 
+    public  required DateTime Start { get; set; }
+    public  required DateTime End { get; set; } 
+    public  required string? Description { get; set; } 
+    public  required int Tag { get; set; }
+    public  required Room Room { get; set; }
+    public  required Guid? SubjectId { get; set; }
     
-    public class MapperProfile : Profile
+    public static ActivityListModel Empty => new()
     {
-        public MapperProfile()
-        {
-            CreateMap<ActivityEntity, ActivityListModel>();
-        }
-    }
-    
-    public static ActivityListModel Empty => new( 1, default, string.Empty);
-    
+        Id = Guid.NewGuid(),
+        Name = string.Empty,
+        Start = DateTime.MinValue,
+        End = DateTime.MinValue,
+        Description = string.Empty,
+        Tag = 0,
+        Room = Room.D105,
+        SubjectId = Guid.Empty
+    };
+       
 }

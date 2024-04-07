@@ -3,28 +3,19 @@ using DAL.Entities;
 
 namespace SchoolSystem.BL.Models;
 
-public record EvaluationDetailModel(
-    int Score,
-    string? Description,
-    StudentEntity? Student,
-    ActivityEntity? Activity
-    ): baseModel
+public record EvaluationDetailModel() : baseModel
 {
-    public int Score { get; set; } = Score;
-    public string? Description { get; set; } = Description;
-    public StudentEntity? Student { get; set; }
-    public ActivityEntity? Activity { get; set; }
-    
-    public class MapperProfile : Profile
+    public required int Score { get; set; }
+    public string? Description { get; set; }    
+    public Guid? ActivityId { get; set; }
+    public Guid? StudentId { get; set; }
+
+    public static EvaluationDetailModel Empty => new()
     {
-        public MapperProfile()
-        {
-            CreateMap<EvaluationEntity, EvaluationDetailModel>()
-                .ReverseMap()
-                .ForMember(entity => entity.Student, expression => expression.Ignore())
-                .ForMember(entity => entity.Activity, expression => expression.Ignore());
-        }
-    }
-    
-    public static EvaluationDetailModel Empty => new(1, String.Empty, default, default);
+        Id = Guid.NewGuid(),
+        Score = 0,
+        Description = string.Empty,
+        ActivityId = Guid.Empty,
+        StudentId = Guid.Empty
+    };
 }

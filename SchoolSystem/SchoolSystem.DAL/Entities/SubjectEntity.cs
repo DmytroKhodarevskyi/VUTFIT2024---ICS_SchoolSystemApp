@@ -6,6 +6,6 @@ public record SubjectEntity : IEntity
     public required string Name { get; set; }
     public required string Abbreviation { get; set; }
     public ICollection<ActivityEntity>? Activities { get; set; } = new List<ActivityEntity>();
-
     public ICollection<StudentEntity>? Students { get; set; } = new List<StudentEntity>();
+    public ICollection<StudentSubjectEntity>? StudentSubjects { get; set; } = new List<StudentSubjectEntity>();
 }

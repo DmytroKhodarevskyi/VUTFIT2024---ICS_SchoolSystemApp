@@ -16,13 +16,13 @@ public static class StudentSeeds
 
     static StudentSeeds()
     {
-        Student1.Subjects.Add(SubjectSeeds.IZP);
-        Student1.Subjects.Add(SubjectSeeds.IUS);
+        //Student1.Subjects.Add(SubjectSeeds.IZP);
+        //Student1.Subjects.Add(SubjectSeeds.IUS);
 
     }
     
     public static void Seed(ModelBuilder modelBuilder) =>
         modelBuilder.Entity<StudentEntity>().HasData(
-            Student1 with{Subjects = Array.Empty<SubjectEntity>()});
+            Student1 with{StudentSubjects = Array.Empty<StudentSubjectEntity>()});
 }    
 

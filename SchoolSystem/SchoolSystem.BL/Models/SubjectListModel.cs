@@ -3,25 +3,16 @@ using AutoMapper;
 
 namespace SchoolSystem.BL.Models
 {
-    public record SubjectListModel(string Name, string Abbreviation) : baseModel
+    public record SubjectListModel() : baseModel
     {
-        public string Name { get; set; } = Name;
-        public string Abbreviation { get; set; } = Abbreviation;
+        public string Name { get; set; } 
+        public string Abbreviation { get; set; } 
         
-        
-        public class MapperProfile : Profile
+        public static SubjectListModel Empty => new()
         {
-            public MapperProfile()
-            {
-                CreateMap<SubjectEntity, SubjectListModel>();
-
-                CreateMap<StudentSubjectEntity, SubjectListModel>()
-                    .ConstructUsing(src => new SubjectListModel("", ""))
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Subject!.Name))
-                    .ForMember(dest => dest.Abbreviation, opt => opt.MapFrom(src => src.Subject!.Abbreviation));
-            }
-        }
-        
-        public static SubjectListModel Empty => new(string.Empty, string.Empty);
+            Id = Guid.NewGuid(),
+            Name = string.Empty,
+            Abbreviation = string.Empty
+        };
     }
 }

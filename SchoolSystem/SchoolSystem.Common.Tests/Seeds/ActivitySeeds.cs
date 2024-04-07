@@ -9,16 +9,19 @@ public static class ActivitySeeds
     public static readonly ActivityEntity EmptyActivity = new()
     {
            Id = default,
+           Name =   default,
             Start = default,
             End = default,
             Room = default,
             Tag = default,
             Description = default!, 
+            SubjectId = default,
     };
     
 public static readonly ActivityEntity Activity1 = new()
     {
         Id = Guid.Parse("00000000-0000-aaaa-0000-000000000001"),
+        Name =  "IZP",
         Start = DateTime.Now,
         End = DateTime.Now,
         Room = Room.D105,
@@ -29,6 +32,7 @@ public static readonly ActivityEntity Activity1 = new()
     public static readonly ActivityEntity Activity2 = new()
     {
         Id = Guid.Parse("00000000-0000-12cc-0000-000000000002"),
+        Name =  "IUS",
         Start = DateTime.Now,
         End = DateTime.Now,
         Room = Room.D104,
@@ -56,10 +60,12 @@ public static readonly ActivityEntity Activity1 = new()
 
     static ActivitySeeds()
     {
-        // Activity1.Subject = SubjectSeeds.IZP;
-        // Activity2.Subject = SubjectSeeds.IUS;
-        Activity1.Evaluations.Add(EvaluationSeeds.Evaluation1);
-        Activity2.Evaluations.Add(EvaluationSeeds.Evaluation2);
+        Activity1.Subject = SubjectSeeds.IZP;
+        Activity2.Subject = SubjectSeeds.IUS;
+        Activity1.Evaluations!.Add(EvaluationSeeds.Evaluation1);
+        Activity2.Evaluations!.Add(EvaluationSeeds.Evaluation2);
+        Activity1.SubjectId = SubjectSeeds.IZP.Id;
+        Activity2.SubjectId = SubjectSeeds.IUS.Id;
     }
     
     public static void Seed(this ModelBuilder modelBuilder) =>

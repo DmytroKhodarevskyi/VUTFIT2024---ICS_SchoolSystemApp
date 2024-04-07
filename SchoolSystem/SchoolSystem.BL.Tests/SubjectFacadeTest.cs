@@ -1,185 +1,122 @@
-using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Facades;
 using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SchoolSystem.Common.Tests.Seeds;
 using Xunit;
 using Xunit.Abstractions;
 
-
-
 namespace SchoolSystem.BL.Tests;
 
-public sealed class SubjectFacadeTest : CRUDFacadeTestsBase
+public sealed class SubjectFacadeTests : CRUDFacadeTestsBase
 {
     private readonly SubjectFacade _subjectFacadeSUT;
 
-    public SubjectFacadeTest(ITestOutputHelper output) : base(output)
+    public SubjectFacadeTests(ITestOutputHelper output) : base(output)
     {
-        _subjectFacadeSUT = new SubjectFacade(Mapper, UnitOfWorkFactory);
-    }
-
-    [Fact]
-    public async Task GetSubjectByName_ReturnsCorrectSubject()
-    {
-        // Arrange
-        var expectedSubject = new SubjectDetailedModel("Mathematics", "Math");
-
-        // Save the expected subject to the database
-        await _subjectFacadeSUT.SaveAsync(expectedSubject);
-
-        // Act
-        var subject = await _subjectFacadeSUT.GetSubjectByName("Mathematics");
-
-        // Assert
-        Assert.NotNull(subject);
-        Assert.Equal(expectedSubject.Name, subject.Name);
-        Assert.Equal(expectedSubject.Abbreviation, subject.Abbreviation);
+        _subjectFacadeSUT = new SubjectFacade(UnitOfWorkFactory, SubjectMapper);
     }
     
     [Fact]
-    public async Task GetSubjectByAbbr_ReturnsCorrectSubject()
+    public async Task CreateBaseSubject()
     {
-        // Arrange
-        var expectedSubject = new SubjectDetailedModel("Mathematics", "Math");
-
-        // Save the expected subject to the database
-        await _subjectFacadeSUT.SaveAsync(expectedSubject);
-
-        // Act
-        var subject = await _subjectFacadeSUT.GetSubjectByAbbr("Math");
-
-        // Assert
-        Assert.NotNull(subject);
-        Assert.Equal(expectedSubject.Name, subject.Name);
-        Assert.Equal(expectedSubject.Abbreviation, subject.Abbreviation);
-    }
-    
-    [Fact]
-    public async Task GetSubjectsByNameAsync_ReturnsCorrectSubjects()
-    {
-        // Arrange
-        var subjects = new List<SubjectDetailedModel>
+        var model = new SubjectDetailedModel()
         {
-            new SubjectDetailedModel("Mathematics", "Math") {Id = Guid.NewGuid()},
-            new SubjectDetailedModel("Mathematics", "Math") {Id = Guid.NewGuid()}
+            Id = Guid.Empty,
+            Name = "Math",
+            Abbreviation = "MTH",
         };
+
+        var _ = await _subjectFacadeSUT.SaveAsync(model);
+    }
+    
+    [Fact]
+    public async Task GetAll_Single_SeededSubject1()
+    {
+        var subjects = await _subjectFacadeSUT.GetAsync();
+        var subject = subjects.Single(i => i.Id == SubjectSeeds.IUS.Id);
+
+        DeepAssert.Equal(SubjectMapper.MapToListModel(SubjectSeeds.IUS), subject);
+    }
+    
+    [Fact]
+    public async Task GetSubjectById()
+    {
+        var subject = await _subjectFacadeSUT.GetAsync(SubjectSeeds.IUS.Id);
+
+        DeepAssert.Equal(SubjectMapper.MapToDetailModel(SubjectSeeds.IUS), subject);
+    }
+    
+    [Fact]
+    public async Task GetSubjectByAbbr()
+    {
+        var subjects = await _subjectFacadeSUT.GetSubjectsByAbrAsync(SubjectSeeds.IUS.Abbreviation);
+
+        DeepAssert.Contains(SubjectMapper.MapToListModel(SubjectSeeds.IUS), subjects);
+    }
+    
+    [Fact]
+    public async Task GetSubjectByName()
+    {
+        var subjects = await _subjectFacadeSUT.GetSubjectByName(SubjectSeeds.IUS.Name);
+
+        DeepAssert.Contains(SubjectMapper.MapToListModel(SubjectSeeds.IUS), subjects);
+    }
+    
+    [Fact]
+    public async Task GetSubjectsByNameAsync()
+    {
+        var subjects = await _subjectFacadeSUT.GetSubjectsByNameAsync(SubjectSeeds.IUS.Name);
+
+        var subject = subjects.Single(i => i.Id == SubjectSeeds.IUS.Id);
         
-        // Save the expected subjects to the database
-        subjects.ForEach(async (SubjectDetailedModel s) => await _subjectFacadeSUT.SaveAsync(s).ConfigureAwait(false));
-
-        // Act
-        var results = await _subjectFacadeSUT.GetSubjectsByNameAsync("Mathematics");
-
-        // Assert
-        Assert.NotNull(results);
-        Assert.Equal(2, results.Count());
-        Assert.Contains(results, s => s.Name == "Mathematics");
+        DeepAssert.Equal(SubjectMapper.MapToListModel(SubjectSeeds.IUS), subject);
     }
-    
     
     [Fact]
-    public async Task GetSubjectsByAbbrAsync_ReturnsCorrectSubjects()
+    public async Task GetSubjectsByAbbrAsync()
     {
-        // Arrange
-        var abbreviation = "Math";
-        var expectedSubjects = new List<SubjectDetailedModel>
+        var subjects = await _subjectFacadeSUT.GetSubjectsByAbbrAsync(SubjectSeeds.IUS.Abbreviation);
+
+        var subject = subjects.Single(i => i.Id == SubjectSeeds.IUS.Id);
+        
+        DeepAssert.Equal(SubjectMapper.MapToListModel(SubjectSeeds.IUS), subject);
+    }
+    
+    [Fact]
+    public async Task Update_ExistingItem()
+    {
+        var model = new SubjectDetailedModel()
         {
-            new SubjectDetailedModel("Mathematics", "Math"),
-            new SubjectDetailedModel("Mathematics", "Math")
+            Id = SubjectSeeds.IUS.Id,
+            Name = "Math",
+            Abbreviation = "MTH",
         };
 
-        // Save the expected subjects to the database
-        var subjectFacade = new SubjectFacade(Mapper, UnitOfWorkFactory);
-        foreach (var subject in expectedSubjects)
-        {
-            await subjectFacade.SaveAsync(subject);
-        }
-
-        // Act
-        var results = await subjectFacade.GetSubjectsByAbbrAsync(abbreviation);
-
-        // Assert
-        Assert.NotNull(results);
-        Assert.Equal(2, results.Count());
-        Assert.All(results, s => Assert.Equal("Math", s.Abbreviation));
+        var _ = await _subjectFacadeSUT.SaveAsync(model);
+        
+        var subject = await _subjectFacadeSUT.GetAsync(SubjectSeeds.IUS.Id);
+        
+        DeepAssert.Equal(model, subject);
     }
+    
+    [Fact]
+    public async Task Update_NonExistentItem()
+    {
+        var model = new SubjectDetailedModel()
+        {
+            Id = Guid.NewGuid(),
+            Name = "Math",
+            Abbreviation = "MTH",
+        };
 
+        var _ = await _subjectFacadeSUT.SaveAsync(model);
+        
+        var subject = await _subjectFacadeSUT.GetAsync(model.Id);
+        
+        DeepAssert.Equal(model, subject);
+    }
     
     
-    
-    
-    
-    
-    // [Fact]
-    // public async Task GetStudentsByNameSubject_ReturnsCorrectStudents()
-    // {
-    //     // Arrange
-    //     var expectedSubjectName = "Mathematics";
-    //     var expectedStudents = new List<StudentDetailedModel>
-    //     {
-    //         new StudentDetailedModel("John", "Doe", null),
-    //         new StudentDetailedModel("Emily", "Smith", null)
-    //     };
-    //
-    //
-    //     var studentFacade = new StudentFacade(Mapper, UnitOfWorkFactory);
-    //     foreach (var student in expectedStudents)
-    //     {
-    //         await studentFacade.SaveAsync(student);
-    //     }
-    //
-    //     // Initialize your SubjectFacade
-    //     var subjectFacade = new SubjectFacade(Mapper, UnitOfWorkFactory);
-    //
-    //     // Act
-    //     var students = await subjectFacade.GetStudentsByNameSubject(expectedSubjectName);
-    //
-    //     // Assert
-    //     Assert.NotNull(students);
-    //     Assert.Equal(expectedStudents.Count, students.Count());
-    //
-    //     foreach (var expectedStudent in expectedStudents)
-    //     {
-    //         Assert.Contains(students, s => s.Name == expectedStudent.Name && s.Surname == expectedStudent.Surname);
-    //     }
-    // }
-    //
-    // [Fact]
-    // public async Task GetStudentsByAbbrSubject_ReturnsCorrectStudents()
-    // {
-    //     // Arrange
-    //     var expectedSubjectAbbreviation = "Math";
-    //     var expectedStudents = new List<StudentDetailedModel>
-    //     {
-    //         new StudentDetailedModel("John", "Doe", null),
-    //         new StudentDetailedModel("Emily", "Smith", null)
-    //     };
-    //
-    //     // Save the expected students to the database
-    //     var studentFacade = new StudentFacade(Mapper, UnitOfWorkFactory);
-    //     foreach (var student in expectedStudents)
-    //     {
-    //         await studentFacade.SaveAsync(student);
-    //     }
-    //
-    //     // Initialize your SubjectFacade
-    //     var subjectFacade = new SubjectFacade(Mapper, UnitOfWorkFactory);
-    //
-    //     // Act
-    //     var students = await subjectFacade.GetStudentsByAbbrSubject(expectedSubjectAbbreviation);
-    //
-    //     // Assert
-    //     Assert.NotNull(students);
-    //     Assert.Equal(expectedStudents.Count, students.Count());
-    //
-    //     foreach (var expectedStudent in expectedStudents)
-    //     {
-    //         Assert.Contains(students, s => s.Name == expectedStudent.Name && s.Surname == expectedStudent.Surname);
-    //     }
-    // }
+
 }
