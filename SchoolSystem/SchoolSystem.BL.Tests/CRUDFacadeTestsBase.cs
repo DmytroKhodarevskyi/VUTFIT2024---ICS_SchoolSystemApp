@@ -23,9 +23,9 @@ public class CRUDFacadeTestsBase : IAsyncLifetime
         DbContextFactory = new SchoolSystemDbContextSqLiteTestingFactory(dbname, seedTestingData: true);
 
         StudentMapper = new StudentModelMapper();
-        ActivityModelMapper = new ActivityModelMapper();
+        ActivityMapper = new ActivityModelMapper();
         EvaluationMapper = new EvaluationModelMapper();
-        SubjectModelMapper = new SubjectModelMapper();
+        SubjectMapper = new SubjectModelMapper();
         
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
     }
@@ -33,9 +33,9 @@ public class CRUDFacadeTestsBase : IAsyncLifetime
     protected IDbContextFactory<SchoolSystemDbContext> DbContextFactory { get; }
 
     protected StudentModelMapper StudentMapper { get; }
-    protected SubjectModelMapper SubjectModelMapper { get; }
+    protected SubjectModelMapper SubjectMapper { get; }
     
-    protected ActivityModelMapper ActivityModelMapper { get; }
+    protected ActivityModelMapper ActivityMapper { get; }
 
     protected EvaluationModelMapper EvaluationMapper { get; }
     
