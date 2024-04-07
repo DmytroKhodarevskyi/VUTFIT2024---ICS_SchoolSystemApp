@@ -58,19 +58,19 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task SeededEskil_DeleteById_Deleted()
+    public async Task Seeded_DeleteById_Deleted()
     {
-        await _studentFacadeSUT.DeleteAsync(StudentSeeds.Student1.Id);
+        await _studentFacadeSUT.DeleteAsync(StudentSeeds.StudentActivityEntityDelete.Id);
 
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        Assert.False(await dbxAssert.Students.AnyAsync(i => i.Id == StudentSeeds.Student1.Id));
+        Assert.False(await dbxAssert.Students.AnyAsync(i => i.Id == StudentSeeds.StudentActivityEntityDelete.Id));
     }
     
     [Fact]
     public async Task Delete_StudentWithCourse_Throws()
     {
         //Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _studentFacadeSUT.DeleteAsync(StudentSeeds.StudentEvaluationEntityUpdate.Id));
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _studentFacadeSUT.DeleteAsync(Guid.Parse("00000000-8888-0001-0000-000000000008")));
     }
     
     [Fact]
@@ -94,7 +94,7 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task SeededEskil_InsertOrUpdate_StudentUpdated()
+    public async Task Seeded_InsertOrUpdate_StudentUpdated()
     {
         //Arrange
         var student = new StudentDetailedModel()
@@ -119,17 +119,17 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     public async Task GetStudentByNameSurname_ReturnsCorrectStudent()
     {
         // Arrange
-        var student = new StudentDetailedModel()
-        {
-            Id = StudentSeeds.StudentEvaluationEntityUpdate.Id,
-            Name = StudentSeeds.StudentEvaluationEntityUpdate.Name,
-            Surname = StudentSeeds.StudentEvaluationEntityUpdate.Surname,
-        };
-       await _studentFacadeSUT.SaveAsync(student);
+       //  var student = new StudentDetailedModel()
+       //  {
+       //      Id = StudentSeeds.StudentEvaluationEntityUpdate.Id,
+       //      Name = StudentSeeds.StudentEvaluationEntityUpdate.Name,
+       //      Surname = StudentSeeds.StudentEvaluationEntityUpdate.Surname,
+       //  };
+       // await _studentFacadeSUT.SaveAsync(student);
 
        var students = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
-       DeepAssert.Contains(student, students);
+       Assert.Contains(StudentMapper.MapToDetailModel(global::DAL.Seeds.StudentSeeds.Student1), students);
     }
 
 

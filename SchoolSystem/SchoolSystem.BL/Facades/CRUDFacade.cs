@@ -87,7 +87,7 @@ public abstract class
         }
         else
         {
-            entity.Id = Guid.NewGuid();
+            entity.Id = model.Id;
             TEntity insertedEntity = await repository.InsertAsync(entity);
             result = ModelMapper.MapToDetailModel(insertedEntity);
         }

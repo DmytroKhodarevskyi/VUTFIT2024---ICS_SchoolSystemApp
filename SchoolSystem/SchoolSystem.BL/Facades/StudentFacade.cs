@@ -20,7 +20,11 @@ namespace SchoolSystem.BL.Facades
             var dbSet = uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
                 .Where(x => x.Name == Name && x.Surname == Surname);
             IEnumerable<StudentDetailedModel> students = new List<StudentDetailedModel>();
-            await dbSet.ForEachAsync(x => students.Append(mapper.MapToDetailModel(x)));
+            foreach (var instance in dbSet)
+            {
+                var model = mapper.MapToDetailModel(instance);
+                students.Append(model);
+            }
             return students;
         }
 
