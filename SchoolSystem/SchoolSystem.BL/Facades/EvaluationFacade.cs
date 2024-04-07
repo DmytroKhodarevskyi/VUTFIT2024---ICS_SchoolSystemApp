@@ -8,72 +8,50 @@ using SchoolSystem.BL.Mappers;
 
 namespace SchoolSystem.BL.Facades;
 
-public class EvaluationFacade(
-    IUnitOfWorkFactory unitOfWorkFactory,
-    EvaluationModelMapper mapper)
-    : 
-        CrudFacade<EvaluationEntity, EvaluationListModel, EvaluationDetailModel, EvaluationEntityMapper>(
-            unitOfWorkFactory, mapper), IEvaluationFacade;
-    
-    public async Task<List<EvaluationListModel>> GetPassedScores(int minimum)
-    {
-        await using var uow = _unitOfWorkFactory.Create();
-        // await using var uow = UnitOfWorkFactory.Create();
-        var dbSet = uow.GetRepository<EvaluationEntity>().Get()
-            .Where(x => x.Score >= minimum);
+public class EvaluationFacade :
+    CrudFacade<EvaluationEntity, EvaluationListModel, EvaluationDetailModel, EvaluationEntityMapper>, IEvaluationFacade
+{
+    private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+    private readonly EvaluationModelMapper _mapper;
 
-        return await _mapper.ProjectTo<EvaluationListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+    public EvaluationFacade(IUnitOfWorkFactory unitOfWorkFactory, EvaluationModelMapper mapper)
+        : base(unitOfWorkFactory, mapper)
+    {
+        _unitOfWorkFactory = unitOfWorkFactory;
+        _mapper = mapper;
     }
 
-    public async Task<List<EvaluationListModel>> GetStudentScore(string Name, string Surname)
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByStudent(Guid studentId)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-        // await using var uow = UnitOfWorkFactory.Create();
-        var dbSet = uow.GetRepository<EvaluationEntity>().Get()
-            .Include(x => x.Student)
-            .Where(x => x.Student != null && x.Student.Name == Name && x.Student.Surname == Surname);
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
-        // var model = _mapper.ProjectTo<EvaluationListModel>(dbSet).ToListAsync().ConfigureAwait(false);
-        return await _mapper.ProjectTo<EvaluationListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+        List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
+            .Where(e => e.StudentId == studentId)
+            .ToList();
+
+        return ModelMapper.MapToListModel(query);
     }
     
-    public async Task<List<EvaluationListModel>> GetStudentScoreForSubject(string Name, string Surname, string Subject)
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid activityId)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-        // await using var uow = UnitOfWorkFactory.Create();
-        var dbSet = uow.GetRepository<EvaluationEntity>().Get()
-            .Include(x => x.Student)
-            .Include(x => x.Activity)
-            .Where(x => x.Student != null && x.Student.Name == Name && x.Student.Surname == Surname && x.Activity != null && x.Activity!.Subject!.Name == Subject);
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
-        return await _mapper.ProjectTo<EvaluationListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+        List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
+            .Where(e => e.ActivityId == activityId)
+            .ToList();
+
+        return ModelMapper.MapToListModel(query);
     }
     
-    public async Task<List<EvaluationListModel>> GetTopScores(int n)
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivityAndStudent(Guid activityId, Guid studentId)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-        // await using var uow = UnitOfWorkFactory.Create();
-        var dbSet = uow.GetRepository<EvaluationEntity>().Get()
-            .OrderByDescending(x => x.Score)
-            .Take(n);
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
-        return await _mapper.ProjectTo<EvaluationListModel>(dbSet).ToListAsync().ConfigureAwait(false);
-    }
-    
-    public async Task<EvaluationDetailModel> GetFinalEvaluationOfStudentForSubject(string Name, string Surname, string Subject)
-    {
-        await using var uow = _unitOfWorkFactory.Create();
-        // Retrieve evaluations for the student and subject
-        var evaluations = uow.GetRepository<EvaluationEntity>().Get().ToList();
-       
-        // Calculate the final evaluation, e.g., as an average of the scores
-        int finalEvaluationScore = evaluations.Sum(x => x.Score); // This assumes 'Score' is a property of EvaluationEntity. Adjust accordingly.
-        // Assuming EvaluationDetailModel has a constructor or properties that can be set directly. Adjust according to your actual model structure.
-        var finalEvaluation = new EvaluationDetailModel(finalEvaluationScore,"Final Evaluation");
-    
-        return finalEvaluation;
-    }
+        List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
+            .Where(e => e.ActivityId == activityId && e.StudentId == studentId)
+            .ToList();
 
-   
+        return ModelMapper.MapToListModel(query);
+    }
     
 }
