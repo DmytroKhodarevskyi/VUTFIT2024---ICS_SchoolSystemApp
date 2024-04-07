@@ -9,39 +9,27 @@ using SchoolSystem.BL.Mappers;
 
 namespace SchoolSystem.BL.Facades;
 
-public class ActivityFacade(
-    IUnitOfWorkFactory unitOfWorkFactory,
-    ActivityModelMapper mapper)
-    :
-        CrudFacade<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>(
-            unitOfWorkFactory, mapper), IActivityFacade;
-    
-    public async Task<List<ActivityListModel>> GetRoomActivities(Room room)
+public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>, IActivityFacade
+{
+    private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+    private readonly ActivityModelMapper _mapper;
+
+    public ActivityFacade(IUnitOfWorkFactory unitOfWorkFactory, ActivityModelMapper mapper)
+        : base(unitOfWorkFactory, mapper)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-        var dbSet = uow.GetRepository<ActivityEntity>().Get()
-            .Where(x => x.Room == room);
-
-        return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+        _unitOfWorkFactory = unitOfWorkFactory;
+        _mapper = mapper;
     }
-    
-    public async Task<List<ActivityListModel>> GetActivitiesAfter(DateTime after)
+  
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid studentId, DateTime? start, DateTime? end, int tag, Guid? subjectId)
     {
-        await using var uow = _unitOfWorkFactory.Create();
-        var dbSet = uow.GetRepository<ActivityEntity>().Get()
-            .Where(x => x.Start > after);
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
-        return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToListAsync().ConfigureAwait(false);
+        IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
+
+        
+
+        return ModelMapper.MapToListModel(entities);
     }
-    
-    public async Task<List<ActivityListModel>> GetActivitiesByTag(int Tag)
-    {
-        await using var uow = _unitOfWorkFactory.Create();
-        var dbSet = uow.GetRepository<ActivityEntity>().Get()
-            .Where(x => x.Tag == Tag);
-
-        return await _mapper.ProjectTo<ActivityListModel>(dbSet).ToListAsync().ConfigureAwait(false);
-    }
-
     
 }
