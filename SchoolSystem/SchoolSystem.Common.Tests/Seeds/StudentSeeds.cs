@@ -47,8 +47,8 @@ public static class StudentSeeds
         StudentSubjects = Array.Empty<StudentSubjectEntity>()};
 static StudentSeeds()
 {
-    // Student1.Subjects.Add(SubjectSeeds.IZP);
-    // Student1.Subjects.Add(SubjectSeeds.IUS);
+    Student1.Subjects!.Add(SubjectSeeds.IZP);
+    Student1.Subjects.Add(SubjectSeeds.IUS);
 }
     
 public static void Seed(this ModelBuilder modelBuilder) =>

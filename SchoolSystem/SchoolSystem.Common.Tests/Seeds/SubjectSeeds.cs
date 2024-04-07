@@ -48,10 +48,12 @@ public static class SubjectSeeds
 
     static SubjectSeeds()
     {
-        // IZP.S.Add(StudentSeeds.Student1);
-        // IUS.Students.Add(StudentSeeds.Student1);
-        IZP.Activities.Add(ActivitySeeds.Activity1);
-        IUS.Activities.Add(ActivitySeeds.Activity2);
+        IZP.Students!.Add(StudentSeeds.Student1);
+        IUS.Students!.Add(StudentSeeds.Student1);
+        IZP.Activities!.Add(ActivitySeeds.Activity1);
+        IUS.Activities!.Add(ActivitySeeds.Activity2);
+        IZP.StudentSubjects!.Add( new StudentSubjectEntity { StudentId = StudentSeeds.Student1.Id, SubjectId = IZP.Id });  
+        IUS.StudentSubjects!.Add( new StudentSubjectEntity { StudentId = StudentSeeds.Student1.Id, SubjectId = IUS.Id });
     }
     
     public static void Seed(this ModelBuilder modelBuilder) =>
