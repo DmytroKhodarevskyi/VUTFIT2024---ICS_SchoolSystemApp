@@ -55,10 +55,4 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
 
         return mapper.MapToListModel(dbSet);
     }
-
-   
-    
 }
-
-    
-
