@@ -20,7 +20,7 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task Create_WithNonExistingItem_DoesNotThrow()
+    public async Task Create_WithNonExistingItem_DoesNotThrowException()
     {
         var model = new StudentDetailedModel()
         {
@@ -58,7 +58,7 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task Seeded_DeleteById_Deleted()
+    public async Task Seeded_DeleteById()
     {
         await _studentFacadeSUT.DeleteAsync(StudentSeeds.StudentActivityEntityDelete.Id);
 
@@ -67,7 +67,7 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task Delete_StudentWithCourse_Throws()
+    public async Task Delete_StudentWithCourse_ThrowsEx()
     {
         //Act & Assert
         await Assert.ThrowsAsync<InvalidOperationException>(async () => await _studentFacadeSUT.DeleteAsync(Guid.Parse("00000000-8888-0001-0000-000000000008")));
@@ -116,25 +116,16 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task GetStudentByNameSurname_ReturnsCorrectStudent()
+    public async Task GetStudentByNameSurname_Test()
     {
-        // Arrange
-       //  var student = new StudentDetailedModel()
-       //  {
-       //      Id = StudentSeeds.StudentEvaluationEntityUpdate.Id,
-       //      Name = StudentSeeds.StudentEvaluationEntityUpdate.Name,
-       //      Surname = StudentSeeds.StudentEvaluationEntityUpdate.Surname,
-       //  };
-       // await _studentFacadeSUT.SaveAsync(student);
-
        var students = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
-       Assert.Contains(StudentMapper.MapToDetailModel(global::DAL.Seeds.StudentSeeds.Student1), students);
+       Assert.Contains(StudentMapper.MapToDetailModel(StudentSeeds.Student1), students);
     }
 
 
     [Fact]
-    public async Task GetStudentsByNameAsync_ReturnsCorrectStudents()
+    public async Task GetStudentsByNameAsync_Test()
     {
         var results = await _studentFacadeSUT.GetStudentsByNameAsync(StudentSeeds.Student2.Name);
 
@@ -144,4 +135,15 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
         Assert.Contains(results, s => s.Name == "Dima");
         Assert.Contains(results, s => s.Surname == "Trifanov");
     }
+    
+    // [Fact]
+    // public async Task GetStudentsByNameSubject_Test()
+    // {
+    //     var results = await _studentFacadeSUT.GetStudentsByNameSubject(StudentSeeds.Student1.Subjects.First().Name);
+    //
+    //     // Assert
+    //     Assert.NotNull(results);
+    //     DeepAssert.Equal(StudentMapper.MapToListModel(StudentSeeds.Student1), results.First());
+    //
+    // }
 }

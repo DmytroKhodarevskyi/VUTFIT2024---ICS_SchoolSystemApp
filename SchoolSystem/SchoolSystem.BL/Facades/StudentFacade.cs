@@ -19,11 +19,11 @@ namespace SchoolSystem.BL.Facades
             await using var uow = _unitOfWorkFactory.Create();
             var dbSet = uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
                 .Where(x => x.Name == Name && x.Surname == Surname);
-            IEnumerable<StudentDetailedModel> students = new List<StudentDetailedModel>();
+            var students = new List<StudentDetailedModel>(); // Directly instantiate as List<StudentDetailedModel>
             foreach (var instance in dbSet)
             {
                 var model = mapper.MapToDetailModel(instance);
-                students.Append(model);
+                students.Add(model); // Use Add method to add the model to the list
             }
             return students;
         }
@@ -34,39 +34,64 @@ namespace SchoolSystem.BL.Facades
 
             var query = uow.GetRepository<StudentEntity, StudentEntityMapper>()
                 .Get()
-                .Where(student => student.Name.Contains(name));
-
-            return mapper.MapToListModel(query);
+                .Where(student => student.Name == name);
+            var students = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
+            foreach (var instance in query)
+            {
+                var model = mapper.MapToListModel(instance);
+                students.Add(model); // Use Add method to add the model to the list
+            }
+            return students;
         }
         
         public async Task<IEnumerable<StudentListModel>> GetStudentsByNameSubject(string name)
         {
             await using var uow = _unitOfWorkFactory.Create();
 
-            var dbSet = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
+            var ids = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
                 .Where(subject => subject.Name == name)
                 .SelectMany(subject => subject.StudentSubjects)
-                .Select(ss => ss.Student)
-                .Include(student => student.StudentSubjects)
-                .ThenInclude(ss => ss.Subject)
-                .Distinct();
+                .Select(ss => ss.StudentId);
 
-            return mapper.MapToListModel(dbSet);
+            var dbSet = new List<StudentEntity>();
+            foreach (var id in ids)
+            {
+                var students = uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
+                    .Where(s => s.Id == id);
+                await students.ForEachAsync(s => dbSet.Add(s));
+            }
+            var studentsModels = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
+            foreach (var instance in dbSet)
+            {
+                var model = mapper.MapToListModel(instance);
+                studentsModels.Add(model); // Use Add method to add the model to the list
+            }
+            return studentsModels;
         }
     
         public async Task<IEnumerable<StudentListModel>> GetStudentsByAbbrSubject(string abbreviation)
         {
             await using var uow = _unitOfWorkFactory.Create();
 
-            var dbSet = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
+            var ids = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
                 .Where(subject => subject.Abbreviation == abbreviation)
                 .SelectMany(subject => subject.StudentSubjects)
-                .Select(ss => ss.Student)
-                .Include(student => student.StudentSubjects)
-                .ThenInclude(ss => ss.Subject)
-                .Distinct();
+                .Select(ss => ss.StudentId);
 
-            return mapper.MapToListModel(dbSet);
+            var dbSet = new List<StudentEntity>();
+            foreach (var id in ids)
+            {
+                var students = uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
+                    .Where(s => s.Id == id);
+                await students.ForEachAsync(s => dbSet.Add(s));
+            }
+            var studentsModels = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
+            foreach (var instance in dbSet)
+            {
+                var model = mapper.MapToListModel(instance);
+                studentsModels.Add(model); // Use Add method to add the model to the list
+            }
+            return studentsModels;
         }
     }
 }
