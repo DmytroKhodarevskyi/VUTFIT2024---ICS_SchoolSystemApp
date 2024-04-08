@@ -1,4 +1,3 @@
-using AutoMapper;
 using DAL.Entities;
 using DAL.Mappers;
 using DAL.Repositories;

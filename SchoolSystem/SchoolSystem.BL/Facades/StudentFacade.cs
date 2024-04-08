@@ -1,4 +1,3 @@
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Models;
 using DAL.Entities;

@@ -1,5 +1,4 @@
 using DAL.Entities;
-using AutoMapper;
 
 namespace SchoolSystem.BL.Models
 {

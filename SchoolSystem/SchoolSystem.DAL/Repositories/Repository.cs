@@ -4,7 +4,6 @@ using DAL.Mappers;
 
 namespace DAL.Repositories;
 
-using AutoMapper;
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;

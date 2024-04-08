@@ -2,10 +2,10 @@ using Xunit.Sdk;
 
 namespace SchoolSystem.Common.Tests;
 
-public class ObjectEqualException : AssertActualExpectedException
+public class ObjectEqualException : XunitException
 {
 	public ObjectEqualException(object? expected, object? actual, string message)
-		: base(expected, actual, "Assert.Equal() Failure")
+: base($"Expected: {expected}\nActual: {actual}\n{message}")
 	{
 		Message = message;
 	}

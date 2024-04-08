@@ -42,6 +42,6 @@ public static class DeepAssert
         };
 
         if (!collection.Any(item => compareLogic.Compare(expected!, item).AreEqual))
-            throw new ContainsException(expected!, collection);
+            throw new ObjectEqualException(expected!, collection, "Collection does not contain the expected item.");//TODO: Add the expected item to the message
     }
 }
