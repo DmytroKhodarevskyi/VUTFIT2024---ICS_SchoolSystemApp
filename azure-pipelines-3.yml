@@ -4,7 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- main
+  branches:
+      include:
+      - '*'
 
 pool:
   vmImage: 'windows-latest'
@@ -15,20 +17,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
+# Add this Command to Include the .NET 6 SDK
+- task: UseDotNet@2
+  displayName: Use .NET 8.0
   inputs:
-    restoreSolution: '$(solution)'
+    packageType: 'sdk'
+    version: '8.0.x'
 
-- task: VSBuild@1
+- task: DotnetCoreCLI@2
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'build'
+    projects: './SchoolSystem/SchoolSystem.sln'
 
-- task: VSTest@2
+- task: DotnetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    projects: './SchoolSystem/SchoolSystem.sln'
