@@ -1,7 +1,5 @@
-using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Facades;
-using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests;
 using SchoolSystem.Common.Tests.Seeds;

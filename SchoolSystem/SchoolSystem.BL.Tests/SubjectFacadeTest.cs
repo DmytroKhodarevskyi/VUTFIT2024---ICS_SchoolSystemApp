@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Facades;
 using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests;
