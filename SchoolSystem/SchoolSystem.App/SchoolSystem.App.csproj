@@ -57,9 +57,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Converters\" />
+	  <Folder Include="Messages\" />
+	  <Folder Include="Models\" />
+	  <Folder Include="Services\" />
+	  <Folder Include="Shell\" />
+	  <Folder Include="ViewModels\" />
+	  <Folder Include="Views\" />
 	</ItemGroup>
 
 </Project>
