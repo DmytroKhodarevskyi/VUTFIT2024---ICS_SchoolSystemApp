@@ -66,8 +66,6 @@
 	<ItemGroup>
 	  <Folder Include="Converters\" />
 	  <Folder Include="Messages\" />
-	  <Folder Include="Models\" />
-	  <Folder Include="Services\" />
 	  <Folder Include="Shell\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
