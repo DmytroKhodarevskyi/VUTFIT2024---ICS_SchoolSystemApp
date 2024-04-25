@@ -62,13 +62,14 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Core" Version="8.0.21" />
+		<ProjectReference Include="..\SchoolSystem.BL\SchoolSystem.BL.csproj" />
+<!--		<ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />-->
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Converters\" />
-	  <Folder Include="Messages\" />
-	  <Folder Include="Shell\" />
-	  <Folder Include="Views\" />
+		<Folder Include="Converters\" />
+		<Folder Include="Shell\" />
+		<Folder Include="Views\" />
 	</ItemGroup>
 
 </Project>

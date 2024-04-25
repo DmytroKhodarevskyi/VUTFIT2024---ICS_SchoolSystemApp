@@ -1,9 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using SchoolSystem.App.Services.Interfaces;
+
 namespace SchoolSystem.App.ViewModels;
-
-
-
 public abstract class ViewModelBase : ObservableRecipient, IViewModel
 {
     private bool _isRefreshRequired = true;
