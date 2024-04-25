@@ -108,6 +108,20 @@ public sealed class EvaluationFacadeTests : CRUDFacadeTestsBase
         
         DeepAssert.Equal(EvaluationMapper.MapToListModel(EvaluationSeeds.Evaluation1), evaluation);
     }
+    [Fact]
+    public async Task GetAsyncListBySubjectAndStudent()
+    {
+        var evaluations =
+            await _evaluationFacadeSUT.GetAsyncListBySubjectAndStudent(EvaluationSeeds.Evaluation2.Activity.SubjectId,
+                EvaluationSeeds.Evaluation2.StudentId);
+        var evaluation = evaluations.Single(i => i.Id == EvaluationSeeds.Evaluation2.Id);
+        var evaluation2 = evaluations.Single(i => i.Id == EvaluationSeeds.Evaluation3.Id);
+        
+        DeepAssert.Equal(EvaluationMapper.MapToListModel(EvaluationSeeds.Evaluation2), evaluation);
+        DeepAssert.Equal(EvaluationMapper.MapToListModel(EvaluationSeeds.Evaluation3), evaluation2);
+        Assert.Equal(2, evaluations.Count());
+        Assert.Equal(7, evaluations.Sum(i => i.Score));
+    }
 
     [Fact]
     public async Task Delete_ExistingItem()

@@ -13,15 +13,15 @@ namespace SchoolSystem.BL.Facades
             mapper), IStudentFacade
     {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory = unitOfWorkFactory;
-        public async Task<IEnumerable<StudentDetailedModel>> GetStudentByNameSurname(string Name, string Surname)
+        public async Task<IEnumerable<StudentListModel>> GetStudentByNameSurname(string Name, string Surname)
         {
             await using var uow = _unitOfWorkFactory.Create();
             var dbSet = uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
                 .Where(x => x.Name == Name && x.Surname == Surname);
-            var students = new List<StudentDetailedModel>(); // Directly instantiate as List<StudentDetailedModel>
+            var students = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
             foreach (var instance in dbSet)
             {
-                var model = mapper.MapToDetailModel(instance);
+                var model = mapper.MapToListModel(instance);
                 students.Add(model); // Use Add method to add the model to the list
             }
             return students;

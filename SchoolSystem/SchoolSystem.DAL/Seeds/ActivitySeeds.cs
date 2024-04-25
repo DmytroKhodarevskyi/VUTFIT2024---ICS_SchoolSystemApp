@@ -34,6 +34,7 @@ public static class ActivitySeeds
         Activity2.Subject = SubjectSeeds.IUS;
         Activity1.Evaluations.Add(EvaluationSeeds.Evaluation1);
         Activity2.Evaluations.Add(EvaluationSeeds.Evaluation2);
+        
     }
     
     public static void Seed(ModelBuilder modelBuilder) =>

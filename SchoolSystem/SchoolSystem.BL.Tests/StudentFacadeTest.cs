@@ -118,7 +118,7 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     {
        var students = await _studentFacadeSUT.GetStudentByNameSurname("John", "Doe");
        
-       Assert.Contains(StudentMapper.MapToDetailModel(StudentSeeds.Student1), students);
+       Assert.Contains(StudentMapper.MapToListModel(StudentSeeds.Student1), students);
     }
 
 

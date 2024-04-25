@@ -68,4 +68,20 @@ public class EvaluationFacade :
         return ModelMapper.MapToListModel(query);
     }
     
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListBySubjectAndStudent(Guid? subjectId, Guid? studentId)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        
+        if (subjectId is null || studentId is null)
+        {
+            return new List<EvaluationListModel>();
+        }
+
+        List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
+            .Where(e => e.Activity!.SubjectId == subjectId && e.StudentId == studentId)
+            .ToList();
+
+        return ModelMapper.MapToListModel(query);
+    }
+    
 }

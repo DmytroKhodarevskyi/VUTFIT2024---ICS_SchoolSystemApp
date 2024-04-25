@@ -64,6 +64,7 @@ public static readonly ActivityEntity Activity1 = new()
         Activity2.Subject = SubjectSeeds.IUS;
         Activity1.Evaluations!.Add(EvaluationSeeds.Evaluation1);
         Activity2.Evaluations!.Add(EvaluationSeeds.Evaluation2);
+        Activity2.Evaluations!.Add(EvaluationSeeds.Evaluation3);
         Activity1.SubjectId = SubjectSeeds.IZP.Id;
         Activity2.SubjectId = SubjectSeeds.IUS.Id;
     }

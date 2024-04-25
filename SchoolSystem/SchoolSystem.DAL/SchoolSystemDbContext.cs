@@ -36,8 +36,6 @@ public class SchoolSystemDbContext : DbContext
             .WithMany(c => c.Activities)
             .HasForeignKey(a => a.SubjectId)
             .OnDelete(DeleteBehavior.Restrict);
-        
-        //
 
         modelBuilder.Entity<EvaluationEntity>()
             .HasOne(e => e.Activity)
@@ -50,8 +48,6 @@ public class SchoolSystemDbContext : DbContext
             .WithMany()
             .HasForeignKey(e => e.StudentId)
             .OnDelete(DeleteBehavior.Restrict);
-        
-        //
 
         modelBuilder.Entity<SubjectEntity>()
             .HasMany(s => s.Activities)
