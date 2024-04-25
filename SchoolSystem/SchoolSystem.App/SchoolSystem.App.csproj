@@ -69,7 +69,26 @@
 	<ItemGroup>
 		<Folder Include="Converters\" />
 		<Folder Include="Shell\" />
-		<Folder Include="Views\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Student\StudentEditView.xaml">
+	    <SubType>Designer</SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Student\StudentListView.xaml">
+	    <SubType>Designer</SubType>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Student\StudentEditView.xaml.cs">
+	    <DependentUpon>StudentEditView.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Student\StudentListView.xaml.cs">
+	    <DependentUpon>StudentListView.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
