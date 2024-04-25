@@ -1,3 +1,6 @@
+using SchoolSystem.App.Models;
+using SchoolSystem.App.ViewModels;
+
 namespace SchoolSystem.App.Services.Interfaces;
 
 public interface INavigationService

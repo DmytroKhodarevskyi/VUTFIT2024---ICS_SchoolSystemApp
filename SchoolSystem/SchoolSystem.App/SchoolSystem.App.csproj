@@ -68,7 +68,6 @@
 	  <Folder Include="Converters\" />
 	  <Folder Include="Messages\" />
 	  <Folder Include="Shell\" />
-	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>
 

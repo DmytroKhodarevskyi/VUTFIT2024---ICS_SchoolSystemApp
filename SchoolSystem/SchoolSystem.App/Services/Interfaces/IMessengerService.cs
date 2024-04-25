@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Messaging;
 namespace SchoolSystem.App.Services.Interfaces;
 
 public interface IMessengerService
