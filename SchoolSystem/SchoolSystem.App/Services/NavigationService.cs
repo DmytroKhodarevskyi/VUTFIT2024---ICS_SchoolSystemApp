@@ -2,7 +2,9 @@ using SchoolSystem.App.Models;
 using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.App.ViewModels;
 using SchoolSystem.App.ViewModels.Students;
+using SchoolSystem.App.Views.Student;
 using SchoolSystem.BL.Models;
+using StudentDetailViewModel = SchoolSystem.App.ViewModels.Students.StudentDetailViewModel;
 
 namespace SchoolSystem.App.Services;
 

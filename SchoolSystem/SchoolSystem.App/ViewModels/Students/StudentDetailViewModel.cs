@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using SchoolSystem.App.Messages;
 using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
@@ -32,7 +33,7 @@ public partial class StudentDetailViewModel(
             try
             {
                 await studentFacade.DeleteAsync(Student.Id);
-                MessengerService.Send(new DeleteMessage());
+                MessengerService.Send(new DeleteMessage<StudentDetailedModel>());
                 navigationService.SendBackButtonPressed();
             }
             catch (InvalidOperationException)

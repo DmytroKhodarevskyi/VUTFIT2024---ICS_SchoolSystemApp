@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SchoolSystem.App.ViewModels;
 
-namespace SchoolSystem.App.Views;
+namespace App.Views;
 
 public partial class ContentPageBase
 {

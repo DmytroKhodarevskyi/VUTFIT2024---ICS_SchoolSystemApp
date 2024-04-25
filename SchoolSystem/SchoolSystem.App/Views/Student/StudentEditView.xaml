@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                       xmlns:views1="clr-namespace:SchoolSystem.App.Views"
+                       xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
+                       xmlns:views2="clr-namespace:App.Views"
                        x:Class="SchoolSystem.App.Views.Student.StudentEditView"
                        Title="Another title, todo"
                        x:Name="StudentEditViewRoot"
-                       x:DataType="vm:StudentEditViewModel">
+                       x:DataType="students:StudentEditViewModel">
     <Grid RowDefinitions="70, *">
         <Grid Grid.Row="0"
               ColumnDefinitions="*, Auto"
@@ -45,4 +48,4 @@
             </VerticalStackLayout>
         </Grid>
     </Grid>
-</views:ContentPageBase>
+</views2:ContentPageBase>

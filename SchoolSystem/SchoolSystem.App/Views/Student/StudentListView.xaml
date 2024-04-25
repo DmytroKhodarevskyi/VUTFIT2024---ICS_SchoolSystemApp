@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views1:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:SchoolSystem.App.Views"
                        xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                       xmlns:views1="clr-namespace:App.Views"
+                       xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
                        x:Class="SchoolSystem.App.Views.Student.StudentListView"
                        Title="Listo de Estudiantes"
                        x:Name="StudentListViewRoot"
-                       x:DataType="vm:StudentListViewModel">
+                       x:DataType="students:StudentListViewModel">
     <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
           RowSpacing="20">
         <Label Grid.Row="0"
@@ -20,7 +22,7 @@
                 Text="Add"
                 Command="{Binding GoToCreateCommand}"
                 CornerRadius="5" FontFamily="MontserratMedium"
-                FontSize="14">
+                FontSize="14"/>
 
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Students}">
@@ -53,4 +55,4 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
-</views:ContentPageBase>
+</views1:ContentPageBase>

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SchoolSystem.App.Views.Student.StudentDetailView"
              xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
              xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+             xmlns:views1="clr-namespace:SchoolSystem.App.Views"
+             xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
+             xmlns:views2="clr-namespace:App.Views"
              Title="Title idk"
              x:Name="StudentDetailViewRoot"
-             x:DataType="vm:StudentDetailViewModel">
+             x:DataType="students:StudentDetailViewModel">
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
@@ -32,8 +35,8 @@
                        Text="{Binding Student.Name}" />
 
                 <Label FontSize="14"
-                       Text="{Binding Student.Description}" />
+                       Text="{Binding Student.Surname}" />
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>
-</ContentView>
+</views2:ContentPageBase>

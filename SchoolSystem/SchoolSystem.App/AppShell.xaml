@@ -6,10 +6,9 @@
     xmlns:local="clr-namespace:SchoolSystem.App"
     Shell.FlyoutBehavior="Disabled"
     Title="SchoolSystem.App">
-
+   
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-
 </Shell>

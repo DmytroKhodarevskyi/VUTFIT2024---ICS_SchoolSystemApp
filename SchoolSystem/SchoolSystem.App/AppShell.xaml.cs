@@ -1,4 +1,6 @@
-﻿using SchoolSystem.App.Services.Interfaces;
+﻿using CommunityToolkit.Mvvm.Input;
+using SchoolSystem.App.Services.Interfaces;
+using SchoolSystem.App.ViewModels.Students;
 
 namespace SchoolSystem.App
 {

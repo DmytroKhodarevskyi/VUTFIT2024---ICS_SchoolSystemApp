@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using SchoolSystem.App.Messages;
 using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
@@ -10,7 +11,7 @@ public partial class StudentListViewModel(
     IStudentFacade studentFacade,
     INavigationService navigationService,
     IMessengerService messengerService)
-    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage>
+    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<StudentListModel>>
 {
     public IEnumerable<StudentListModel> Students { get; set; } = null!;
 
@@ -39,7 +40,7 @@ public partial class StudentListViewModel(
         await LoadDataAsync();
     }
 
-    public async void Receive(DeleteMessage message)
+    public async void Receive(DeleteMessage<StudentListModel> message)
     {
         await LoadDataAsync();
     }
