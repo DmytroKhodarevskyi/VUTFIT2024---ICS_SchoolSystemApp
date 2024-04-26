@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SchoolSystem.DAL;
-using SchoolSystem.DAL.Factories;
+using DAL.Factories;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Common.Tests;
 using SchoolSystem.Common.Tests.Factories;

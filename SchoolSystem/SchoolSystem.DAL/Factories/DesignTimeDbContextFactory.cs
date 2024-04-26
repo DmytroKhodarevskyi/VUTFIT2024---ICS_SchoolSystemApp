@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using SchoolSystem.DAL;
 
-namespace SchoolSystem.DAL.Factories;
+namespace DAL.Factories;
 
 /// <summary>
 ///     EF Core CLI migration generation uses this DbContext to create model and migration

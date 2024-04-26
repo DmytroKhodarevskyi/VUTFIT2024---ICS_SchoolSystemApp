@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using SchoolSystem.DAL;
 
-namespace SchoolSystem.DAL.Factories;
+namespace DAL.Factories;
 
 public class DbContextSqLiteFactory : IDbContextFactory<SchoolSystemDbContext>
 {
