@@ -72,11 +72,13 @@
 	<ItemGroup>
 		<Folder Include="Converters\" />
 		<Folder Include="Services\" />
-		<Folder Include="Views\" />
 		<Folder Include="Messages\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Activity\ActivityEditView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Student\StudentEditView.xaml">
 	    <SubType>Designer</SubType>
 	  </MauiXaml>
@@ -89,6 +91,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Activity\ActivityEditView.xaml.cs">
+	    <DependentUpon>ActivityEditView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Student\StudentEditView.xaml.cs">
 	    <DependentUpon>StudentEditView.xaml</DependentUpon>
 	    <SubType>Code</SubType>

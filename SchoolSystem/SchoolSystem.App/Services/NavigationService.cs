@@ -3,6 +3,9 @@ using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.App.ViewModels;
 using SchoolSystem.App.ViewModels.Students;
 using SchoolSystem.App.Views.Student;
+using SchoolSystem.App.ViewModels.Activity;
+using SchoolSystem.App.Views.Activity;
+
 
 namespace SchoolSystem.App.Services;
 
@@ -16,6 +19,11 @@ public class NavigationService : INavigationService
         
         new("//students/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
         new("//students/detail/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
+
+        new("//activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
+        new("//activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
+        new("//activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
+        new("//activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
     };
 
     public async Task GoToAsync<TViewModel>()

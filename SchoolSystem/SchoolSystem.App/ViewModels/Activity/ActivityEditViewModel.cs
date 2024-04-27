@@ -7,7 +7,7 @@ using SchoolSystem.BL.Models;
 namespace SchoolSystem.App.ViewModels.Activity;
 
 [QueryProperty(nameof(Activity), nameof(Activity))]
-public partial class StudentEditViewModel(
+public partial class ActivityEditViewModel(
     IActivityFacade activityFacade,
     INavigationService navigationService,
     IMessengerService messengerService)

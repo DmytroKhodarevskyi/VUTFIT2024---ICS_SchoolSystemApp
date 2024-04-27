@@ -13,7 +13,7 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="schoolsystem" uuid="89d775c8-876c-4c78-84c3-203d5fef11a9">
+    <data-source source="LOCAL" name="Data Source=SchoolSystem [2]" uuid="89d775c8-876c-4c78-84c3-203d5fef11a9">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
