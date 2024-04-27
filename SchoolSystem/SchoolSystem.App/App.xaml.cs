@@ -1,4 +1,5 @@
-﻿
+﻿using SchoolSystem.App.Shells;
+
 namespace SchoolSystem.App
 {
    public partial class App : Application

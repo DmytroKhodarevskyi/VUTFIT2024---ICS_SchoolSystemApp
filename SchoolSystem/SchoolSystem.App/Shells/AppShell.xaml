@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
+       x:Class="SchoolSystem.App.Shells.AppShell"
+       x:Name="AppShellRoot"
+       FlyoutBehavior="Disabled">
+    <Shell.MenuBarItems>
+        <MenuBarItem Text="texts">
+            <MenuFlyoutItem Text="studenty"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentListViewCommand}" />
+
+        </MenuBarItem>
+    </Shell.MenuBarItems>
+
+    <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
+</Shell>
