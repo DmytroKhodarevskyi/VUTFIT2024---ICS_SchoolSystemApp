@@ -2,16 +2,21 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
+       xmlns:subjects="clr-namespace:SchoolSystem.App.Views.Subject"
        x:Class="SchoolSystem.App.Shells.AppShell"
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
     <Shell.MenuBarItems>
-        <MenuBarItem Text="texts">
+        <MenuBarItem Text="pomoika">
             <MenuFlyoutItem Text="studenty"
-                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentListViewCommand}" />
-
+                Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
+        </MenuBarItem>
+        <MenuBarItem Text="subjects">
+            <MenuFlyoutItem Text="subjecty"
+                 Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
         </MenuBarItem>
     </Shell.MenuBarItems>
 
     <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
-</Shell>
+    <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" /> 
+    </Shell>
