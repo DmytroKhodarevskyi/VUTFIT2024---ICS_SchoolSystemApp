@@ -5,23 +5,21 @@ using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
 
-namespace SchoolSystem.App.ViewModels.Students;
+namespace SchoolSystem.App.ViewModels.Evaluations;
 
-public partial class StudentListViewModel(
-    IStudentFacade studentFacade,
+public partial class EvaluationListViewModel(
+    IEvaluationFacade evaluationFacade,
     INavigationService navigationService,
     IMessengerService messengerService)
-    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<StudentListModel>>
+    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<EvaluationListModel>>
 {
-
-    public IEnumerable<StudentListModel> Students { get; set; } = studentFacade.GetAsync().Result;
+    public IEnumerable<EvaluationListModel> Evaluations { get; set; } = null!;
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Students = studentFacade.GetAsync().Result;
-        
+        Evaluations = await evaluationFacade.GetAsync();
     }
 
     [RelayCommand]
@@ -33,8 +31,8 @@ public partial class StudentListViewModel(
     [RelayCommand]
     private async Task GoToDetailAsync(Guid id)
     {
-        await navigationService.GoToAsync<StudentDetailViewModel>(
-            new Dictionary<string, object?> { [nameof(StudentDetailViewModel.Id)] = id });
+        await navigationService.GoToAsync<EvaluationDetailViewModel>(
+            new Dictionary<string, object?> { [nameof(EvaluationDetailViewModel.Id)] = id });
     }
 
     public async void Receive(EditMessage message)
@@ -42,7 +40,7 @@ public partial class StudentListViewModel(
         await LoadDataAsync();
     }
 
-    public async void Receive(DeleteMessage<StudentListModel> message)
+    public async void Receive(DeleteMessage<EvaluationListModel> message)
     {
         await LoadDataAsync();
     }
