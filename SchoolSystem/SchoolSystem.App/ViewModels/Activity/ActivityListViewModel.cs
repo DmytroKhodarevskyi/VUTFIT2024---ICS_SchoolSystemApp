@@ -13,7 +13,7 @@ public partial class ActivityListViewModel(
     IMessengerService messengerService)
     : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
 {
-    public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
+    public IEnumerable<ActivityListModel> Activities { get; set; } = activityFacade.GetAsync().Result;
 
     protected override async Task LoadDataAsync()
     {
