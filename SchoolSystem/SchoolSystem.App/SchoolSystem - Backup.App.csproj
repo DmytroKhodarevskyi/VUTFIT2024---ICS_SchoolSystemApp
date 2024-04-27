@@ -100,6 +100,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Activity\ActivityEditView.xaml.cs">
+	    <DependentUpon>ActivityEditView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Student\StudentEditView.xaml.cs">
 	    <DependentUpon>StudentEditView.xaml</DependentUpon>
 	    <SubType>Code</SubType>

@@ -2,21 +2,45 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
+<<<<<<< HEAD
        xmlns:subjects="clr-namespace:SchoolSystem.App.Views.Subject"
+=======
+       xmlns:a="clr-namespace:SchoolSystem.App.Views.Activity"
+
+       xmlns:activity="clr-namespace:SchoolSystem.App.Views.Activity"
+>>>>>>> viewmodelactivity
        x:Class="SchoolSystem.App.Shells.AppShell"
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
     <Shell.MenuBarItems>
         <MenuBarItem Text="pomoika">
             <MenuFlyoutItem Text="studenty"
+<<<<<<< HEAD
                 Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
         </MenuBarItem>
         <MenuBarItem Text="subjects">
             <MenuFlyoutItem Text="subjecty"
                  Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
+=======
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
+
+        </MenuBarItem>
+
+        <MenuBarItem Text="texts">
+            <MenuFlyoutItem Text="activ"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToActivitiesCommand}" />
+
+
+>>>>>>> viewmodelactivity
         </MenuBarItem>
     </Shell.MenuBarItems>
 
     <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
+<<<<<<< HEAD
     <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" /> 
     </Shell>
+=======
+    <ShellContent ContentTemplate="{DataTemplate activity:ActivityListView}" Route="activities" />
+
+</Shell>
+>>>>>>> viewmodelactivity
