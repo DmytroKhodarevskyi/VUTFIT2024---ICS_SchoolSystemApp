@@ -5,20 +5,24 @@
              x:Class="SchoolSystem.App.Views.Subject.SubjectDetailView"
              xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
              xmlns:subjects="clr-namespace:SchoolSystem.App.ViewModels.Subjects"
+             xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
              xmlns:views2="clr-namespace:App.Views"
-             Title="Titleeee"
+             Title="{x:Static texts:SubjectDetailViewTexts.Subject_MenuItem_Title}"
+             Style="{StaticResource ContentPageStyle}"
              x:Name="SubjectDetailViewRoot"
              x:DataType="subjects:SubjectDetailViewModel">
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
                                HeightRequest="30">
-            <Button Text="Delete"
+            <Button Text="{x:Static texts:SubjectDetailViewTexts.DeleteButtonLabel}"
                     CornerRadius="5"
+                    BackgroundColor="{StaticResource FalseColor}"
                     Command="{Binding DeleteCommand}" />
 
-            <Button Text="Edit"
+            <Button Text="{x:Static texts:SubjectDetailViewTexts.EditButtonLabel}"
                     CornerRadius="5"
+                    BackgroundColor="{StaticResource PrimaryColor}"
                     Command="{Binding GoToEditCommand}" />
         </HorizontalStackLayout>
 

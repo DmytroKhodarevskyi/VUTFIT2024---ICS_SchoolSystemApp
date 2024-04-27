@@ -4,32 +4,24 @@
        xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
        xmlns:subjects="clr-namespace:SchoolSystem.App.Views.Subject"
        xmlns:a="clr-namespace:SchoolSystem.App.Views.Activity"
-
+       xmlns:text="clr-namespace:SchoolSystem.App.Resources.Texts"
        xmlns:activity="clr-namespace:SchoolSystem.App.Views.Activity"
        x:Class="SchoolSystem.App.Shells.AppShell"
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
     <Shell.MenuBarItems>
-        <MenuBarItem Text="pomoika">
-            <MenuFlyoutItem Text="studenty"
-                Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
-        </MenuBarItem>
-        <MenuBarItem Text="subjects">
-            <MenuFlyoutItem Text="subjecty"
-                 Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
-
-        </MenuBarItem>
-
-        <MenuBarItem Text="texts">
-            <MenuFlyoutItem Text="activ"
+        <MenuBarItem Text="{x:Static text:AppShellTexts.File_MenuItem_Title}">
+            <MenuFlyoutItem Text= "{x:Static text:AppShellTexts.StudentMenuItem_Text}"
+                             Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
+            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.SubjectMenuItem_Text}"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
+            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.ActivityMenuItem_Text}"
                             Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToActivitiesCommand}" />
 
 
         </MenuBarItem>
     </Shell.MenuBarItems>
-
     <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
-    <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" /> 
+    <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" />
     <ShellContent ContentTemplate="{DataTemplate activity:ActivityListView}" Route="activities" />
-
 </Shell>
