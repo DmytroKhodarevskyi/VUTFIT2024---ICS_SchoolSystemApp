@@ -85,6 +85,15 @@
 	  <MauiXaml Update="Shells\AppShell.xaml">
 	    <SubType>Designer</SubType>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Subject\SubjectListVIew.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Subject\SubjectEditView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Subject\SubjectDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -99,6 +108,15 @@
 	  <Compile Update="Shells\AppShell.xaml.cs">
 	    <DependentUpon>AppShell.xaml</DependentUpon>
 	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Subject\SubjectListVIew.xaml.cs">
+	    <DependentUpon>SubjectListVIew.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Subject\SubjectEditView.xaml.cs">
+	    <DependentUpon>SubjectEditView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Subject\SubjectDetailView.xaml.cs">
+	    <DependentUpon>SubjectDetailView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
