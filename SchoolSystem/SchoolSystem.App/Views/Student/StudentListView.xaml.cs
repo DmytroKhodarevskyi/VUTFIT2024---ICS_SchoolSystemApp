@@ -14,5 +14,6 @@ public partial class StudentListView
         : base(viewModel)
     {
         InitializeComponent();
+        // viewModel.Students.ToList().ForEach(s => Console.WriteLine(s.Name));
     }
 }
