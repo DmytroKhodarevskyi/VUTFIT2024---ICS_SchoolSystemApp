@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using SchoolSystem.BL;
 using DAL.Migrator;
@@ -26,12 +27,13 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        ConfigureAppSettings(builder);
+        //ConfigureAppSettings(builder);
 
         builder.Services
             .AddDALServices(GetDALOptions(builder.Configuration))
             .AddAppServices()
             .AddBLServices();
+        
 
         var app = builder.Build();
 
@@ -43,18 +45,20 @@ public static class MauiProgram
 
     private static void ConfigureAppSettings(MauiAppBuilder builder)
     {
-        var configurationBuilder = new ConfigurationBuilder();
-    
-        var assembly = Assembly.GetExecutingAssembly();
-        const string appSettingsFilePath = "SchoolSystem.App.appsettings.json";
-        using var appSettingsStream = assembly.GetManifestResourceStream(appSettingsFilePath);
-        if (appSettingsStream is not null)
-        {
-            configurationBuilder.AddJsonStream(appSettingsStream);
-        }
-    
-        var configuration = configurationBuilder.Build();
-        builder.Configuration.AddConfiguration(configuration);
+        var configurationBuilder = new ConfigurationBuilder()
+            // .SetBasePath(Directory.GetCurrentDirectory())
+            // .AddJsonFile("appsettings.json")
+            .Build();
+        //
+        // var assembly = Assembly.GetExecutingAssembly();
+        // const string appSettingsFilePath = "SchoolSystem.App.appsettings.json";
+        // using var appSettingsStream = assembly.GetManifestResourceStream(appSettingsFilePath);
+        // if (appSettingsStream is not null)
+        // {
+        //     configurationBuilder.AddJsonStream(appSettingsStream);
+        // }
+        //
+        builder.Configuration.AddConfiguration(configurationBuilder);
     }
 
     private static void RegisterRouting(INavigationService navigationService)
@@ -67,11 +71,17 @@ public static class MauiProgram
 
     private static DALOptions GetDALOptions(IConfiguration configuration)
     {
+        // Extract values
         DALOptions dalOptions = new()
         {
-            DatabaseDirectory = FileSystem.AppDataDirectory
+            DatabaseDirectory = FileSystem.AppDataDirectory,
+            DatabaseName = "schoolsystem.db",
+            RecreateDatabaseEachTime = false,
+            SeedDemoData = true
+            
         };
-        configuration.GetSection("SchoolSystem:DAL").Bind(dalOptions);
+        
+       // configuration.GetSection("SchoolSystem:DAL").Bind(dalOptions);
         return dalOptions;
     }
 

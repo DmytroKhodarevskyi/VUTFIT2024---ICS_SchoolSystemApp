@@ -3,8 +3,6 @@ using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.App.ViewModels;
 using SchoolSystem.App.ViewModels.Students;
 using SchoolSystem.App.Views.Student;
-using SchoolSystem.BL.Models;
-using StudentDetailViewModel = SchoolSystem.App.ViewModels.Students.StudentDetailViewModel;
 
 namespace SchoolSystem.App.Services;
 
@@ -14,7 +12,7 @@ public class NavigationService : INavigationService
     {
         //first parameter is the route, second is the view, third is the view model
         new("//students", typeof(StudentListView), typeof(StudentListViewModel)),
-        new("//students/detail", typeof(StudentDetailedModel), typeof(StudentDetailViewModel)),
+        new("//students/detail", typeof(StudentDetailView), typeof(StudentDetailViewModel)),
         
         new("//students/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
         new("//students/detail/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
