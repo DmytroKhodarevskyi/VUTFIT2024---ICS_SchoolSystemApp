@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.App.ViewModels.Students;
+using SchoolSystem.App.ViewModels.Subjects;
 
 namespace SchoolSystem.App.Shells;
 
@@ -18,4 +19,9 @@ public partial class AppShell
     [RelayCommand]
     private async Task GoToStudentAsync()
         => await _navigationService.GoToAsync<StudentListViewModel>();
+
+
+    [RelayCommand]
+    private async Task GoToSubjectAsync()
+        => await _navigationService.GoToAsync<SubjectListViewModel>();
 }
