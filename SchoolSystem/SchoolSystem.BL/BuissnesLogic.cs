@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("CookBook.BL.Tests")]
+[assembly: InternalsVisibleTo("SchoolSystem.BL.Tests")]
 
 namespace SchoolSystem.BL;
 
