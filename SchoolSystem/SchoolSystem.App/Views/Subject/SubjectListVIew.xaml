@@ -8,7 +8,6 @@
              xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
              xmlns:views2="clr-namespace:App.Views"
              Title="{x:Static texts:SubjectListViewTexts.SubjectList_MenuTitle}"
-             Style="{StaticResource ContentPageStyle}"
              x:Name="SubjectListViewRoot"
              x:DataType="subjects:SubjectListViewModel">
     <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
@@ -23,8 +22,7 @@
                 Text="{x:Static texts:SubjectListViewTexts.AddButtonLabel}"
                 Command="{Binding GoToCreateCommand}"
                 CornerRadius="5" FontFamily="MontserratMedium"
-                FontSize="14"
-                Style="{StaticResource Black}"/>
+                FontSize="14"/>
 
 
  

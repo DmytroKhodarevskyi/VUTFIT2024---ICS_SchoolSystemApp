@@ -6,7 +6,9 @@ using SchoolSystem.App.Views.Student;
 using SchoolSystem.App.ViewModels.Subjects;
 using SchoolSystem.App.Views.Subject;
 using SchoolSystem.App.ViewModels.Activity;
+using SchoolSystem.App.ViewModels.Evaluations;
 using SchoolSystem.App.Views.Activity;
+using SchoolSystem.App.Views.Evaluations;
 
 
 namespace SchoolSystem.App.Services;
