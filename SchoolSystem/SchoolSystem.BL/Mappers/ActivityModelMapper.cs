@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using SchoolSystem.BL.Models;
 using DAL.Entities;
 
@@ -16,8 +17,7 @@ public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListM
             Description = entity.Description,
             Tag = entity.Tag,
             Room = entity.Room,
-            SubjectId = entity.SubjectId,
-            
+            SubjectId = entity.SubjectId
         };  
 
     public override ActivityDetailModel MapToDetailModel(ActivityEntity? entity) =>
@@ -32,6 +32,10 @@ public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListM
                 Description = entity.Description,
                 Room = entity.Room,
                 SubjectId = entity.SubjectId,
+                Evaluations = entity.Evaluations is null
+                    ? new ObservableCollection<EvaluationListModel>()
+                    : new ObservableCollection<EvaluationListModel>(entity.Evaluations.Select(e => new EvaluationModelMapper().MapToListModel(e))),
+                Subject = entity.Subject is null ? SubjectListModel.Empty : new SubjectModelMapper().MapToListModel(entity.Subject)
             
             };
     

@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
        xmlns:subjects="clr-namespace:SchoolSystem.App.Views.Subject"
+       xmlns:evaluations="clr-namespace:SchoolSystem.App.Views.Evaluations"
        xmlns:a="clr-namespace:SchoolSystem.App.Views.Activity"
        xmlns:text="clr-namespace:SchoolSystem.App.Resources.Texts"
        xmlns:activity="clr-namespace:SchoolSystem.App.Views.Activity"
@@ -10,6 +11,7 @@
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
     <Shell.MenuBarItems>
+        
         <MenuBarItem Text="{x:Static text:AppShellTexts.File_MenuItem_Title}">
             <MenuFlyoutItem Text= "{x:Static text:AppShellTexts.StudentMenuItem_Text}"
                              Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
@@ -17,11 +19,19 @@
                             Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
             <MenuFlyoutItem Text="{x:Static text:AppShellTexts.ActivityMenuItem_Text}"
                             Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToActivitiesCommand}" />
-
-
+            <MenuFlyoutItem Text="evaluations"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToEvaluationCommand}" />
+            
         </MenuBarItem>
+        
     </Shell.MenuBarItems>
+    
+
     <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
     <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" />
     <ShellContent ContentTemplate="{DataTemplate activity:ActivityListView}" Route="activities" />
+    <ShellContent ContentTemplate="{DataTemplate evaluations:EvaluationListView}" Route="evaluations" />
+
 </Shell>
+
+    

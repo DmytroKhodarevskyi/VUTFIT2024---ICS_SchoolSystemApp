@@ -21,11 +21,11 @@ public class CRUDFacadeTestsBase : IAsyncLifetime
         var dbname = GetType().FullName!;
         
         DbContextFactory = new SchoolSystemDbContextSqLiteTestingFactory(dbname, seedTestingData: true);
-
-        StudentMapper = new StudentModelMapper();
+        
         ActivityMapper = new ActivityModelMapper();
         EvaluationMapper = new EvaluationModelMapper();
         SubjectMapper = new SubjectModelMapper();
+        StudentMapper = new StudentModelMapper(SubjectMapper);
         
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
     }

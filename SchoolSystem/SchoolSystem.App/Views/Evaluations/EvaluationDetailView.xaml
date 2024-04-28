@@ -5,8 +5,36 @@
       xmlns:view="clr-namespace:SchoolSystem.App.Views.Evaluations"
       x:Class="SchoolSystem.App.Views.Evaluations.EvaluationDetailView"
       xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Evaluations"
-      xmlns:views="clr-namespace:App.Views">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+      xmlns:views="clr-namespace:App.Views"
+      Title="Evaluation Detail"
+      x:Name="EvaluationDetailViewRoot"
+      x:DataType="students:EvaluationDetailViewModel">
+    <VerticalStackLayout Spacing="20">
+        <HorizontalStackLayout HorizontalOptions="End"
+                               Spacing="15"
+                               HeightRequest="30">
+            <Button Text="Delete"
+                    CornerRadius="5"
+                    Command="{Binding DeleteCommand}" />
+
+            <Button Text="Edit"
+                    CornerRadius="5"
+                    Command="{Binding GoToEditCommand}" />
+        </HorizontalStackLayout>
+
+        <Grid HorizontalOptions="Center" VerticalOptions="Start"
+              RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
+              RowSpacing="20" ColumnSpacing="20">
+
+            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
+                                 Grid.Column="2"
+                                 Spacing="20">
+                <Label FontSize="24"
+                       Text="{Binding Evaluation.Activity.Name}" />
+
+                <Label FontSize="14"
+                       Text="{Binding Evaluation.Score}" />
+            </VerticalStackLayout>
+        </Grid>
+    </VerticalStackLayout>
 </views:ContentPageBase>

@@ -1,4 +1,5 @@
 
+using System.Collections.ObjectModel;
 using DAL.Entities;
 using DAL.Enums;
 
@@ -12,9 +13,11 @@ public record ActivityDetailModel() : baseModel
     public Room Room { get; set; }  
     public int Tag { get; set; } 
     public string? Description { get; set; } 
-    //public ICollection<EvaluationListModel>? Evaluations { get; set; } = new List<EvaluationListModel>();
+    public ICollection<EvaluationListModel>? Evaluations { get; set; } = new List<EvaluationListModel>();
     
     public Guid? SubjectId { get; set; }
+    
+    public SubjectListModel? Subject { get; set; }
     
     public static ActivityDetailModel Empty => new()
     {
@@ -25,7 +28,9 @@ public record ActivityDetailModel() : baseModel
         Room = Room.D105,
         Tag = 0,
         Description = string.Empty,
-        SubjectId = Guid.Empty
+        SubjectId = Guid.Empty,
+        Evaluations = new ObservableCollection<EvaluationListModel>(),
+        Subject = SubjectListModel.Empty
     };
 
     

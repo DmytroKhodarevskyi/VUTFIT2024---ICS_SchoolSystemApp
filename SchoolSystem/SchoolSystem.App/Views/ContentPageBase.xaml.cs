@@ -7,7 +7,7 @@ using SchoolSystem.App.ViewModels;
 
 namespace App.Views;
 
-public partial class ContentPageBase
+public partial class ContentPageBase 
 {
     protected IViewModel ViewModel { get; }
 

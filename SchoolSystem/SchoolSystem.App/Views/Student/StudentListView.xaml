@@ -7,9 +7,9 @@
                       xmlns:views1="clr-namespace:App.Views"
                       xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
                       x:Class="SchoolSystem.App.Views.Student.StudentListView"
+                      x:DataType="students:StudentListViewModel"
                       Title="Listo de Estudiantes"
                       x:Name="StudentListViewRoot"
-                      x:DataType="students:StudentListViewModel"
                        >
    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
          RowSpacing="20">

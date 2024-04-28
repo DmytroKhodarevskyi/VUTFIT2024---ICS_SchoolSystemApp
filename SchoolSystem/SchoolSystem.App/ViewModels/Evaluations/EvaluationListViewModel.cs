@@ -13,7 +13,7 @@ public partial class EvaluationListViewModel(
     IMessengerService messengerService)
     : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<EvaluationListModel>>
 {
-    public IEnumerable<EvaluationListModel> Evaluations { get; set; } = null!;
+    public IEnumerable<EvaluationListModel> Evaluations { get; set; } = evaluationFacade.GetAsync().Result;
 
     protected override async Task LoadDataAsync()
     {
