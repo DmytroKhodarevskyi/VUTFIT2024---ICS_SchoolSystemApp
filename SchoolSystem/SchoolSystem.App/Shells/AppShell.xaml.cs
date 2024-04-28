@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using SchoolSystem.App.Services.Interfaces;
+using SchoolSystem.App.ViewModels.Evaluations;
 using SchoolSystem.App.ViewModels.Students;
 using SchoolSystem.App.ViewModels.Subjects;
 
@@ -24,4 +25,8 @@ public partial class AppShell
     [RelayCommand]
     private async Task GoToSubjectAsync()
         => await _navigationService.GoToAsync<SubjectListViewModel>();
+    
+    [RelayCommand]
+    private async Task GoToEvaluationAsync()
+        => await _navigationService.GoToAsync<EvaluationListViewModel>();
 }

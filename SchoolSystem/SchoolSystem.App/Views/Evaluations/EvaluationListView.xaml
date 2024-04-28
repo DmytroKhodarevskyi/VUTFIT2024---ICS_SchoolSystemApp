@@ -3,8 +3,47 @@
 <views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:views="clr-namespace:App.Views"
-                        x:Class="SchoolSystem.App.Views.Evaluations.EvaluationListView">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+                        xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
+                        xmlns:evaluations="clr-namespace:SchoolSystem.App.ViewModels.Evaluations"
+                        x:Class="SchoolSystem.App.Views.Evaluations.EvaluationListView"
+                        Title="Evaluations"
+                        x:Name="EvaluationsListViewRoot"
+                        x:DataType="evaluations:EvaluationListViewModel">
+    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
+          RowSpacing="20">
+        <Label Grid.Row="0"
+               FontSize="24"
+               Text="Evaluations" />
+
+        <Button Grid.Row="0"
+                Padding="12, 6"
+                HorizontalOptions="End" VerticalOptions="Start"
+                Text="Add"
+                Command="{Binding GoToCreateCommand}"
+                CornerRadius="5" FontFamily="MontserratMedium"
+                FontSize="14"/>
+
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Evaluations}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="m:EvaluationListModel">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Score}"
+                                   FontSize="16"
+                                   FontFamily="MontserratMedium"
+                                   TextColor="Blue"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </views:ContentPageBase>

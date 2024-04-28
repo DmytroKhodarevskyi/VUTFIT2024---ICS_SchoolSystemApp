@@ -9,6 +9,9 @@ public record EvaluationDetailModel() : baseModel
     public string? Description { get; set; }    
     public Guid? ActivityId { get; set; }
     public Guid? StudentId { get; set; }
+    
+    public StudentListModel? Student { get; set; }
+    public ActivityListModel? Activity { get; set; }
 
     public static EvaluationDetailModel Empty => new()
     {
@@ -16,6 +19,8 @@ public record EvaluationDetailModel() : baseModel
         Score = 0,
         Description = string.Empty,
         ActivityId = Guid.Empty,
-        StudentId = Guid.Empty
+        StudentId = Guid.Empty,
+        Student = StudentListModel.Empty,
+        Activity = ActivityListModel.Empty
     };
 }

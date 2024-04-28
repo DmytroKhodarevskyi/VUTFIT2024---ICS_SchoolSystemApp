@@ -1,9 +1,12 @@
+using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Core.Extensions;
 using DAL.Entities;
 using SchoolSystem.BL.Models;
 
 namespace SchoolSystem.BL.Mappers;
 
-public class StudentModelMapper : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailedModel>
+public class StudentModelMapper(SubjectModelMapper subjectModelMapper)
+    : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailedModel>
 {
     public override StudentListModel MapToListModel(StudentEntity? entity) => entity is null
         ? StudentListModel.Empty
@@ -22,7 +25,8 @@ public class StudentModelMapper : ModelMapperBase<StudentEntity, StudentListMode
                 Id = entity.Id,
                 Name = entity.Name,
                 Surname = entity.Surname,
-                Photo = entity.Photo
+                Photo = entity.Photo,
+                Subjects = subjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection()
             };
 
     public override StudentEntity MapToEntity(StudentDetailedModel model) =>

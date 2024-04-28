@@ -14,13 +14,12 @@ public partial class StudentListViewModel(
     : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<StudentListModel>>
 {
 
-    public IEnumerable<StudentListModel> Students { get; set; } = studentFacade.GetAsync().Result;
-
+    public IEnumerable<StudentListModel> Students { get; set; } = null!;    
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Students = studentFacade.GetAsync().Result;
+        Students = await studentFacade.GetAsync();
         
     }
 
@@ -46,4 +45,5 @@ public partial class StudentListViewModel(
     {
         await LoadDataAsync();
     }
+    
 }

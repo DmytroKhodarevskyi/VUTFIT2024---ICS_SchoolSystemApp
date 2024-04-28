@@ -3,11 +3,12 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
        xmlns:subjects="clr-namespace:SchoolSystem.App.Views.Subject"
+       xmlns:evaluations="clr-namespace:SchoolSystem.App.Views.Evaluations"
        x:Class="SchoolSystem.App.Shells.AppShell"
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
     <Shell.MenuBarItems>
-        <MenuBarItem Text="pomoika">
+        <MenuBarItem Text="studenty">
             <MenuFlyoutItem Text="studenty"
                 Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
         </MenuBarItem>
@@ -15,8 +16,15 @@
             <MenuFlyoutItem Text="subjecty"
                  Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
         </MenuBarItem>
+        <MenuBarItem Text="evaluations">
+            <MenuFlyoutItem Text="evaluations"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToEvaluationCommand}" />
+        </MenuBarItem>
+        
     </Shell.MenuBarItems>
+    
 
     <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
     <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" /> 
+    <ShellContent ContentTemplate="{DataTemplate evaluations:EvaluationListView}" Route="evaluations" />
     </Shell>

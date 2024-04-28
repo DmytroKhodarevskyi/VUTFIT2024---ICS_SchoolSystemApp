@@ -27,4 +27,6 @@ public abstract class ViewModelBase : ObservableRecipient, IViewModel
 
     protected virtual Task LoadDataAsync()
         => Task.CompletedTask;
+
+
 }
