@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="SchoolSystem.App.Views.Activity.ActivityDetailView"
+                        xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
+                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                        xmlns:views1="clr-namespace:SchoolSystem.App.Views"
+                        xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
+                        xmlns:views2="clr-namespace:App.Views"
+                        Title="Activity Detail"
+                        x:Name="ActivityDetailViewRoot"
+                        x:DataType="activities:ActivityDetailViewModel">
+    <VerticalStackLayout Spacing="20">
+        <HorizontalStackLayout HorizontalOptions="End"
+                               Spacing="15"
+                               HeightRequest="30">
+            <Button Text="Delete"
+                    CornerRadius="5"
+                    Command="{Binding DeleteCommand}" />
+
+            <Button Text="Edit"
+                    CornerRadius="5"
+                    Command="{Binding GoToEditCommand}" />
+        </HorizontalStackLayout>
+
+        <Grid HorizontalOptions="Center" VerticalOptions="Start"
+              RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
+              RowSpacing="20" ColumnSpacing="20">
+
+            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
+                                 Grid.Column="2"
+                                 Spacing="20">
+                <Label FontSize="24"
+                       Text="{Binding Activity.Name}" />
+
+                <Label FontSize="14"
+                       Text="{Binding Activity.Start}" />
+                
+                <Label FontSize="14"
+                       Text="{Binding Activity.End}" />
+                <Label FontSize="14"
+                       Text="{Binding Activity.Room}" />
+                <Label FontSize="14"
+                       Text="{Binding Activity.Tag}" />
+                <Label FontSize="14"
+                       Text="{Binding Activity.Description}" />
+            </VerticalStackLayout>
+        </Grid>
+    </VerticalStackLayout>
+</views2:ContentPageBase>

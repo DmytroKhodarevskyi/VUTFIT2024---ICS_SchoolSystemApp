@@ -3,6 +3,8 @@ using SchoolSystem.App.Services.Interfaces;
 using SchoolSystem.App.ViewModels.Evaluations;
 using SchoolSystem.App.ViewModels.Students;
 using SchoolSystem.App.ViewModels.Subjects;
+using SchoolSystem.App.ViewModels.Activity;
+
 
 namespace SchoolSystem.App.Shells;
 
@@ -25,8 +27,12 @@ public partial class AppShell
     [RelayCommand]
     private async Task GoToSubjectAsync()
         => await _navigationService.GoToAsync<SubjectListViewModel>();
-    
+    // Example method to navigate to the student list view
+    [RelayCommand]
+    private async Task GoToActivitiesAsync()
+        => await _navigationService.GoToAsync<ActivityListViewModel>();
     [RelayCommand]
     private async Task GoToEvaluationAsync()
         => await _navigationService.GoToAsync<EvaluationListViewModel>();
+
 }

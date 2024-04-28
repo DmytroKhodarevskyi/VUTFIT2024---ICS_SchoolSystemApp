@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views1:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolSystem.App.Views"
+                       xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
+                       xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                       xmlns:views1="clr-namespace:App.Views"
+                       xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
+                       x:Class="SchoolSystem.App.Views.Activity.ActivityListView"
+                       Title="Activity list"
+                       x:Name="ActivityListViewRoot"
+                       x:DataType="activities:ActivityListViewModel">
+    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
+          RowSpacing="20">
+        <Label Grid.Row="0"
+               FontSize="24"
+               Text="Activitiies" />
+
+        <Button Grid.Row="0"
+                Padding="12, 6"
+                HorizontalOptions="End" VerticalOptions="Start"
+                Text="Add Activity"
+                Command="{Binding GoToCreateCommand}"
+                CornerRadius="5" FontFamily="MontserratMedium"
+                FontSize="14"/>
+
+        <!-- <CollectionView Grid.Row="1" -->
+        <!--                 ItemsSource="{Binding Activities}"> -->
+        <!--     <CollectionView.ItemsLayout> -->
+        <!--         <GridItemsLayout Orientation="Horizontal" -->
+        <!--                          HorizontalItemSpacing="10" VerticalItemSpacing="10" -->
+        <!--                          Span="2" /> -->
+        <!--     </CollectionView.ItemsLayout> -->
+        <!-- -->
+        <!--     <CollectionView.ItemTemplate> -->
+        <!--         <DataTemplate x:DataType="m:ActivityListModel"> -->
+        <!--                <Grid Padding="10"> -->
+        <!--                       <Grid.ColumnDefinitions> -->
+        <!--                              <ColumnDefinition Width="Auto"/> -->
+        <!--                              <ColumnDefinition Width="Auto"/> -->
+        <!--                              <ColumnDefinition Width="Auto"/> -->
+        <!--                              <ColumnDefinition Width="Auto"/> -->
+        <!--                              <ColumnDefinition Width="*"/> -->
+        <!--                              <ColumnDefinition /> -->
+        <!--                       </Grid.ColumnDefinitions> -->
+        <!--                       <Label Grid.Column="1" -->
+        <!--                              Text="{Binding Name}"  -->
+        <!--                              FontSize="16" -->
+        <!--                              FontFamily="MontserratMedium" -->
+        <!--                              TextColor="Blue" -->
+        <!--                              VerticalOptions="Center" /> -->
+        <!--                       <Label Grid.Column="2" -->
+        <!--                              Text="{Binding Start}" -->
+        <!--                              FontSize="16" -->
+        <!--                              FontFamily="MontserratMedium" -->
+        <!--                              TextColor="Blue" -->
+        <!--                              VerticalOptions="Center" />  -->
+        <!--                       <Label Grid.Column="3" -->
+        <!--                              Text="{Binding End}" -->
+        <!--                              FontSize="16" -->
+        <!--                              FontFamily="MontserratMedium" -->
+        <!--                              TextColor="Blue" -->
+        <!--                              VerticalOptions="Center" />  -->
+        <!--                       <Label Grid.Column="4" -->
+        <!--                              Text="{Binding Room}" -->
+        <!--                              FontSize="16" -->
+        <!--                              FontFamily="MontserratMedium" -->
+        <!--                              TextColor="Blue" -->
+        <!--                              VerticalOptions="Center" />  -->
+        <!--                       <Label Grid.Column="5" -->
+        <!--                              Text="{Binding Tag}" -->
+        <!--                              FontSize="16" -->
+        <!--                              FontFamily="MontserratMedium" -->
+        <!--                              TextColor="Blue" -->
+        <!--                              VerticalOptions="Center" />  -->
+        <!--                      -->
+        <!--                </Grid> -->
+        <!--                -->
+        <!--         </DataTemplate> -->
+        <!--     </CollectionView.ItemTemplate> -->
+        <!-- </CollectionView> -->
+        
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Activities}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="m:ActivityListModel">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}" 
+                                   FontSize="16"
+                                   FontFamily="MontserratMedium"
+                                   TextColor="Blue"
+                                   VerticalOptions="Center" />
+                            <Label Grid.Column="2"
+                                   Text="{Binding Start}"
+                                   FontSize="16"
+                                   FontFamily="MontserratMedium"
+                                   TextColor="Blue"
+                                   VerticalOptions="Center" /> 
+                            <Label Grid.Column="3"
+                                   Text="{Binding End}"
+                                   FontSize="16"
+                                   FontFamily="MontserratMedium"
+                                   TextColor="Blue"
+                                   VerticalOptions="Center" /> 
+                            <Label Grid.Column="4"
+                                   Text="{Binding Room}"
+                                   FontSize="16"
+                                   FontFamily="MontserratMedium"
+                                   TextColor="Blue"
+                                   VerticalOptions="Center" /> 
+                            <Label Grid.Column="5"
+                                   Text="{Binding Tag}"
+                                   FontSize="16"
+                                   FontFamily="MontserratMedium"
+                                   TextColor="Blue"
+                                   VerticalOptions="Center" /> 
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</views1:ContentPageBase>

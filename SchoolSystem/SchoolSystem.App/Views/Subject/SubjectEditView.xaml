@@ -4,9 +4,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SchoolSystem.App.Views.Subject.SubjectEditView"
              xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+             xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
              xmlns:subjects="clr-namespace:SchoolSystem.App.ViewModels.Subjects"
              xmlns:views2="clr-namespace:App.Views"
-             Title="Titleeee"
+             Title="{x:Static texts:SubjectEditViewTexts.Subject_MenuItem_Title}"
+             Style="{StaticResource ContentPageStyle}"
              x:Name="SubjectEditViewRoot"
              x:DataType="subjects:SubjectEditViewModel">
     <Grid RowDefinitions="70, *">
@@ -17,7 +19,8 @@
             <Button Grid.Column="1"
                     VerticalOptions="Start"
                     HeightRequest="30"
-                    Text="Save"
+                    Text="{x:Static texts:SubjectEditViewTexts.SaveButtonLabel}"
+                    BackgroundColor="{StaticResource PrimaryColor}"
                     CornerRadius="5"
                     Command="{Binding SaveCommand}" />
         </Grid>
@@ -31,10 +34,12 @@
                                  Grid.Column="1"
                                  HorizontalOptions="Fill"
                                  Spacing="10">
-                <Label Text="AAA chto za subject" />
+                <Label Text="{x:Static texts:SubjectEditViewTexts.NameLabel}" 
+                       TextColor="{StaticResource PrimaryDarkText}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Subject.Name}" />
-                <Label Text="AAA chto za subject" />
+                <Label Text="{x:Static texts:SubjectEditViewTexts.AbbreviationLabel}" 
+                        TextColor="{StaticResource PrimaryDarkText}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Subject.Abbreviation}" />
 
