@@ -12,9 +12,10 @@
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
-                               HeightRequest="30">
+                               HeightRequest="60">
             <Button Text="Delete"
                     CornerRadius="5"
+                    BackgroundColor="Red"
                     Command="{Binding DeleteCommand}" />
 
             <Button Text="Edit"
@@ -23,17 +24,18 @@
         </HorizontalStackLayout>
 
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
-              RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
+              RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto, Auto, Auto"
               RowSpacing="20" ColumnSpacing="20">
 
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="2"
                                  Spacing="20">
-                <Label FontSize="24"
-                       Text="{Binding Evaluation.Activity.Name}" />
 
-                <Label FontSize="14"
-                       Text="{Binding Evaluation.Score}" />
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Score: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Evaluation.Score}" FontSize="24"/>
+                </HorizontalStackLayout>
+
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

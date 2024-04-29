@@ -8,15 +8,16 @@
              xmlns:views1="clr-namespace:SchoolSystem.App.Views"
              xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
              xmlns:views2="clr-namespace:App.Views"
-             Title="Title idk"
+             Title="Student Detail"
              x:Name="StudentDetailViewRoot"
              x:DataType="students:StudentDetailViewModel">
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
-                               HeightRequest="30">
+                               HeightRequest="60">
             <Button Text="Delete"
                     CornerRadius="5"
+                    BackgroundColor="Red"
                     Command="{Binding DeleteCommand}" />
 
             <Button Text="Edit"
@@ -31,11 +32,22 @@
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="2"
                                  Spacing="20">
-                <Label FontSize="24"
-                       Text="{Binding Student.Name}" />
 
-                <Label FontSize="14"
-                       Text="{Binding Student.Surname}" />
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Student.Name}" FontSize="24"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Surname: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Student.Surname}" FontSize="24"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Link: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Student.Photo}" FontSize="24"/>
+                </HorizontalStackLayout>
+
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

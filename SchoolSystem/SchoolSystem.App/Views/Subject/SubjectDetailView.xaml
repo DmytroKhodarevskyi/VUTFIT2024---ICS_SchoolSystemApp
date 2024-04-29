@@ -14,7 +14,7 @@
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
-                               HeightRequest="30">
+                               HeightRequest="60">
             <Button Text="{x:Static texts:SubjectDetailViewTexts.DeleteButtonLabel}"
                     CornerRadius="5"
                     BackgroundColor="{StaticResource FalseColor}"
@@ -33,11 +33,18 @@
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="2"
                                  Spacing="20">
-                <Label FontSize="24"
-                       Text="{Binding Subject.Name}" />
 
-                <Label FontSize="14"
-                       Text="{Binding Subject.Abbreviation}" />
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Subject.Name}" FontSize="24"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Subject.Abbreviation}" FontSize="24"/>
+                </HorizontalStackLayout>
+
+               
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

@@ -47,9 +47,14 @@
                             <Label Grid.Column="2"
                                 Text="{Binding Surname}"
                                 FontSize="16"
-                                VerticalOptions="Center" /> 
-                            
-                       </Grid>
+                                VerticalOptions="Center" />
+
+                           <Grid.GestureRecognizers>
+                               <TapGestureRecognizer Command="{Binding Source={x:Reference StudentListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                     CommandParameter="{Binding Id}" />
+                           </Grid.GestureRecognizers>
+
+                        </Grid>
                    </ViewCell>
                </DataTemplate>
            </ListView.ItemTemplate>

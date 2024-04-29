@@ -42,6 +42,11 @@
                                    FontSize="16"
                                    HorizontalOptions="Start"
                                    VerticalOptions="Center" />
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference EvaluationsListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                      CommandParameter="{Binding Id}" />
+                            </Grid.GestureRecognizers>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
