@@ -12,7 +12,8 @@
        FlyoutBehavior="Disabled">
     <Shell.MenuBarItems>
         
-        <MenuBarItem Text="{x:Static text:AppShellTexts.File_MenuItem_Title}">
+        <MenuBarItem 
+            Text="{x:Static text:AppShellTexts.File_MenuItem_Title}">
             <MenuFlyoutItem Text= "{x:Static text:AppShellTexts.StudentMenuItem_Text}"
                              Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
             <MenuFlyoutItem Text="{x:Static text:AppShellTexts.SubjectMenuItem_Text}"

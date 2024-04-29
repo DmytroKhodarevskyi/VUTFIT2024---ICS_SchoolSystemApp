@@ -22,14 +22,14 @@ namespace SchoolSystem.App.Resources.Texts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class SubjectEditViewTexts {
+    internal class TitleTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal SubjectEditViewTexts() {
+        internal TitleTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SchoolSystem.App.Resources.Texts {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SchoolSystem.App.Resources.Texts.SubjectEditViewTexts", typeof(SubjectEditViewTexts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SchoolSystem.App.Resources.Texts.TitleTexts", typeof(TitleTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,38 @@ namespace SchoolSystem.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Abbreviation.
+        ///   Ищет локализованную строку, похожую на .
         /// </summary>
-        internal static string AbbreviationLabel {
+        internal static string ActivityTitle {
             get {
-                return ResourceManager.GetString("AbbreviationLabel", resourceCulture);
+                return ResourceManager.GetString("ActivityTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Name.
+        ///   Ищет локализованную строку, похожую на .
         /// </summary>
-        internal static string NameLabel {
+        internal static string EvaluationTitle {
             get {
-                return ResourceManager.GetString("NameLabel", resourceCulture);
+                return ResourceManager.GetString("EvaluationTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Save.
+        ///   Ищет локализованную строку, похожую на .
         /// </summary>
-        internal static string SaveButtonLabel {
+        internal static string StudentTitle {
             get {
-                return ResourceManager.GetString("SaveButtonLabel", resourceCulture);
+                return ResourceManager.GetString("StudentTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Subject Edit Detail.
+        ///   Ищет локализованную строку, похожую на .
         /// </summary>
-        internal static string Subject_MenuItem_Title {
+        internal static string SubjectTitle {
             get {
-                return ResourceManager.GetString("Subject_MenuItem_Title", resourceCulture);
+                return ResourceManager.GetString("SubjectTitle", resourceCulture);
             }
         }
     }

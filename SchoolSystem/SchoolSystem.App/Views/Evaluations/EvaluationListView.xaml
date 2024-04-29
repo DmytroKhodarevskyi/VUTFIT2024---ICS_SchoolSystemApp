@@ -13,12 +13,15 @@
           RowSpacing="20">
         <Label Grid.Row="0"
                FontSize="24"
-               Text="Evaluations" />
+               Padding="20, 0"
+               VerticalTextAlignment="Center"
+               FontAttributes="Bold"
+               Text="Evaluation list" />
 
         <Button Grid.Row="0"
-                Padding="12, 6"
+                Padding="20, 6"
                 HorizontalOptions="End" VerticalOptions="Start"
-                Text="Add"
+                Text="Add Evaluation"
                 Command="{Binding GoToCreateCommand}"
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"/>
@@ -28,17 +31,16 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:EvaluationListModel">
                     <ViewCell>
-                        <Grid Padding="10">
+                        <Grid Padding="20, 10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="1"
                                    Text="{Binding Score}"
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
+                                   HorizontalOptions="Start"
                                    VerticalOptions="Center" />
                         </Grid>
                     </ViewCell>
