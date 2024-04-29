@@ -79,15 +79,15 @@ public static void Seed(this ModelBuilder modelBuilder) =>
     modelBuilder.Entity<StudentEntity>().HasData(
         Student1 with {StudentSubjects = Array.Empty<StudentSubjectEntity>(), Subjects = Array.Empty<SubjectEntity>()},
         Student2 with {StudentSubjects = Array.Empty<StudentSubjectEntity>(), Subjects = Array.Empty<SubjectEntity>()},
-        Student3 with {StudentSubjects = Array.Empty<StudentSubjectEntity>(), Subjects = Array.Empty<SubjectEntity>()},
-        StudentEntityWithNoSubjActivEval,
-        StudentEntityUpdated,
-        StudentEntityDeleted,
-        StudentSubjectEntityUpdate,
-        StudentSubjectEntityDelete,
-        StudentActivityEntityUpdate,
-        StudentActivityEntityDelete,
-        StudentEvaluationEntityUpdate,
-        StudentEvaluationEntityDelete
+        Student3 with {StudentSubjects = Array.Empty<StudentSubjectEntity>(), Subjects = Array.Empty<SubjectEntity>()}
+        // StudentEntityWithNoSubjActivEval,
+        // StudentEntityUpdated,
+        // StudentEntityDeleted,
+        // StudentSubjectEntityUpdate,
+        // StudentSubjectEntityDelete,
+        // StudentActivityEntityUpdate,
+        // StudentActivityEntityDelete,
+        // StudentEvaluationEntityUpdate,
+        // StudentEvaluationEntityDelete
     );
 }

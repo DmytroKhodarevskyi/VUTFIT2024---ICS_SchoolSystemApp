@@ -63,12 +63,12 @@ public static class SubjectSeeds
     
     public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<SubjectEntity>().HasData(
-            IZP with{ StudentSubjects = Array.Empty<StudentSubjectEntity>(), Students = Array.Empty<StudentEntity>(), Activities = Array.Empty<ActivityEntity>()}, IUS with{ StudentSubjects = Array.Empty<StudentSubjectEntity>(),Students = Array.Empty<StudentEntity>(),  Activities = Array.Empty<ActivityEntity>()},
-            SubjectEntityWithNoStudAct,
-            SubjectEntityUpdated,
-            SubjectEntityDeleted,
-            SubjectEntityUpdate2,
-            SubjectEntityDelete2
+            IZP with{ StudentSubjects = Array.Empty<StudentSubjectEntity>(), Students = Array.Empty<StudentEntity>(), Activities = Array.Empty<ActivityEntity>()}, IUS with{ StudentSubjects = Array.Empty<StudentSubjectEntity>(),Students = Array.Empty<StudentEntity>(),  Activities = Array.Empty<ActivityEntity>()}
+            // SubjectEntityWithNoStudAct,
+            // SubjectEntityUpdated,
+            // SubjectEntityDeleted,
+            // SubjectEntityUpdate2,
+            // SubjectEntityDelete2
             );
     
 }

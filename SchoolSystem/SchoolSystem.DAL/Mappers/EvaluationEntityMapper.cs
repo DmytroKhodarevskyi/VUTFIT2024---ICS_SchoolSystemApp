@@ -9,5 +9,9 @@ public class EvaluationEntityMapper : IEntityMapper<EvaluationEntity>
     {
         existingEntity.Score = newEntity.Score;
         existingEntity.Description = newEntity.Description;
+        existingEntity.ActivityId = newEntity.ActivityId;
+        existingEntity.StudentId = newEntity.StudentId;
+        existingEntity.Activity = newEntity.Activity;
+        existingEntity.Student = newEntity.Student;
     }
 }

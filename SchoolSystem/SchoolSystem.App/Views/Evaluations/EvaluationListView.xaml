@@ -40,6 +40,12 @@
                                    FontFamily="MontserratMedium"
                                    TextColor="Blue"
                                    VerticalOptions="Center" />
+                            <Label Grid.Column="2"
+                                      Text="{Binding ActivityId}"
+                                      FontSize="16"
+                                      FontFamily="MontserratMedium"
+                                      TextColor="Blue"
+                                      VerticalOptions="Center" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

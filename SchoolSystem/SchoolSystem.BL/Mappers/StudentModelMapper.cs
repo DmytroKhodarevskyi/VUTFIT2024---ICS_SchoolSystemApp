@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
 using DAL.Entities;
 using SchoolSystem.BL.Models;

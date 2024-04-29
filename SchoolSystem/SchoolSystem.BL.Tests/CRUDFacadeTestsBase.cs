@@ -1,6 +1,4 @@
-﻿
-
-using DAL.UnitOfWork;
+﻿using DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.BL.Mappers;
 using SchoolSystem.Common.Tests;

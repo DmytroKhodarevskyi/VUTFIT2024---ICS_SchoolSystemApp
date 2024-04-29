@@ -9,12 +9,15 @@ public record EvaluationListModel(): baseModel
     public Guid? StudentId { get; set; }
     public Guid? ActivityId { get; set; }
     
+    public ActivityListModel? Activity { get; set; }
+    
     public static EvaluationListModel Empty => new()
     {
         Id = Guid.NewGuid(),
         Score = 0,
         Description = string.Empty,
         StudentId = Guid.Empty,
-        ActivityId = Guid.Empty
+        ActivityId = Guid.Empty,
+        Activity = ActivityListModel.Empty
     };
 }

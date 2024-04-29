@@ -1,6 +1,6 @@
 using DAL.Entities;
-using DAL.Seeds;
 using Microsoft.EntityFrameworkCore;
+using SchoolSystem.Common.Tests.Seeds;
 
 namespace SchoolSystem.DAL;
 public class SchoolSystemDbContext : DbContext

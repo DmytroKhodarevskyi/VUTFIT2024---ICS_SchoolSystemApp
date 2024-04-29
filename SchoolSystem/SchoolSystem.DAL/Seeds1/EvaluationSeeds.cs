@@ -1,4 +1,3 @@
-using DAL.Enums;
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -90,13 +89,13 @@ public static class EvaluationSeeds
     
     public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<EvaluationEntity>().HasData(
-            Evaluation1 with {Student = null, Activity = null}, Evaluation2 with {Student = null, Activity = null}, Evaluation3 with {Student = null, Activity = null},
-            EvaluationEntityWithNoStudAct,
-            EvaluationEntityUpdated1,
-            EvaluationEntityDeleted1,
-            EvaluationEntityUpdate2,
-            EvaluationEntityDelete2,
-            EvaluationEntityUpdate3,
-            EvaluationEntityDelete3
+            Evaluation1 with {Student = null, Activity = null}, Evaluation2 with {Student = null, Activity = null}, Evaluation3 with {Student = null, Activity = null}
+            // EvaluationEntityWithNoStudAct,
+            // EvaluationEntityUpdated1,
+            // EvaluationEntityDeleted1,
+            // EvaluationEntityUpdate2,
+            // EvaluationEntityDelete2,
+            // EvaluationEntityUpdate3,
+            // EvaluationEntityDelete3
             );
 }
