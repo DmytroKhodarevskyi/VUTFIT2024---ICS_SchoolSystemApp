@@ -25,25 +25,28 @@
                     Command="{Binding SaveCommand}" />
         </Grid>
         <Grid Grid.Row="1"
-              HorizontalOptions="Fill" VerticalOptions="Start"
-              RowDefinitions="170, *" ColumnDefinitions="Auto, *"
-              RowSpacing="20" ColumnSpacing="20">
-
-
+      HorizontalOptions="Center" VerticalOptions="Start"
+      RowDefinitions="170, *" ColumnDefinitions="Auto, *, Auto"
+      RowSpacing="20" ColumnSpacing="20">
+            <BoxView Grid.Column="0" />
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
-                                 Grid.Column="1"
-                                 HorizontalOptions="Fill"
-                                 Spacing="10">
+                         Grid.Column="1"
+                         HorizontalOptions="Start"
+                         WidthRequest="200"
+                         Spacing="10">
                 <Label Text="{x:Static texts:SubjectEditViewTexts.NameLabel}" 
-                       TextColor="{StaticResource PrimaryDarkText}"/>
+                       FontSize="18"
+               TextColor="{StaticResource PrimaryDarkText}"/>
                 <Entry HorizontalOptions="Fill"
-                       Text="{Binding Subject.Name}" />
+               Text="{Binding Subject.Name}" />
                 <Label Text="{x:Static texts:SubjectEditViewTexts.AbbreviationLabel}" 
-                        TextColor="{StaticResource PrimaryDarkText}"/>
+                        FontSize="18"
+                TextColor="{StaticResource PrimaryDarkText}"/>
                 <Entry HorizontalOptions="Fill"
-                       Text="{Binding Subject.Abbreviation}" />
+               Text="{Binding Subject.Abbreviation}" />
 
             </VerticalStackLayout>
+            <BoxView Grid.Column="2" />
         </Grid>
     </Grid>
 </views2:ContentPageBase>

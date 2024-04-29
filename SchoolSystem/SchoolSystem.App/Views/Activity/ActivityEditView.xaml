@@ -8,7 +8,7 @@
                        xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
                        xmlns:views2="clr-namespace:App.Views"
                        x:Class="SchoolSystem.App.Views.Activity.ActivityEditView"
-                       Title="Activity edit"
+                       Title="Activity Edit"
                        x:Name="ActivityEditViewRoot"
                        x:DataType="activities:ActivityEditViewModel"
                        >
@@ -27,48 +27,30 @@
                     Command="{Binding SaveCommand}" />
         </Grid>
         <Grid Grid.Row="1"
-              HorizontalOptions="Fill" VerticalOptions="Start"
+              HorizontalOptions="Center" VerticalOptions="Start"
               RowDefinitions="170, *" ColumnDefinitions="Auto, *"
               RowSpacing="20" ColumnSpacing="20">
 
 
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="1"
-                                 HorizontalOptions="Fill"
+                                 HorizontalOptions="Start"
+                                 WidthRequest="200"
                                  Spacing="2">
-                <Label Text="AAA chto za ACTIVITY" />
+                <Label Text="Name" />
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Name}" />
-                <Label Text="Start" />
+                <Label Text="Start Date" />
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Start}" />
 
-                <Label Text="End" />
+                <Label Text="End Date" />
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.End}" />
                 
-                <Label Text="Roomka" />
+                <Label Text="Room" />
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Room, Converter={StaticResource RoomToStringConverter}}" />
-
-                
-                <!-- <MenuBarItem Text="Rooms"> -->
-                <!--        <MenuFlyoutItem Text="D105" -->
-                <!--                        Command="{Binding Activity.Room, Converter={StaticResource RoomToStringConverter}}" /> -->
-                <!-- -->
-                <!-- </MenuBarItem> -->
-
-                
-                <!-- <MenuBarItem Text="Rooms"> -->
-                <!--        <MenuFlyout> -->
-                <!--               <MenuFlyoutItem Text="D104" -->
-                <!--                               Command="{Binding Activity.Room, Converter={StaticResource RoomToStringConverter}}" /> -->
-                <!--               <MenuFlyoutItem Text="D105" -->
-                <!--                               Command="{Binding Activity.Room, Converter={StaticResource RoomToStringConverter}}" /> -->
-                <!--               <MenuFlyoutItem Text="D106" -->
-                <!--                               Command="{Binding Activity.Room, Converter={StaticResource RoomToStringConverter}}" /> -->
-                <!--        </MenuFlyout> -->
-                <!-- </MenuBarItem> -->
 
                 
                 <Label Text="Tag" />
