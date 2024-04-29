@@ -8,7 +8,7 @@
                        xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
                        xmlns:views2="clr-namespace:App.Views"
                        x:Class="SchoolSystem.App.Views.Student.StudentEditView"
-                       Title="Another title, todo"
+                       Title="Student Edit"
                        x:Name="StudentEditViewRoot"
                        x:DataType="students:StudentEditViewModel">
     <Grid RowDefinitions="70, *">
@@ -24,28 +24,31 @@
                     Command="{Binding SaveCommand}" />
         </Grid>
         <Grid Grid.Row="1"
-              HorizontalOptions="Fill" VerticalOptions="Start"
-              RowDefinitions="170, *" ColumnDefinitions="Auto, *"
+              HorizontalOptions="Center" VerticalOptions="Start"
+              RowDefinitions="170, *" ColumnDefinitions="Auto, *, Auto"
               RowSpacing="20" ColumnSpacing="20">
 
-
+            <BoxView Grid.Column="0" />
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
-                                 Grid.Column="1"
-                                 HorizontalOptions="Fill"
-                                 Spacing="10">
-                <Label Text="AAA chto za student" />
+                         Grid.Column="1"
+                         HorizontalOptions="Start"
+                         WidthRequest="200"
+                         Spacing="10">
+                <Label Text="Name" />
                 <Entry HorizontalOptions="Fill"
-                       Text="{Binding Student.Name}" />
-                <Label Text="AAA chto za student" />
+               Text="{Binding Student.Name}" 
+                       FontSize="18" />
+                <Label Text="Surname" />
                 <Entry HorizontalOptions="Fill"
-                       Text="{Binding Student.Surname}" />
+               Text="{Binding Student.Surname}" 
+                        FontSize="18"/>
 
-                <Label Text="img kakojto" />
+                <Label Text="Photo" />
                 <Entry HorizontalOptions="Fill"
-                       Text="{Binding Student.Photo}" />
-
-                
+               Text="{Binding Student.Photo}" 
+                        FontSize="18"/>
             </VerticalStackLayout>
+            <BoxView Grid.Column="2" />
         </Grid>
     </Grid>
 </views2:ContentPageBase>

@@ -22,18 +22,20 @@
                     Command="{Binding SaveCommand}" />
         </Grid>
         <Grid Grid.Row="1"
-              HorizontalOptions="Fill" VerticalOptions="Start"
+              HorizontalOptions="Center" VerticalOptions="Start"
               RowDefinitions="170, *" ColumnDefinitions="Auto, *"
               RowSpacing="20" ColumnSpacing="20">
 
 
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="1"
-                                 HorizontalOptions="Fill"
+                                 HorizontalOptions="Start"
+                                 WidthRequest="200"
                                  Spacing="10">
-                <Label Text="AAA chto za score" />
+                <Label Text="Score" />
                 <Entry HorizontalOptions="Fill"
-                       Text="{Binding Evaluation.Score}" />
+                       Text="{Binding Evaluation.Score}" 
+                       FontSize="18"/>
                
                 
             </VerticalStackLayout>
