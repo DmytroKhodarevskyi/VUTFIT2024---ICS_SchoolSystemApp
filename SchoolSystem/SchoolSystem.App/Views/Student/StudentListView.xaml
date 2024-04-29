@@ -8,19 +8,22 @@
                       xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
                       x:Class="SchoolSystem.App.Views.Student.StudentListView"
                       x:DataType="students:StudentListViewModel"
-                      Title="Listo de Estudiantes"
+                      Title="Students list"
                       x:Name="StudentListViewRoot"
                        >
    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
          RowSpacing="20">
        <Label Grid.Row="0"
+              Padding="20, 0"
+              VerticalTextAlignment="Center"
               FontSize="24"
-              Text="Title des studentos" />
+              FontAttributes="Bold"
+              Text="Students" />
 
        <Button Grid.Row="0"
-               Padding="12, 6"
+               Padding="20, 6"
                HorizontalOptions="End" VerticalOptions="Start"
-               Text="Add"
+               Text="Add Student"
                Command="{Binding GoToCreateCommand}"
                CornerRadius="5" FontFamily="MontserratMedium"
                FontSize="14"/>
@@ -33,20 +36,17 @@
                        <Grid Padding="10">
                            <Grid.ColumnDefinitions>
                                <ColumnDefinition Width="Auto"/>
-                               <ColumnDefinition Width="*"/>
+                               <ColumnDefinition Width="Auto"/>
                                <ColumnDefinition />
                            </Grid.ColumnDefinitions>
                            <Label Grid.Column="1"
                                   Text="{Binding Name}" 
                                   FontSize="16"
-                                  FontFamily="MontserratMedium"
-                                  TextColor="Blue"
+                                  Padding="10, 0, 10, 0"
                                   VerticalOptions="Center" />
                             <Label Grid.Column="2"
                                 Text="{Binding Surname}"
                                 FontSize="16"
-                                FontFamily="MontserratMedium"
-                                TextColor="Blue"
                                 VerticalOptions="Center" /> 
                             
                        </Grid>

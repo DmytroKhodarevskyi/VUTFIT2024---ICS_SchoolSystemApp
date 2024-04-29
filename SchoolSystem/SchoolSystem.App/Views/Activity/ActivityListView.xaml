@@ -13,119 +13,71 @@
     <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
           RowSpacing="20">
         <Label Grid.Row="0"
+               Padding="20, 0"
                FontSize="24"
-               Text="Activitiies" />
+               VerticalTextAlignment="Center"
+               FontAttributes="Bold"
+               Text="Activities" />
 
         <Button Grid.Row="0"
-                Padding="12, 6"
+                Padding="20, 6"
                 HorizontalOptions="End" VerticalOptions="Start"
                 Text="Add Activity"
                 Command="{Binding GoToCreateCommand}"
+
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"/>
 
-        <!-- <CollectionView Grid.Row="1" -->
-        <!--                 ItemsSource="{Binding Activities}"> -->
-        <!--     <CollectionView.ItemsLayout> -->
-        <!--         <GridItemsLayout Orientation="Horizontal" -->
-        <!--                          HorizontalItemSpacing="10" VerticalItemSpacing="10" -->
-        <!--                          Span="2" /> -->
-        <!--     </CollectionView.ItemsLayout> -->
-        <!-- -->
-        <!--     <CollectionView.ItemTemplate> -->
-        <!--         <DataTemplate x:DataType="m:ActivityListModel"> -->
-        <!--                <Grid Padding="10"> -->
-        <!--                       <Grid.ColumnDefinitions> -->
-        <!--                              <ColumnDefinition Width="Auto"/> -->
-        <!--                              <ColumnDefinition Width="Auto"/> -->
-        <!--                              <ColumnDefinition Width="Auto"/> -->
-        <!--                              <ColumnDefinition Width="Auto"/> -->
-        <!--                              <ColumnDefinition Width="*"/> -->
-        <!--                              <ColumnDefinition /> -->
-        <!--                       </Grid.ColumnDefinitions> -->
-        <!--                       <Label Grid.Column="1" -->
-        <!--                              Text="{Binding Name}"  -->
-        <!--                              FontSize="16" -->
-        <!--                              FontFamily="MontserratMedium" -->
-        <!--                              TextColor="Blue" -->
-        <!--                              VerticalOptions="Center" /> -->
-        <!--                       <Label Grid.Column="2" -->
-        <!--                              Text="{Binding Start}" -->
-        <!--                              FontSize="16" -->
-        <!--                              FontFamily="MontserratMedium" -->
-        <!--                              TextColor="Blue" -->
-        <!--                              VerticalOptions="Center" />  -->
-        <!--                       <Label Grid.Column="3" -->
-        <!--                              Text="{Binding End}" -->
-        <!--                              FontSize="16" -->
-        <!--                              FontFamily="MontserratMedium" -->
-        <!--                              TextColor="Blue" -->
-        <!--                              VerticalOptions="Center" />  -->
-        <!--                       <Label Grid.Column="4" -->
-        <!--                              Text="{Binding Room}" -->
-        <!--                              FontSize="16" -->
-        <!--                              FontFamily="MontserratMedium" -->
-        <!--                              TextColor="Blue" -->
-        <!--                              VerticalOptions="Center" />  -->
-        <!--                       <Label Grid.Column="5" -->
-        <!--                              Text="{Binding Tag}" -->
-        <!--                              FontSize="16" -->
-        <!--                              FontFamily="MontserratMedium" -->
-        <!--                              TextColor="Blue" -->
-        <!--                              VerticalOptions="Center" />  -->
-        <!--                      -->
-        <!--                </Grid> -->
-        <!--                -->
-        <!--         </DataTemplate> -->
-        <!--     </CollectionView.ItemTemplate> -->
-        <!-- </CollectionView> -->
-        
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Activities}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:ActivityListModel">
                     <ViewCell>
-                        <Grid Padding="10">
+                        <Grid Padding="20, 10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="1"
                                    Text="{Binding Name}" 
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
-                                   VerticalOptions="Center" />
+                                   VerticalOptions="Center"
+                                   Padding="0, 0,10,0"
+                                   HorizontalOptions="Start"/>
                             <Label Grid.Column="2"
                                    Text="{Binding Start}"
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
+                                   Padding="10, 0"
+                                   HorizontalOptions="Start"
                                    VerticalOptions="Center" /> 
                             <Label Grid.Column="3"
                                    Text="{Binding End}"
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
+                                   Padding="10, 0"
+                                   HorizontalOptions="Start"
                                    VerticalOptions="Center" /> 
                             <Label Grid.Column="4"
                                    Text="{Binding Room}"
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
+                                   Padding="10, 0"
                                    VerticalOptions="Center" /> 
                             <Label Grid.Column="5"
                                    Text="{Binding Tag}"
+                                   Padding="10, 0"
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
-                                   VerticalOptions="Center" /> 
-                            
+                                   VerticalOptions="Center" />
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                      CommandParameter="{Binding Id}" />
+                            </Grid.GestureRecognizers>
                         </Grid>
+
+
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

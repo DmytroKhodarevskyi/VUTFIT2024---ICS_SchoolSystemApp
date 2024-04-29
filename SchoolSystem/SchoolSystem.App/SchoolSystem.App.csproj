@@ -127,6 +127,11 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>SubjectListViewTexts.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Resources\Texts\TitleTexts.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TitleTexts.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Student\StudentEditView.xaml.cs">
 	    <DependentUpon>StudentEditView.xaml</DependentUpon>
 	    <SubType>Code</SubType>
@@ -166,6 +171,10 @@
 	  <EmbeddedResource Update="Resources\Texts\SubjectListViewTexts.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>SubjectListViewTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\TitleTexts.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>TitleTexts.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 

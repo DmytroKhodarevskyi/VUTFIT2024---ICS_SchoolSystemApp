@@ -14,43 +14,53 @@
           RowSpacing="20">
         <Label Grid.Row="0"
                FontSize="24"
+               Padding="20, 0"
+               VerticalTextAlignment="Center"
+               FontAttributes="Bold"
                Text="{x:Static texts:SubjectListViewTexts.SubjectList_Title}"/>
 
         <Button Grid.Row="0"
-                Padding="12, 6"
-                HorizontalOptions="End" VerticalOptions="Start"
+                Padding="20, 6"
+                HorizontalOptions="End" VerticalOptions="End"
                 Text="{x:Static texts:SubjectListViewTexts.AddButtonLabel}"
                 Command="{Binding GoToCreateCommand}"
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"/>
 
 
- 
-        
+
         <ListView Grid.Row="1"
-                  ItemsSource="{Binding Subjects}">
+          ItemsSource="{Binding Subjects}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:SubjectListModel">
                     <ViewCell>
                         <Grid Padding="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
+
                             <Label Grid.Column="1"
                                    Text="{Binding Name}" 
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
-                                   VerticalOptions="Center" />
+                                   VerticalOptions="Center"
+                                   Padding="10, 0,10,0"
+                                   HorizontalOptions="Start"/>
+
                             <Label Grid.Column="2"
-                                   Text="{Binding Abbreviation}"
+                                   Text="{Binding Abbreviation}" 
                                    FontSize="16"
-                                   FontFamily="MontserratMedium"
-                                   TextColor="Blue"
-                                   VerticalOptions="Center" /> 
-                            
+                                   VerticalOptions="Center"
+                                   Padding="0, 0,10,0"
+                                   HorizontalOptions="Start"/>
+
+                            <!-- Gesture Recognizers -->
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                              CommandParameter="{Binding Id}" />
+                            </Grid.GestureRecognizers>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
