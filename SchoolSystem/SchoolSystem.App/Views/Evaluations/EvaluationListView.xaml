@@ -6,7 +6,7 @@
                         xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
                         xmlns:evaluations="clr-namespace:SchoolSystem.App.ViewModels.Evaluations"
                         x:Class="SchoolSystem.App.Views.Evaluations.EvaluationListView"
-                        Title="Evaluations"
+                        Title="Evaluation list"
                         x:Name="EvaluationsListViewRoot"
                         x:DataType="evaluations:EvaluationListViewModel">
     <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
@@ -16,7 +16,7 @@
                Padding="20, 0"
                VerticalTextAlignment="Center"
                FontAttributes="Bold"
-               Text="Evaluation list" />
+               Text="Evaluations" />
 
         <Button Grid.Row="0"
                 Padding="20, 6"
@@ -42,12 +42,6 @@
                                    FontSize="16"
                                    HorizontalOptions="Start"
                                    VerticalOptions="Center" />
-                            <Label Grid.Column="2"
-                                      Text="{Binding ActivityId}"
-                                      FontSize="16"
-                                      FontFamily="MontserratMedium"
-                                      TextColor="Blue"
-                                      VerticalOptions="Center" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
