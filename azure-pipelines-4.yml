@@ -20,7 +20,7 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '8.0.x'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+
 
 - script: |
     dotnet workload install maui-android
@@ -31,7 +31,7 @@ steps:
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
-    feedsToUse: 'select'
+
 
 - task: DotNetCoreCLI@2
   inputs:
