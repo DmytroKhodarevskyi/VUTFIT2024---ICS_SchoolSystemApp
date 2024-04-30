@@ -33,7 +33,7 @@ public partial class SubjectDetailViewModel(
             try
             {
                 await subjectFacade.DeleteAsync(Subject.Id);
-                MessengerService.Send(new DeleteMessage<SubjectDetailedModel>());
+                MessengerService.Send(new DeleteMessage<SubjectListModel>());
                 navigationService.SendBackButtonPressed();
             }
             catch (InvalidOperationException)

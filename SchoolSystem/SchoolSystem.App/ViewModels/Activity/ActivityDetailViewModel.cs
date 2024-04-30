@@ -33,7 +33,7 @@ public partial class ActivityDetailViewModel(
             try
             {
                 await activityFacade.DeleteAsync(Activity.Id);
-                MessengerService.Send(new DeleteMessage<ActivityDetailModel>());
+                MessengerService.Send(new DeleteMessage<ActivityListModel>());
                 navigationService.SendBackButtonPressed();
             }
             catch (InvalidOperationException)

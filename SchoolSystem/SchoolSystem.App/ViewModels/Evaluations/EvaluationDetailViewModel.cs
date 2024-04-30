@@ -33,7 +33,7 @@ public partial class EvaluationDetailViewModel(
             try
             {
                 await evaluationFacade.DeleteAsync(Evaluation.Id);
-                MessengerService.Send(new DeleteMessage<EvaluationDetailModel>());
+                MessengerService.Send(new DeleteMessage<EvaluationListModel>());
                 navigationService.SendBackButtonPressed();
             }
             catch (InvalidOperationException)
