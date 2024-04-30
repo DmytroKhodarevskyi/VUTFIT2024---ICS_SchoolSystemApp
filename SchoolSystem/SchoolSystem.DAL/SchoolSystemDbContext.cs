@@ -3,18 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Common.Tests.Seeds;
 
 namespace SchoolSystem.DAL;
-public class SchoolSystemDbContext : DbContext
+public class SchoolSystemDbContext(DbContextOptions options, bool seedDemoData = false) : DbContext(options)
 {
-    private readonly bool _seedDemoData;
-    public SchoolSystemDbContext(DbContextOptions options, bool seedDemoData = false) : base(options)
-    {
-        _seedDemoData = seedDemoData;
-    }
-
     public DbSet<StudentEntity> Students => Set<StudentEntity>();
     public DbSet<SubjectEntity> Subjects => Set<SubjectEntity>();
     public DbSet<EvaluationEntity> Evaluations => Set<EvaluationEntity>();
     public DbSet<ActivityEntity> Activities => Set<ActivityEntity>();
+    public DbSet<StudentSubjectEntity> StudentSubjects => Set<StudentSubjectEntity>();  
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,55 +19,46 @@ public class SchoolSystemDbContext : DbContext
         modelBuilder.Entity<SubjectEntity>().HasKey(s => s.Id);
         modelBuilder.Entity<EvaluationEntity>().HasKey(e => e.Id);
         modelBuilder.Entity<StudentEntity>().HasKey(s => s.Id);
+        modelBuilder.Entity<StudentSubjectEntity>().HasKey(s => s.Id);
         
-
         modelBuilder.Entity<StudentEntity>()
             .HasMany<EvaluationEntity>()
             .WithOne(s => s.Student);
         
+        modelBuilder.Entity<StudentEntity>()
+            .HasMany<StudentSubjectEntity>()
+            .WithOne(s => s.Student)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<SubjectEntity>()
+            .HasMany<StudentSubjectEntity>()
+            .WithOne(s => s.Subject)
+            .OnDelete(DeleteBehavior.Cascade);
         
         modelBuilder.Entity<ActivityEntity>()
             .HasOne(a => a.Subject)
             .WithMany(c => c.Activities)
             .HasForeignKey(a => a.SubjectId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<EvaluationEntity>()
             .HasOne(e => e.Activity)
             .WithMany(a => a.Evaluations)
             .HasForeignKey(e => e.ActivityId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<EvaluationEntity>()
             .HasOne(e => e.Student)
             .WithMany()
             .HasForeignKey(e => e.StudentId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<SubjectEntity>()
             .HasMany(s => s.Activities)
             .WithOne(e => e.Subject)
             .OnDelete(DeleteBehavior.Cascade);
-
-        /*modelBuilder.Entity<CourseEntityStudentEntity>()
-                .HasOne(cs => cs.Course)
-                .WithMany(c => c.Students)
-                .HasForeignKey(cs => cs.CourseId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<CourseEntityStudentEntity>()
-                .HasOne(cs => cs.Student)
-                .WithMany()
-                .HasForeignKey(cs => cs.StudentId)
-                .OnDelete(DeleteBehavior.Restrict); */
-
-        // modelBuilder.Entity<ActivityEntity>()
-        //     .HasMany(s => s.Evaluations)
-        //     .WithOne(e => e.Activity)
-        //     .OnDelete(DeleteBehavior.Cascade);
-        // modelBuilder.Entity<EvaluationEntity>()
-        //     .HasOne(s => s.Student);
-        if (_seedDemoData)
+        
+        if (seedDemoData)
         {
             ActivitySeeds.Seed(modelBuilder);	
             StudentSeeds.Seed(modelBuilder);
@@ -80,5 +66,4 @@ public class SchoolSystemDbContext : DbContext
             EvaluationSeeds.Seed(modelBuilder);
         }
     }
-
 }

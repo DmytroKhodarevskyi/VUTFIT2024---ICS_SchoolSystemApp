@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using DAL.Enums;
 namespace DAL.Entities;
 
 public record ActivityEntity : IEntity
 {
-    public Guid Id { get; set; } 
+    [Key]
+    public Guid Id { get; set; }    
     
     public required string Name { get; set; }
     public required DateTime Start { get; set; }

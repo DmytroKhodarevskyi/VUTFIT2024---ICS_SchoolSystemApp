@@ -9,10 +9,7 @@ public interface IFacade<TEntity, TListModel, TDetailModel>
     where TDetailModel : class, IModel
 {
     Task DeleteAsync(Guid id);
-
     Task<TDetailModel?> GetAsync(Guid id);
-
     Task<IEnumerable<TListModel>> GetAsync();
-
     Task<TDetailModel> SaveAsync(TDetailModel model);
 }

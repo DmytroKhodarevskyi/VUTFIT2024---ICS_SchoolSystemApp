@@ -11,7 +11,5 @@ public class EvaluationEntityMapper : IEntityMapper<EvaluationEntity>
         existingEntity.Description = newEntity.Description;
         existingEntity.ActivityId = newEntity.ActivityId;
         existingEntity.StudentId = newEntity.StudentId;
-        existingEntity.Activity = newEntity.Activity;
-        existingEntity.Student = newEntity.Student;
     }
 }

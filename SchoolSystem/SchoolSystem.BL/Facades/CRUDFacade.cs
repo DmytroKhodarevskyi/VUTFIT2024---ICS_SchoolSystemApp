@@ -14,24 +14,24 @@ namespace SchoolSystem.BL.Facades;
 public abstract class
     CrudFacade<TEntity, TListModel, TDetailModel, TEntityMapper>(
         IUnitOfWorkFactory unitOfWorkFactory,
-        IModelMapper<TEntity, TListModel, TDetailModel> mapper)
+        IModelMapper<TEntity, TListModel, TDetailModel> modelMapper)
     : IFacade<TEntity, TListModel, TDetailModel>
     where TEntity : class, IEntity
     where TListModel : IModel
     where TDetailModel : class, IModel
     where TEntityMapper : IEntityMapper<TEntity>, new()
 {
-    protected readonly IModelMapper<TEntity, TListModel, TDetailModel> ModelMapper = mapper;
+    protected readonly IModelMapper<TEntity, TListModel, TDetailModel> ModelMapper = modelMapper;
     protected readonly IUnitOfWorkFactory UnitOfWorkFactory = unitOfWorkFactory;
 
-    protected virtual string IncludesNavigationPathDetail => string.Empty;
+    protected virtual ICollection<string> IncludesNavigationPathDetail => new List<string>();
 
     public async Task DeleteAsync(Guid id)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         try
         {
-            uow.GetRepository<TEntity, TEntityMapper>().Delete(id);
+            await uow.GetRepository<TEntity, TEntityMapper>().DeleteAsync(id).ConfigureAwait(false);
             await uow.CommitAsync().ConfigureAwait(false);
         }
         catch (DbUpdateException e)
@@ -46,12 +46,12 @@ public abstract class
 
         IQueryable<TEntity> query = uow.GetRepository<TEntity, TEntityMapper>().Get();
 
-        if (string.IsNullOrWhiteSpace(IncludesNavigationPathDetail) is false)
+        foreach (string includePath in IncludesNavigationPathDetail)
         {
-            query = query.Include(IncludesNavigationPathDetail);
+            query = query.Include(includePath);
         }
 
-        TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id);
+        TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id).ConfigureAwait(false);
 
         return entity is null
             ? null
@@ -64,7 +64,7 @@ public abstract class
         List<TEntity> entities = await uow
             .GetRepository<TEntity, TEntityMapper>()
             .Get()
-            .ToListAsync();
+            .ToListAsync().ConfigureAwait(false);
 
         return ModelMapper.MapToListModel(entities);
     }
@@ -77,22 +77,22 @@ public abstract class
 
         TEntity entity = ModelMapper.MapToEntity(model);
 
-        IUnitOfWork uow = UnitOfWorkFactory.Create();
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         IRepository<TEntity> repository = uow.GetRepository<TEntity, TEntityMapper>();
 
-        if (await repository.ExistsAsync(entity))
+        if (await repository.ExistsAsync(entity).ConfigureAwait(false))
         {
-            TEntity updatedEntity = await repository.UpdateAsync(entity);
+            TEntity updatedEntity = await repository.UpdateAsync(entity).ConfigureAwait(false);
             result = ModelMapper.MapToDetailModel(updatedEntity);
         }
         else
         {
-            entity.Id = model.Id;
-            TEntity insertedEntity = await repository.InsertAsync(entity);
+            entity.Id = Guid.NewGuid();
+            TEntity insertedEntity = repository.Insert(entity);
             result = ModelMapper.MapToDetailModel(insertedEntity);
         }
 
-        await uow.CommitAsync();
+        await uow.CommitAsync().ConfigureAwait(false);
 
         return result;
     }
