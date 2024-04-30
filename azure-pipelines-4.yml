@@ -27,17 +27,17 @@ steps:
   displayName: 'Install .NET MAUI workload'
   # This will install the latest stable version of the required workload.
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+# - task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'restore'
+#    projects: '**/*.csproj'
 
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '**/SchoolSystem.sln'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
