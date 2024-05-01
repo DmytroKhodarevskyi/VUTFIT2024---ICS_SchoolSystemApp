@@ -14,24 +14,24 @@
     <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
           RowSpacing="20">
 
-        <Grid Padding="20,5" ColumnDefinitions="*,*,*">
+        <Grid Padding="15,5" ColumnDefinitions="*,*,*,*">
 
-            <Label  FontSize="24" Text="Activities" />
+            <Label Padding="10, 0" Grid.Column="0" FontSize="24" Text="Activities" />
 
-            <StackLayout Orientation="Horizontal" Spacing="20" Grid.Column="1">
+            <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="1">
                 <Label Text="Tag Filter"
                        VerticalTextAlignment="Center"
-                       Padding="15">
+                       Padding="5">
                 </Label>
                 <Entry x:Name="TagFilter" HorizontalOptions="Fill"
                        WidthRequest="100"
                        Text="{Binding Tag}" />
             </StackLayout>
 
-            <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="20">
+            <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="15">
                 <Label Text="Date Time Filter"
                        VerticalTextAlignment="Center"
-                       Padding="15">
+                       Padding="0">
                 </Label>
                 <Picker x:Name="PickerFilter"
                         WidthRequest="200"
@@ -39,18 +39,18 @@
                         SelectedIndex="1"
                         SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
             </StackLayout>
+            <Button Grid.Column="3"
+                    Padding="10, 6"
+                    HorizontalOptions="End" VerticalOptions="Start"
+                    Text="Add Activity"
+                    Command="{Binding GoToCreateCommand}"
 
+                    CornerRadius="5" FontFamily="MontserratMedium"
+                    FontSize="14" />
 
         </Grid>
 
-        <Button Grid.Row="0"
-                Padding="20, 6"
-                HorizontalOptions="End" VerticalOptions="Start"
-                Text="Add Activity"
-                Command="{Binding GoToCreateCommand}"
-
-                CornerRadius="5" FontFamily="MontserratMedium"
-                FontSize="14" />
+        
 
 
         <ListView Grid.Row="1"

@@ -17,11 +17,16 @@ public partial class ActivityEditViewModel(
     public ActivityDetailModel Activity{ get; init; } = ActivityDetailModel.Empty;
 
     public List<Room> Rooms => Enum.GetValues(typeof(Room)).Cast<Room>().ToList();
+    
+    public TimeSpan TimeOfDayStart { get; set; }
+    public TimeSpan TimeOfDayEnd { get; set; }
 
 
     [RelayCommand]
     private async Task SaveAsync()
     {
+        Activity.Start = Activity.Start.Date + TimeOfDayStart;
+        Activity.End = Activity.End.Date + TimeOfDayEnd;
         await activityFacade.SaveAsync(Activity);
 
         MessengerService.Send(new EditMessage { Id = Activity.Id });

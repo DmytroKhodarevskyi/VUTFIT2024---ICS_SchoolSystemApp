@@ -1,38 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
-                       xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
-                       xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
-                       xmlns:views1="clr-namespace:SchoolSystem.App.Views"
-                       xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
-                       xmlns:views2="clr-namespace:App.Views"
-                       x:Class="SchoolSystem.App.Views.Activity.ActivityEditView"
-                       Title="Activity Edit"
-					   xmlns:rooms="clr-namespace:SchoolSystem.DAL"
-					   xmlns:enums="clr-namespace:DAL.Enums;assembly=SchoolSystem.DAL"
-					   x:Name="ActivityEditViewRoot"
-                       x:DataType="activities:ActivityEditViewModel"
-                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                       >
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
+                        xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                        xmlns:views1="clr-namespace:SchoolSystem.App.Views"
+                        xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
+                        xmlns:views2="clr-namespace:App.Views"
+                        x:Class="SchoolSystem.App.Views.Activity.ActivityEditView"
+                        Title="Activity Edit"
+                        xmlns:rooms="clr-namespace:SchoolSystem.DAL"
+                        xmlns:enums="clr-namespace:DAL.Enums;assembly=SchoolSystem.DAL"
+                        x:Name="ActivityEditViewRoot"
+                        x:DataType="activities:ActivityEditViewModel"
+                        xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
 
     <Grid RowDefinitions="70, *">
         <Grid Grid.Row="0"
-			  ColumnDefinitions="*, Auto"
-			  ColumnSpacing="15">
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="15">
 
             <Button
-                    Grid.Column="1"
-                    VerticalOptions="Start"
-					Text="Save"
-                    HeightRequest="30"
-                    Command="{Binding SaveCommand}">
+                Grid.Column="1"
+                VerticalOptions="Start"
+                Text="Save"
+                HeightRequest="30"
+                Command="{Binding SaveCommand}">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource NotEmptyConverter}">
                         <Binding Source="{x:Reference NameEntry}" Path="Text" />
-                       
+
                         <Binding Source="{x:Reference TagEntry}" Path="Text" />
                     </MultiBinding>
                 </Button.IsEnabled>
@@ -70,14 +69,20 @@
                                  HorizontalOptions="Start"
                                  Spacing="10">
 
-                <StackLayout Orientation="Vertical" Spacing="11" >
+                <StackLayout Orientation="Vertical" Spacing="11">
                     <Label Text="Start"></Label>
-                    <DatePicker Date="{Binding Activity.Start}" VerticalOptions="Center"/>
+                    <DatePicker Date="{Binding Activity.Start}" VerticalOptions="Center" />
+                    <TimePicker
+                        Time="{Binding TimeOfDayStart}"
+                        VerticalOptions="Center" />
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical" Spacing="11" HorizontalOptions="End">
                     <Label Text="End"></Label>
-                    <DatePicker Date="{Binding Activity.End}" VerticalOptions="Center"/>
+                    <DatePicker Date="{Binding Activity.End}" VerticalOptions="Center" />
+                    <TimePicker
+                        Time="{Binding TimeOfDayEnd}"
+                        VerticalOptions="Center" />
                 </StackLayout>
 
             </VerticalStackLayout>
@@ -86,15 +91,15 @@
                                  Grid.Column="3"
                                  HorizontalOptions="Start"
                                  Spacing="10">
-                
-                
+
+
                 <Picker Title="Select a Room"
                         x:Name="RoomEntry"
                         ItemsSource="{Binding Rooms}"
                         SelectedItem="{Binding Activity.Room, Mode=TwoWay}">
                 </Picker>
-                
-                
+
+
             </VerticalStackLayout>
 
 
