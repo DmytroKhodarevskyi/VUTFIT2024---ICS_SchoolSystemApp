@@ -17,7 +17,7 @@ namespace SchoolSystem.BL.Models
             Id = Guid.NewGuid(),
             Name = string.Empty,
             Surname = string.Empty,
-            Photo = string.Empty,
+            Photo = null,
             StudentSubjects = new ObservableCollection<StudentSubjectModel>()
         };
     }

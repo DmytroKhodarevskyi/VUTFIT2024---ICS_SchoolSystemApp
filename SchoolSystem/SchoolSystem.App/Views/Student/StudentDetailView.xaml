@@ -11,44 +11,53 @@
              Title="Student Detail"
              x:Name="StudentDetailViewRoot"
              x:DataType="students:StudentDetailViewModel">
-    <VerticalStackLayout Spacing="20">
-        <HorizontalStackLayout HorizontalOptions="End"
+    <ScrollView>
+        <VerticalStackLayout Spacing="20">
+            <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
                                HeightRequest="60">
-            <Button Text="Delete"
+                <Button Text="Delete"
                     CornerRadius="5"
                     BackgroundColor="Red"
                     Command="{Binding DeleteCommand}" />
-
-            <Button Text="Edit"
+                <Button Text="Edit"
                     CornerRadius="5"
                     Command="{Binding GoToEditCommand}" />
-        </HorizontalStackLayout>
+            </HorizontalStackLayout>
 
-        <Grid HorizontalOptions="Center" VerticalOptions="Start"
-              RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
+           
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+              RowDefinitions="Auto"
+              ColumnDefinitions="*, *"
               RowSpacing="20" ColumnSpacing="20">
 
-            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
-                                 Grid.Column="2"
-                                 Spacing="20">
+             
+                <VerticalStackLayout Grid.Column="0"
+                                 Spacing="10"
+                                  Padding="50,50">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Student.Name}" FontSize="24"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Surname: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Student.Surname}" FontSize="24"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Student.Name}" FontSize="24"/>
-                </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Surname: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Student.Surname}" FontSize="24"/>
-                </HorizontalStackLayout>
+                <VerticalStackLayout
+                    Padding="450,0,0,0">
+                <Image Grid.Column="1"
+                   HorizontalOptions="Fill" 
+                   VerticalOptions="Fill"
+                   Aspect="AspectFit"
+                   WidthRequest="320"
+                   HeightRequest="240"
+                   Source="{Binding Student.Photo, TargetNullValue='default.png'}"/>
+                </VerticalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Link: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Student.Photo}" FontSize="24"/>
-                </HorizontalStackLayout>
-
-            </VerticalStackLayout>
-        </Grid>
-    </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </views2:ContentPageBase>
