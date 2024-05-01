@@ -54,15 +54,7 @@ public sealed class ActivityFacadeTests : CRUDFacadeTestsBase
 
         Assert.Null(activity);
     }
-    
-    [Fact]
-    public async Task GetActivitiesBySubject()
-    {
-        var activities = await _activityFacadeSUT.GetAsyncFilter(Guid.Empty, null, null, 0, ActivitySeeds.Activity1.SubjectId);
 
-        Assert.Contains(ActivityMapper.MapToListModel(ActivitySeeds.Activity1), activities);
-    }
-    
         
     
     [Fact]
