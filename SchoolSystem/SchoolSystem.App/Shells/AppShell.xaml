@@ -14,11 +14,11 @@
         
         <MenuBarItem 
             Text="{x:Static text:AppShellTexts.File_MenuItem_Title}">
-            <MenuFlyoutItem Text= "{x:Static text:AppShellTexts.StudentMenuItem_Text}"
+            <MenuFlyoutItem Text= "Students"
                              Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
-            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.SubjectMenuItem_Text}"
+            <MenuFlyoutItem Text="Subjects"
                             Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
-            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.ActivityMenuItem_Text}"
+            <MenuFlyoutItem Text="Activities"
                             Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToActivitiesCommand}" />
             <MenuFlyoutItem Text="Evaluations"
                             Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToEvaluationCommand}" />

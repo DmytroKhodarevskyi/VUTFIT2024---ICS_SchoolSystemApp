@@ -1,41 +1,47 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <views1:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:SchoolSystem.App.Views"
-                       xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
-                       xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
-                       xmlns:views1="clr-namespace:App.Views"
-                       xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
-                       x:Class="SchoolSystem.App.Views.Activity.ActivityListView"
-                       Title="Activity list"
-                       x:Name="ActivityListViewRoot"
-                       x:DataType="activities:ActivityListViewModel">
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:views="clr-namespace:SchoolSystem.App.Views"
+                        xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
+                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                        xmlns:views1="clr-namespace:App.Views"
+                        xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
+                        x:Class="SchoolSystem.App.Views.Activity.ActivityListView"
+                        Title="Activity list"
+                        x:Name="ActivityListViewRoot"
+                        x:DataType="activities:ActivityListViewModel">
     <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
           RowSpacing="20">
-        <Label Grid.Row="0"
-               Padding="20, 0"
-               FontSize="24"
-               VerticalTextAlignment="Center"
-               FontAttributes="Bold"
-               Text="Activities" />
+
+        <Grid Padding="20,5" ColumnDefinitions="*,*,*">
+
+            <Label  FontSize="24" Text="Activities" />
+
+            <StackLayout Orientation="Horizontal" Spacing="20" Grid.Column="1">
+                <Label Text="Tag Filter"
+                       VerticalTextAlignment="Center"
+                       Padding="15">
+                </Label>
+                <Entry x:Name="TagFilter" HorizontalOptions="Fill"
+                       WidthRequest="100"
+                       Text="{Binding Tag}" />
+            </StackLayout>
+
+            <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="20">
+                <Label Text="Date Time Filter"
+                       VerticalTextAlignment="Center"
+                       Padding="15">
+                </Label>
+                <Picker x:Name="PickerFilter"
+                        WidthRequest="200"
+                        ItemsSource="{Binding Filters}"
+                        SelectedIndex="1"
+                        SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
+            </StackLayout>
 
 
-        <HorizontalStackLayout
-            Padding="700, 0, 0, 0">
-            <Label Text="Tag Filter"
-               VerticalTextAlignment="Center"
-                   Padding="10"></Label>
-            <Entry x:Name="TagFilter" HorizontalOptions="Fill"
-                   WidthRequest="100"
-                   Text="{Binding Tag}" />
-        </HorizontalStackLayout>
-
-        <Picker x:Name="PickerFilter"
-                WidthRequest="200"
-                ItemsSource="{Binding Filters}"
-                SelectedIndex="1"
-                SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
-        
+        </Grid>
 
         <Button Grid.Row="0"
                 Padding="20, 6"
@@ -44,10 +50,7 @@
                 Command="{Binding GoToCreateCommand}"
 
                 CornerRadius="5" FontFamily="MontserratMedium"
-                FontSize="14"/>
-
-      
-
+                FontSize="14" />
 
 
         <ListView Grid.Row="1"
@@ -57,36 +60,36 @@
                     <ViewCell>
                         <Grid Padding="20, 10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="1"
-                                   Text="{Binding Name}" 
+                                   Text="{Binding Name}"
                                    FontSize="16"
                                    VerticalOptions="Center"
                                    Padding="0, 0,10,0"
-                                   HorizontalOptions="Start"/>
+                                   HorizontalOptions="Start" />
                             <Label Grid.Column="2"
                                    Text="{Binding Start}"
                                    FontSize="16"
                                    Padding="10, 0"
                                    HorizontalOptions="Start"
-                                   VerticalOptions="Center" /> 
+                                   VerticalOptions="Center" />
                             <Label Grid.Column="3"
                                    Text="{Binding End}"
                                    FontSize="16"
                                    Padding="10, 0"
                                    HorizontalOptions="Start"
-                                   VerticalOptions="Center" /> 
+                                   VerticalOptions="Center" />
                             <Label Grid.Column="4"
                                    Text="{Binding Room}"
                                    FontSize="16"
                                    Padding="10, 0"
-                                   VerticalOptions="Center" /> 
+                                   VerticalOptions="Center" />
                             <Label Grid.Column="5"
                                    Text="{Binding Tag}"
                                    Padding="10, 0"
@@ -94,8 +97,9 @@
                                    VerticalOptions="Center" />
 
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
-                                                      CommandParameter="{Binding Id}" />
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                    CommandParameter="{Binding Id}" />
                             </Grid.GestureRecognizers>
                         </Grid>
 
