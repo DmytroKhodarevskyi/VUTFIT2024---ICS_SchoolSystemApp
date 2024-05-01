@@ -32,17 +32,17 @@ steps:
 
 
 
-# - task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'restore'
-#    projects: '**/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
 
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '**/SchoolSystem.sln'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 
 - task: DotNetCoreCLI@2
   inputs:
