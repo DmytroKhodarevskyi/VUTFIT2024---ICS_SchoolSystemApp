@@ -10,29 +10,27 @@
        x:Class="SchoolSystem.App.Shells.AppShell"
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
-    <Shell.MenuBarItems>
-        
-        <MenuBarItem 
-            Text="{x:Static text:AppShellTexts.File_MenuItem_Title}">
-            <MenuFlyoutItem Text= "{x:Static text:AppShellTexts.StudentMenuItem_Text}"
-                             Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
-            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.SubjectMenuItem_Text}"
-                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
-            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.ActivityMenuItem_Text}"
-                            Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToActivitiesCommand}" />
-            <MenuFlyoutItem Text="Evaluations"
-                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToEvaluationCommand}" />
-            
-        </MenuBarItem>
-        
-    </Shell.MenuBarItems>
-    
-
-    <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
-    <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" />
-    <ShellContent ContentTemplate="{DataTemplate activity:ActivityListView}" Route="activities" />
-    <ShellContent ContentTemplate="{DataTemplate evaluations:EvaluationListView}" Route="evaluations" />
-
+    <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students"></ShellContent>
+    <TabBar>
+        <Tab Title="Activities">
+            <ShellContent 
+                Title="Activities"
+                ContentTemplate="{DataTemplate a:ActivityListView}"
+                Route="activities"/>
+        </Tab>
+        <Tab Title="Subjects">
+            <ShellContent 
+                Title="Subjects"
+                ContentTemplate="{DataTemplate subjects:SubjectListView}"
+                Route="subjects"/>
+        </Tab>
+        <Tab Title="Profile">
+            <ShellContent 
+                Title="Profile"
+                ContentTemplate="{DataTemplate r:StudentDetailView}"
+                Route="profile"/>
+        </Tab>
+    </TabBar>
 </Shell>
 
     

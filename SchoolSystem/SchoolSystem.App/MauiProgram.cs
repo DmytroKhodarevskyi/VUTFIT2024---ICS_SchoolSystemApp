@@ -77,8 +77,7 @@ public static class MauiProgram
             DatabaseDirectory = FileSystem.AppDataDirectory,
             DatabaseName = "schoolsystem.db",
             RecreateDatabaseEachTime = true,
-            SeedDemoData = true
-            
+            SeedDemoData = false
         };
         
        // configuration.GetSection("SchoolSystem:DAL").Bind(dalOptions);
