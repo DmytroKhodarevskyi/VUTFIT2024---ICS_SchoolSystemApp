@@ -16,9 +16,24 @@ public partial class ActivityListViewModel(
     IMessengerService messengerService)
     : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
 {
-    public IEnumerable<ActivityListModel> Activities { get; set; } = activityFacade.GetAsync().Result;
+    public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
     public Guid UserId { get; set; }
+
+    private int _tag = -1;
+    public int Tag
+    {
+        get => _tag;
+        set
+        {
+            if (_tag != value)
+            {
+                _tag = value;
+                OnPropertyChanged(nameof(Tag));
+                LoadDataAsync();  // Trigger data reload when the tag changes
+            }
+        }
+    }
 
     public string[] Filters { get; set; } = Enum.GetNames(typeof(Interval));
 
@@ -37,15 +52,33 @@ public partial class ActivityListViewModel(
             }
         }
     }
+
+
+    private string _selectedFilterTag;
+    public string SelectedFilterTag
+    {
+        get => _selectedFilterTag;
+        set
+        {
+            if (_selectedFilterTag != value)
+            {
+                _selectedFilterTag = value;
+                OnPropertyChanged(nameof(SelectedFilterTag));
+                ParseInterval(_selectedFilterTag);
+                LoadDataAsync();  // Ensure this is called to refresh the list
+            }
+        }
+    }
     //public string SelectedFilter { get; set; } = Enum.GetName<Interval>(Interval.All);
 
     public Interval Interval { get; set; } = Interval.All;
 
-    public DateTime? FilterStart { get; set; } = DateTime.Now;
+    public DateTime? FilterStart { get; set; } = null;
 
-    public DateTime? FilterEnd { get; set; } = DateTime.Now;
+    public DateTime? FilterEnd { get; set; } = null;
 
     public bool ManualFilter { get; set; }
+
 
     protected override async Task LoadDataAsync()
     {
@@ -66,8 +99,8 @@ public partial class ActivityListViewModel(
         {
             FilterStart = GetMinTime(Activities, FilterStart);
         }
-
-        Activities = await activityFacade.GetAsyncFilter(FilterStart, FilterEnd); //TODO
+        Activities = await activityFacade.GetAsyncFilter(FilterStart, FilterEnd, Tag);
+        // Activities = await activityFacade.GetAsyncFilterTag(Tag);
     }
 
     public static DateTime? GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime? Start)
@@ -109,12 +142,16 @@ public partial class ActivityListViewModel(
                 FilterStart = now.AddDays(-7);
                 break;
             case Interval.This_Month:
-                FilterStart = DateTime.MinValue.AddYears(now.Year - 1).AddMonths(now.Month - 1); //first day of month
+                FilterStart = new DateTime(now.Year, now.Month, 1);
+                if (FilterStart.HasValue)
+                {
+                    FilterEnd = FilterStart.Value.AddMonths(1).AddDays(-1);
+                }
                 break;
             case Interval.Last_Month:
-                FilterStart = DateTime.MinValue.AddYears(now.Year - 1).AddMonths(now.Month - 2); //first day of month
-                FilterEnd = DateTime.MinValue.AddYears(now.Year - 1).AddMonths(now.Month - 1).AddDays(-1); //last day of month
-                return;
+                FilterStart = new DateTime(now.Year, now.Month, 1).AddMonths(-1);
+                FilterEnd = new DateTime(now.Year, now.Month, 1).AddDays(-1);
+                break;
             case Interval.Yearly:
                 FilterStart = now.AddYears(-1);
                 break;
@@ -151,17 +188,6 @@ public partial class ActivityListViewModel(
         await LoadDataAsync();
     }
 
-    public async void DatePicker_PropertyChanged(object sender, SelectionChangedEventArgs e)
-    {
-        await GoToRefreshAsync();
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 
 
     [RelayCommand]

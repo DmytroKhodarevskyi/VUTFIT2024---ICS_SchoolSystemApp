@@ -19,11 +19,20 @@
                FontAttributes="Bold"
                Text="Activities" />
 
+
+        <HorizontalStackLayout
+            Padding="700, 0, 0, 0">
+            <Entry x:Name="TagFilter" HorizontalOptions="Fill"
+                   WidthRequest="100"
+                   Text="{Binding Tag}" />
+        </HorizontalStackLayout>
+
         <Picker x:Name="PickerFilter"
                 WidthRequest="200"
                 ItemsSource="{Binding Filters}"
                 SelectedIndex="1"
                 SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
+        
 
         <Button Grid.Row="0"
                 Padding="20, 6"
