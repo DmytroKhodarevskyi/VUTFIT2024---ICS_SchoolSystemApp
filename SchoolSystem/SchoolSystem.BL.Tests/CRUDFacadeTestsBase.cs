@@ -23,8 +23,7 @@ public class CRUDFacadeTestsBase : IAsyncLifetime
         ActivityMapper = new ActivityModelMapper();
         EvaluationMapper = new EvaluationModelMapper();
         SubjectMapper = new SubjectModelMapper();
-        StudentSubjectMapper = new StudentSubjectModelMapper();
-        StudentMapper = new StudentModelMapper(StudentSubjectMapper);
+        StudentMapper = new StudentModelMapper(SubjectMapper);
         
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
     }
@@ -34,7 +33,6 @@ public class CRUDFacadeTestsBase : IAsyncLifetime
     protected StudentModelMapper StudentMapper { get; }
     protected SubjectModelMapper SubjectMapper { get; }
     
-    protected StudentSubjectModelMapper StudentSubjectMapper { get; }
     protected ActivityModelMapper ActivityMapper { get; }
 
     protected EvaluationModelMapper EvaluationMapper { get; }

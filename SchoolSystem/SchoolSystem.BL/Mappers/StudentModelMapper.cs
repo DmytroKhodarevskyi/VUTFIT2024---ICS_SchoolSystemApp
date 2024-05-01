@@ -4,7 +4,7 @@ using SchoolSystem.BL.Models;
 
 namespace SchoolSystem.BL.Mappers;
 
-public class StudentModelMapper(StudentSubjectModelMapper studentSubjectModelModelMapper)
+public class StudentModelMapper(StudentSubjectMapper studentSubjectModelMapper)
     : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailedModel>
 {
     public override StudentListModel MapToListModel(StudentEntity? entity) => entity is null
@@ -25,7 +25,7 @@ public class StudentModelMapper(StudentSubjectModelMapper studentSubjectModelMod
                 Name = entity.Name,
                 Surname = entity.Surname,
                 Photo = entity.Photo,
-                StudentSubjects = studentSubjectModelModelMapper.MapToListModel(entity.StudentSubjects).ToObservableCollection()
+                StudentSubjects = studentSubjectModelMapper.MapToListModel(entity.StudentSubjects).ToObservableCollection()
             };
 
     public override StudentEntity MapToEntity(StudentDetailedModel model) =>
