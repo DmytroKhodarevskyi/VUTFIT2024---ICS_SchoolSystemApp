@@ -14,16 +14,17 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
 
     Task<ActivityListModel> GetActivityByName(string name);
 
-    
-    enum Interval
+
+    public enum Interval
     {
-        All,
-        Daily,
-        Weekly,
-        This_Month,
-        Last_Month,
-        Yearly
+        NoFilter,
+        Last24Hours,
+        Last7Days,
+        CurrentMonth,
+        PreviousMonth,
+        LastYear,
     }
+
 
     public enum Room
     {
