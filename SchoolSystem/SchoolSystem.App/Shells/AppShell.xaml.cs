@@ -18,7 +18,7 @@ public partial class AppShell
         InitializeComponent();
     }
 
-    // Example method to navigate to the student list view
+  
     [RelayCommand]
     private async Task GoToStudentAsync()
         => await _navigationService.GoToAsync<StudentListViewModel>();
@@ -27,7 +27,7 @@ public partial class AppShell
     [RelayCommand]
     private async Task GoToSubjectAsync()
         => await _navigationService.GoToAsync<SubjectListViewModel>();
-    // Example method to navigate to the student list view
+
     [RelayCommand]
     private async Task GoToActivitiesAsync()
         => await _navigationService.GoToAsync<ActivityListViewModel>();
