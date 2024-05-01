@@ -85,7 +85,6 @@ public partial class ActivityListViewModel(
 
         await base.LoadDataAsync();
         Activities = await activityFacade.GetAsync();
-        ManualFilter = false;
         ParseInterval(SelectedFilter);
 
         if (FilterEnd == null)
