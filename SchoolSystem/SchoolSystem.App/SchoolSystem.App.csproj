@@ -57,6 +57,10 @@
 
 	<ItemGroup>
 	  <Compile Remove="Converters\StringToRoomEnumConverter.cs" />
+	  <Compile Update="Views\Student\SubjectAddView.xaml.cs">
+	    <DependentUpon>SubjectAddView.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -105,6 +109,9 @@
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Subject\SubjectDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Student\SubjectAddView.xaml">
+	    <SubType>Designer</SubType>
 	  </MauiXaml>
 	</ItemGroup>
 

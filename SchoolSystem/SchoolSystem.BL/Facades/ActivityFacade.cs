@@ -60,5 +60,16 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
         
         return ModelMapper.MapToListModel(query);
     }
+    
+    public async Task<ActivityListModel> GetActivityByName(string name)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+
+        ActivityEntity? query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>()
+            .Get()
+            .FirstOrDefault(e => e.Name == name);
+        
+        return ModelMapper.MapToListModel(query);
+    }
 
 }

@@ -25,13 +25,13 @@
                     Command="{Binding GoToEditCommand}" />
             </HorizontalStackLayout>
 
-           
+
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start"
               RowDefinitions="Auto"
               ColumnDefinitions="*, *"
               RowSpacing="20" ColumnSpacing="20">
 
-             
+
                 <VerticalStackLayout Grid.Column="0"
                                  Spacing="10"
                                   Padding="50,50">
@@ -48,7 +48,7 @@
 
                 <VerticalStackLayout
                     Padding="450,0,0,0">
-                <Image Grid.Column="1"
+                    <Image Grid.Column="1"
                    HorizontalOptions="Fill" 
                    VerticalOptions="Fill"
                    Aspect="AspectFit"

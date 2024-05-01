@@ -19,7 +19,10 @@ public class EvaluationModelMapper : ModelMapperBase<EvaluationEntity, Evaluatio
             : new EvaluationDetailModel()
             {
                 Id = entity.Id, Score = entity.Score, Description = entity.Description,
-                ActivityId = entity.ActivityId, StudentId = entity.StudentId
+                ActivityId = entity.ActivityId, StudentId = entity.StudentId,
+                Activity = entity.Activity is null ? ActivityListModel.Empty : new ActivityListModel() { Id = entity.Activity.Id, Description = entity.Activity.Description, 
+                    End = entity.Activity.End, Name = entity.Activity.Name, Start = entity.Activity.Start, Room = entity.Activity.Room, Tag = entity.Activity.Tag, SubjectId = null},
+                Student = entity.Student is null ? StudentListModel.Empty : new StudentListModel() { Id = entity.Student.Id, Name = entity.Student.Name, Surname = entity.Student.Surname}
             };
 
     public override EvaluationEntity MapToEntity(EvaluationDetailModel model) =>

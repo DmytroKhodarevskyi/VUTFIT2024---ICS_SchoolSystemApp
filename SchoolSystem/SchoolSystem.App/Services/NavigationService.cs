@@ -41,6 +41,8 @@ public class NavigationService : INavigationService
         new("//activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
         new("//activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
         new("//activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
+        
+        new( "//students/detail/addSubject", typeof(SubjectAddView), typeof(SubjectAddViewModel)),
     };
 
     public async Task GoToAsync<TViewModel>()

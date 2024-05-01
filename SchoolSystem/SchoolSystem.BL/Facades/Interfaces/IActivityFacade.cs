@@ -9,8 +9,9 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
     Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid studentId, DateTime? start, DateTime? end, int tag, Guid? subjectId);
     
     Task<IEnumerable<ActivityListModel>> GetAsyncListBySubject(Guid subjectId);
-    
-    
+
+    Task<ActivityListModel> GetActivityByName(string name);
+
 }
 
 

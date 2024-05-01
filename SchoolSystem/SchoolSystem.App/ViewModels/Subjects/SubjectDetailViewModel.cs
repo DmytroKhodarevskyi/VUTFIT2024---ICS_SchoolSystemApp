@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SchoolSystem.App.Messages;
 using SchoolSystem.App.Services.Interfaces;
@@ -10,6 +11,8 @@ namespace SchoolSystem.App.ViewModels.Subjects;
 [QueryProperty(nameof(Id), nameof(Id))]
 public partial class SubjectDetailViewModel(
     ISubjectFacade subjectFacade,
+    IActivityFacade activityFacade,
+
     INavigationService navigationService,
     IMessengerService messengerService,
     IAlertService alertService)
@@ -23,6 +26,7 @@ public partial class SubjectDetailViewModel(
         await base.LoadDataAsync();
 
         Subject = await subjectFacade.GetAsync(Id);
+        Subject.Activities = (ObservableCollection<ActivityListModel>)await activityFacade.GetAsyncListBySubject(Id);
     }
 
     [RelayCommand]

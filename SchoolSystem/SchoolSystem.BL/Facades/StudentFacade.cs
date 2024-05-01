@@ -43,6 +43,22 @@ namespace SchoolSystem.BL.Facades
             return students;
         }
         
+        public async Task<StudentListModel> GetStudentByNameAsync(string name)
+        {
+            await using var uow = _unitOfWorkFactory.Create();
+
+            var query = uow.GetRepository<StudentEntity, StudentEntityMapper>()
+                .Get()
+                .Where(student => student.Name == name);
+            var students = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
+            foreach (var instance in query)
+            {
+                var model = mapper.MapToListModel(instance);
+                students.Add(model); // Use Add method to add the model to the list
+            }
+            return students.FirstOrDefault();
+        }
+        
         public async Task<IEnumerable<StudentListModel>> GetStudentsByNameSubject(string name)
         {
             await using var uow = _unitOfWorkFactory.Create();
