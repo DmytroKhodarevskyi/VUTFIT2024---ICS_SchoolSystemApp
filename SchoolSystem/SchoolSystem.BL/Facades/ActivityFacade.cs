@@ -21,13 +21,12 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
         _mapper = mapper;
     }
   
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid studentId, DateTime? start, DateTime? end, int tag, Guid? subjectId)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? start, DateTime? end, int Tag)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
         IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
 
-        query = query.Where(e => e.SubjectId == subjectId);
         if (start != null)
         {
             query = query.Where(e => e.Start >= start);
@@ -36,20 +35,34 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
         {
             query = query.Where(e => e.End <= end);
         }
-        if(tag != 0)
+        if (Tag > -1)
         {
-            query = query.Where(e => e.Tag == tag);
+            query = query.Where(e => e.Tag == Tag);
         }
-        if (studentId != Guid.Empty )
-        {
-            query = query.Where(e => e.Evaluations!.Any(e => e.StudentId == studentId));
-        }
+
         query = query.OrderBy(e => e.Start);
     
         var entities = await query.ToListAsync();
-       return ModelMapper.MapToListModel(entities);
+        return ModelMapper.MapToListModel(entities);
     }
-    
+
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilterTag(int Tag)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+
+        IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
+
+        if (Tag > -1)
+        {
+            query = query.Where(e => e.Tag == Tag);
+        }
+
+        query = query.OrderBy(e => e.Start);
+
+        var entities = await query.ToListAsync();
+        return ModelMapper.MapToListModel(entities);
+    }
+
     public async Task<IEnumerable<ActivityListModel>> GetAsyncListBySubject(Guid subjectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();

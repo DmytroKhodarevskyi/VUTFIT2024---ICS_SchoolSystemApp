@@ -39,7 +39,7 @@
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout Spacing="5">
-                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="Abbreviation: " FontSize="24" FontAttributes="Bold"/>
                     <Label Text="{Binding Subject.Abbreviation}" FontSize="24"/>
                 </HorizontalStackLayout>
             
