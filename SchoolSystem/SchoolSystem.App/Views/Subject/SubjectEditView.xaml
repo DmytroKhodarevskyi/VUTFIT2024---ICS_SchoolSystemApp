@@ -35,13 +35,11 @@
                          WidthRequest="200"
                          Spacing="10">
                 <Label Text="{x:Static texts:SubjectEditViewTexts.NameLabel}" 
-                       FontSize="18"
-               TextColor="{StaticResource PrimaryDarkText}"/>
+                       FontSize="18"/>
                 <Entry HorizontalOptions="Fill"
                Text="{Binding Subject.Name}" />
                 <Label Text="{x:Static texts:SubjectEditViewTexts.AbbreviationLabel}" 
-                        FontSize="18"
-                TextColor="{StaticResource PrimaryDarkText}"/>
+                        FontSize="18"/>
                 <Entry HorizontalOptions="Fill"
                Text="{Binding Subject.Abbreviation}" />
 
