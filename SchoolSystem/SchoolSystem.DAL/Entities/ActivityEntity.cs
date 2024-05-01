@@ -17,4 +17,6 @@ public record ActivityEntity : IEntity
     public Guid? SubjectId { get; set; }
 
      public SubjectEntity? Subject { get; set; }
+     public Guid? StudentId { get; set; }
+     public StudentEntity? Student { get; set; }
 }
