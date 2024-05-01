@@ -14,89 +14,91 @@
 					   xmlns:enums="clr-namespace:DAL.Enums;assembly=SchoolSystem.DAL"
 					   x:Name="ActivityEditViewRoot"
                        x:DataType="activities:ActivityEditViewModel"
+                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
                        >
 
 
-	<Grid RowDefinitions="70, *">
-		<Grid Grid.Row="0"
+    <Grid RowDefinitions="70, *">
+        <Grid Grid.Row="0"
 			  ColumnDefinitions="*, Auto"
 			  ColumnSpacing="15">
 
-			<Button
+            <Button
                     Grid.Column="1"
                     VerticalOptions="Start"
 					Text="Save"
                     HeightRequest="30"
                     Command="{Binding SaveCommand}">
-				<Button.IsEnabled>
-					<MultiBinding Converter="{StaticResource NotEmptyConverter}">
-						<Binding Source="{x:Reference NameEntry}" Path="Text" />
-                        <Binding Source="{x:Reference RoomEntry}" Path="SelectedItem" />
-						<Binding Source="{x:Reference TagEntry}" Path="Text" />
-					</MultiBinding>
-				</Button.IsEnabled>
-			</Button>
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference NameEntry}" Path="Text" />
+                       
+                        <Binding Source="{x:Reference TagEntry}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
 
-		</Grid>
-		<Grid Grid.Row="1"
+        </Grid>
+        <Grid Grid.Row="1"
               HorizontalOptions="Center" VerticalOptions="Start"
               RowDefinitions="170, *" ColumnDefinitions="Auto, Auto, Auto, *"
               RowSpacing="20" ColumnSpacing="20">
 
 
-			<VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
+            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="1"
                                  HorizontalOptions="Start"
                                  WidthRequest="200"
                                  Spacing="10">
-				<Label Text="Name" />
+                <Label Text="Name" />
 
 
-				<Entry x:Name="NameEntry" HorizontalOptions="Fill" Text="{Binding Activity.Name}" />
-
-				
-				<Label Text="Tag" />
-				<Entry x:Name="TagEntry" HorizontalOptions="Fill" Text="{Binding Activity.Tag}" />
-
-				<Label Text="Description" />
-				<Entry x:Name="DescriptionEntry" HorizontalOptions="Fill" Text="{Binding Activity.Description}" />
+                <Entry x:Name="NameEntry" HorizontalOptions="Fill" Text="{Binding Activity.Name}" />
 
 
-			</VerticalStackLayout>
+                <Label Text="Tag" />
+                <Entry x:Name="TagEntry" HorizontalOptions="Fill" Text="{Binding Activity.Tag}" />
 
-			<VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
+                <Label Text="Description" />
+                <Entry x:Name="DescriptionEntry" HorizontalOptions="Fill" Text="{Binding Activity.Description}" />
+
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="2"
                                  HorizontalOptions="Start"
                                  Spacing="10">
 
-				<StackLayout Orientation="Vertical" Spacing="11" >
-					<Label Text="Start"></Label>
-					<DatePicker Date="{Binding Activity.Start}" VerticalOptions="Center"/>
-				</StackLayout>
+                <StackLayout Orientation="Vertical" Spacing="11" >
+                    <Label Text="Start"></Label>
+                    <DatePicker Date="{Binding Activity.Start}" VerticalOptions="Center"/>
+                </StackLayout>
 
-				<StackLayout Orientation="Vertical" Spacing="11" HorizontalOptions="End">
-					<Label Text="End"></Label>
-					<DatePicker Date="{Binding Activity.End}" VerticalOptions="Center"/>
-				</StackLayout>
+                <StackLayout Orientation="Vertical" Spacing="11" HorizontalOptions="End">
+                    <Label Text="End"></Label>
+                    <DatePicker Date="{Binding Activity.End}" VerticalOptions="Center"/>
+                </StackLayout>
 
-			</VerticalStackLayout>
+            </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
                                  Grid.Column="3"
                                  HorizontalOptions="Start"
                                  Spacing="10">
-
-
+                
+                
                 <Picker Title="Select a Room"
-						x:Name="RoomEntry"
-                        ItemsSource="{Binding Source={x:Type enums:Room}, Converter={StaticResource EnumToListConverter}}"
-                        SelectedItem="{Binding Activity.Room}">
+                        x:Name="RoomEntry"
+                        ItemsSource="{Binding Rooms}"
+                        SelectedItem="{Binding Activity.Room, Mode=TwoWay}">
                 </Picker>
+                
+                
+            </VerticalStackLayout>
 
-			</VerticalStackLayout>
 
-
-		</Grid>
-	</Grid>
+        </Grid>
+    </Grid>
 
 </views2:ContentPageBase>
