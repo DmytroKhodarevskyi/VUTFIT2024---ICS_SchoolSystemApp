@@ -134,14 +134,4 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
         Assert.Contains(results, s => s.Surname == "Trifanov");
     }
     
-    // [Fact]
-    // public async Task GetStudentsByNameSubject_Test()
-    // {
-    //     var results = await _studentFacadeSUT.GetStudentsByNameSubject(StudentSeeds.Student1.Subjects.First().Name);
-    //
-    //     // Assert
-    //     Assert.NotNull(results);
-    //     DeepAssert.Equal(StudentMapper.MapToListModel(StudentSeeds.Student1), results.First());
-    //
-    // }
 }

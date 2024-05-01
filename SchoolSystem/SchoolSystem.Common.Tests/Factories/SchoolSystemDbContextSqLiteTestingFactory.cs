@@ -8,7 +8,7 @@ public class SchoolSystemDbContextSqLiteTestingFactory(string databaseName, bool
 {
     public SchoolSystemDbContext CreateDbContext()
     {
-        //
+        
         DbContextOptionsBuilder<SchoolSystemDbContext> builder = new();
         builder.UseSqlite($"Data Source={databaseName};Cache=Shared");
 
