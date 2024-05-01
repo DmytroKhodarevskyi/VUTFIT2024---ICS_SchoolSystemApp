@@ -51,7 +51,7 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
         Subject = await _subjectFacade.GetAsync(SubjectId);
 
-        // Projects = Student.UserProjects.Select(up => up.ProjectName).ToArray();
+        // Students = Subject.UserProjects.Select(up => up.ProjectName).ToArray();
         // SelectedProject = Student.UserProjects.Where(up => up.ProjectId == Activity.SubjectId).Select(up => up.ProjectName).FirstOrDefault();
 
         EndDate = Activity?.End.Date ?? DateTime.Now;
@@ -81,7 +81,7 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
         if (SelectedStudent is null)
         {
-            await _alertService.DisplayAsync("Project is not selected", "You must select a project when adding activity.");
+            await _alertService.DisplayAsync("Student is not selected", "You must select a project when adding activity.");
             return;
         }
 

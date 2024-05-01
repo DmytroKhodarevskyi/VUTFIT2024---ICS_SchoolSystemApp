@@ -8,7 +8,6 @@
              xmlns:subjects="clr-namespace:SchoolSystem.App.ViewModels.Subjects"
              xmlns:views2="clr-namespace:App.Views"
              Title="{x:Static texts:SubjectEditViewTexts.Subject_MenuItem_Title}"
-             Style="{StaticResource ContentPageStyle}"
              x:Name="SubjectEditViewRoot"
              x:DataType="subjects:SubjectEditViewModel">
     <Grid RowDefinitions="70, *">
@@ -20,7 +19,6 @@
                     VerticalOptions="Start"
                     HeightRequest="30"
                     Text="{x:Static texts:SubjectEditViewTexts.SaveButtonLabel}"
-                    BackgroundColor="{StaticResource PrimaryColor}"
                     CornerRadius="5"
                     Command="{Binding SaveCommand}" />
         </Grid>
