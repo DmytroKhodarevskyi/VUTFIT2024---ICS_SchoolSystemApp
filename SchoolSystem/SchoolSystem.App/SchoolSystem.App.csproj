@@ -75,7 +75,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Converters\" />
 		<Folder Include="Messages\" />
 	</ItemGroup>
 
