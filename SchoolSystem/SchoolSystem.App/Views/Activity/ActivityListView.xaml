@@ -19,6 +19,12 @@
                FontAttributes="Bold"
                Text="Activities" />
 
+        <Picker x:Name="PickerFilter"
+                WidthRequest="200"
+                ItemsSource="{Binding Filters}"
+                SelectedIndex="1"
+                SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
+
         <Button Grid.Row="0"
                 Padding="20, 6"
                 HorizontalOptions="End" VerticalOptions="Start"
@@ -27,6 +33,10 @@
 
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"/>
+
+      
+
+
 
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Activities}">
