@@ -10,8 +10,7 @@ public class EvaluationModelMapper : ModelMapperBase<EvaluationEntity, Evaluatio
         : new EvaluationListModel()
         {
             Id = entity.Id, Score = entity.Score, Description = entity.Description,
-            ActivityId = entity.ActivityId, StudentId = entity.StudentId,
-            Activity = entity.Activity is null ? ActivityListModel.Empty : new ActivityModelMapper().MapToListModel(entity.Activity)
+            ActivityId = entity.ActivityId, StudentId = entity.StudentId
         };
     
     public override EvaluationDetailModel MapToDetailModel(EvaluationEntity? entity) =>
@@ -21,8 +20,6 @@ public class EvaluationModelMapper : ModelMapperBase<EvaluationEntity, Evaluatio
             {
                 Id = entity.Id, Score = entity.Score, Description = entity.Description,
                 ActivityId = entity.ActivityId, StudentId = entity.StudentId
-                , Activity = entity.Activity is null ? ActivityListModel.Empty : new ActivityModelMapper().MapToListModel(entity.Activity),
-                Student = entity.Student is null ? StudentListModel.Empty : new StudentModelMapper(new SubjectModelMapper()).MapToListModel(entity.Student)
             };
 
     public override EvaluationEntity MapToEntity(EvaluationDetailModel model) =>
