@@ -9,7 +9,6 @@
              xmlns:views2="clr-namespace:App.Views"
              xmlns:models="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
              Title="{x:Static texts:SubjectDetailViewTexts.Subject_MenuItem_Title}"
-             Style="{StaticResource ContentPageStyle}"
              x:Name="SubjectDetailViewRoot"
              x:DataType="subjects:SubjectDetailViewModel">
     <VerticalStackLayout Spacing="20">
@@ -23,7 +22,6 @@
 
             <Button Text="{x:Static texts:SubjectDetailViewTexts.EditButtonLabel}"
                     CornerRadius="5"
-                    BackgroundColor="{StaticResource PrimaryColor}"
                     Command="{Binding GoToEditCommand}" />
         </HorizontalStackLayout>
 
@@ -90,10 +88,7 @@
                                    FontSize="16"
                                    VerticalOptions="Center" />
 
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
-                                                      CommandParameter="{Binding Id}" />
-                            </Grid.GestureRecognizers>
+                            
                         </Grid>
 
 

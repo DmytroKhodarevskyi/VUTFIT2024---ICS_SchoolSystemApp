@@ -26,7 +26,7 @@ public partial class StudentDetailViewModel(
 
         Student = await studentFacade.GetAsync(Id);
         
-        Student.Subjects = (ObservableCollection<SubjectListModel>)await subjectFacade.GetSubjectsByName(Student.Name);
+        Student.Subjects = new ObservableCollection<SubjectListModel>(await subjectFacade.GetSubjectsByName(Student.Name));
     }
 
     [RelayCommand]

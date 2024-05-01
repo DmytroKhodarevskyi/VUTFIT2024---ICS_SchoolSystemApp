@@ -26,7 +26,7 @@ public partial class SubjectDetailViewModel(
         await base.LoadDataAsync();
 
         Subject = await subjectFacade.GetAsync(Id);
-        Subject.Activities = (ObservableCollection<ActivityListModel>)await activityFacade.GetAsyncListBySubject(Id);
+        Subject.Activities =  new ObservableCollection<ActivityListModel>(await activityFacade.GetAsyncListBySubject(Id));
     }
 
     [RelayCommand]
