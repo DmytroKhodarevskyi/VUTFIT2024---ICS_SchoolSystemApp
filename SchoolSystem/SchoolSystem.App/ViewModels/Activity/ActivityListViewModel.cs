@@ -18,7 +18,7 @@ public partial class ActivityListViewModel: ViewModelBase, IRecipient<EditMessag
         activityFacade = _activityFacade;
         navigationService = _navigationService;
         var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
-        StudentId = viewModel.StudentId;
+        StudentId = viewModel.SubjectId;
     }
     public Guid StudentId { get; set; }
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
