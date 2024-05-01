@@ -10,7 +10,6 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
     
     Task<IEnumerable<ActivityListModel>> GetAsyncListBySubject(Guid subjectId);
     
-    Task<IEnumerable<ActivityListModel>> GetAsyncListByStudent(Guid studentId);
     
 }
 

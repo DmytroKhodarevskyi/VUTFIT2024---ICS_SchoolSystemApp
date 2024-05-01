@@ -60,14 +60,5 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
         
         return ModelMapper.MapToListModel(query);
     }
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncListByStudent(Guid studentId)
-    {
-        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
-        List<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get()
-            .Where(e => e.StudentId == studentId)
-            .ToList();
-        
-        return ModelMapper.MapToListModel(query);
-    }
 }

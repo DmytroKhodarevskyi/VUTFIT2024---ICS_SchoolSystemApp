@@ -23,12 +23,15 @@ public class CRUDFacadeTestsBase : IAsyncLifetime
         ActivityMapper = new ActivityModelMapper();
         EvaluationMapper = new EvaluationModelMapper();
         SubjectMapper = new SubjectModelMapper();
-        StudentMapper = new StudentModelMapper(SubjectMapper);
+        StudentSubjectMapper = new StudentSubjectModelMapper();
+        StudentMapper = new StudentModelMapper(StudentSubjectMapper);
         
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
     }
 
     protected IDbContextFactory<SchoolSystemDbContext> DbContextFactory { get; }
+    
+    protected StudentSubjectModelMapper StudentSubjectMapper { get; }
 
     protected StudentModelMapper StudentMapper { get; }
     protected SubjectModelMapper SubjectMapper { get; }
