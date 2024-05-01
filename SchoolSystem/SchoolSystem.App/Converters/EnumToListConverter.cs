@@ -10,16 +10,17 @@ public class EnumToListConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is Type enumType && enumType.IsEnum)
+        var enumType = value as Type;
+        if (enumType != null && enumType.IsEnum)
         {
-            return Enum.GetNames(enumType).ToList();
+            return Enum.GetValues(enumType);
         }
         return null;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        return value;
     }
 }
 

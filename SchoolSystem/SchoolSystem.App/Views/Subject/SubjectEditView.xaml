@@ -15,13 +15,21 @@
               ColumnDefinitions="*, Auto"
               ColumnSpacing="15">
 
-            <Button Grid.Column="1"
+            <Button
+                    Grid.Column="1"
                     VerticalOptions="Start"
+					Text="Save"
                     HeightRequest="30"
-                    Text="{x:Static texts:SubjectEditViewTexts.SaveButtonLabel}"
-                    CornerRadius="5"
-                    Command="{Binding SaveCommand}" />
+                    Command="{Binding SaveCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference NameEntry}" Path="Text" />
+                        <Binding Source="{x:Reference AbbrEntry}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
         </Grid>
+        
         <Grid Grid.Row="1"
       HorizontalOptions="Center" VerticalOptions="Start"
       RowDefinitions="170, *" ColumnDefinitions="Auto, *, Auto"
@@ -34,12 +42,10 @@
                          Spacing="10">
                 <Label Text="{x:Static texts:SubjectEditViewTexts.NameLabel}" 
                        FontSize="18"/>
-                <Entry HorizontalOptions="Fill"
-               Text="{Binding Subject.Name}" />
+                <Entry x:Name="NameEntry" HorizontalOptions="Fill" Text="{Binding Subject.Name}" />
                 <Label Text="{x:Static texts:SubjectEditViewTexts.AbbreviationLabel}" 
                         FontSize="18"/>
-                <Entry HorizontalOptions="Fill"
-               Text="{Binding Subject.Abbreviation}" />
+                <Entry x:Name="AbbrEntry" HorizontalOptions="Fill" Text="{Binding Subject.Abbreviation}" />
 
             </VerticalStackLayout>
             <BoxView Grid.Column="2" />

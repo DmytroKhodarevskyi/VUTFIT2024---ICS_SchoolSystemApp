@@ -16,12 +16,20 @@
               ColumnDefinitions="*, Auto"
               ColumnSpacing="15">
 
-            <Button Grid.Column="1"
+            <Button
+                    Grid.Column="1"
                     VerticalOptions="Start"
+					Text="Save"
                     HeightRequest="30"
-                    Text="Save"
-                    CornerRadius="5"
-                    Command="{Binding SaveCommand}" />
+                    Command="{Binding SaveCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference NameEntry}" Path="Text" />
+                        <Binding Source="{x:Reference SurnameEntry}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+            
         </Grid>
         <Grid Grid.Row="1"
               HorizontalOptions="Center" VerticalOptions="Start"
@@ -35,14 +43,9 @@
                          WidthRequest="200"
                          Spacing="10">
                 <Label Text="Name" />
-                <Entry HorizontalOptions="Fill"
-               Text="{Binding Student.Name}" 
-                       FontSize="18" />
+                <Entry x:Name="NameEntry" HorizontalOptions="Fill" Text="{Binding Student.Name}" />
                 <Label Text="Surname" />
-                <Entry HorizontalOptions="Fill"
-               Text="{Binding Student.Surname}" 
-                        FontSize="18"/>
-
+                <Entry x:Name="SurnameEntry" HorizontalOptions="Fill" Text="{Binding Student.Surname}" />
                 <Label Text="Photo" />
                 <Entry HorizontalOptions="Fill"
                Text="{Binding Student.Photo}" 
