@@ -4,7 +4,7 @@ using SchoolSystem.BL.Models;
 
 namespace SchoolSystem.BL.Mappers;
 
-public class StudentSubjectMapper : ModelMapperBase<StudentSubjectEntity, StudentSubjectModel, StudentSubjectModel>
+public class StudentSubjectModelMapper : ModelMapperBase<StudentSubjectEntity, StudentSubjectModel, StudentSubjectModel>
 {
     public override StudentSubjectModel MapToListModel(StudentSubjectEntity? entity) => entity is null
         ? StudentSubjectModel.Empty
