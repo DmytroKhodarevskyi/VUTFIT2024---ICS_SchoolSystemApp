@@ -27,7 +27,7 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
     public SubjectDetailedModel? Subject { get; set; }
     public string[] Students { get; set; }
-    public string SelectedStudent { get; set; }
+    public string? SelectedStudent { get; set; }
 
     public ActivityEditViewModel(
         IActivityFacade activityFacade,
@@ -51,8 +51,8 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
         Subject = await _subjectFacade.GetAsync(SubjectId);
 
-        // Students = Subject.UserProjects.Select(up => up.ProjectName).ToArray();
-        // SelectedProject = Student.UserProjects.Where(up => up.ProjectId == Activity.SubjectId).Select(up => up.ProjectName).FirstOrDefault();
+        Students = Subject!.StudentSubjects.Select(up => up.StudentName).ToArray();
+        SelectedStudent = Subject.StudentSubjects.Where(up => up.StudentId == Activity.SubjectId).Select(up => up.StudentName).FirstOrDefault();
 
         EndDate = Activity?.End.Date ?? DateTime.Now;
         EndTime = Activity?.End.TimeOfDay ?? DateTime.Now.TimeOfDay;
@@ -71,9 +71,9 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
             return;
         }
 
-        var student_Activities = await _activityFacade.GetAsyncListBySubject(SubjectId);
+        var subject_Activities = await _activityFacade.GetAsyncListBySubject(SubjectId);
 
-        if (CheckActivitiesTime(student_Activities, Activity))
+        if (CheckActivitiesTime(subject_Activities, Activity))
         {
             await _alertService.DisplayAsync("Activities Overlap", "Activity cannot be add because different activity is planned for this time.");
             return;
@@ -93,19 +93,17 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
         _navigationService.SendBackButtonPressed();
     }
 
-    public static bool CheckActivitiesTime(IEnumerable<ActivityListModel> userActivities, ActivityDetailModel newActivity)
+    public static bool CheckActivitiesTime(IEnumerable<ActivityListModel> studentActivities, ActivityDetailModel newActivity)
     {
-        foreach (var userActivity in userActivities)
+        foreach (var studentActivity in studentActivities)
         {
-            if (userActivity.Id == newActivity.Id) continue;
+            if (studentActivity.Id == newActivity.Id) continue;
 
-            if (newActivity.Start < userActivity.End && userActivity.Start < newActivity.End)
+            if (newActivity.Start < studentActivity.End && studentActivity.Start < newActivity.End)
             {
                 return true;
             }
         }
         return false;
     }
-
-
 }

@@ -13,7 +13,7 @@
 					   xmlns:rooms="clr-namespace:SchoolSystem.DAL"
 					   xmlns:enums="clr-namespace:DAL.Enums;assembly=SchoolSystem.DAL"
 					   x:Name="ActivityEditViewRoot"
-                       x:DataType="activities:ActivityEditViewModel"
+                       x:DataType="vm:ActivityEditViewModel"
                        >
 
 
