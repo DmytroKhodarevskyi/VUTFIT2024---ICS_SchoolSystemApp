@@ -76,8 +76,8 @@ public static class MauiProgram
         {
             DatabaseDirectory = FileSystem.AppDataDirectory,
             DatabaseName = "schoolsystem.db",
-            RecreateDatabaseEachTime = true,
-            SeedDemoData = true
+            RecreateDatabaseEachTime = false,
+            SeedDemoData = false
             
         };
         

@@ -28,7 +28,7 @@ public record ActivityDetailModel() : baseModel
         Room = Room.D105,
         Tag = 0,
         Description = string.Empty,
-        SubjectId = Guid.Empty,
+        SubjectId = default,
         Evaluations = new ObservableCollection<EvaluationListModel>(),
         Subject = SubjectListModel.Empty
     };
