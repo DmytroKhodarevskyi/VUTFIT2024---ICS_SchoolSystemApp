@@ -63,6 +63,30 @@
 
                 
             </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
+                                 Grid.Column="2"
+                                 HorizontalOptions="Start"
+                                 WidthRequest="200"
+                                 Spacing="2">
+
+                <Label Text="Start Date" />
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Start}" />
+
+                <Label Text="End Date" />
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.End}" />
+
+                <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="0">
+                    <DatePicker Date="{Binding Activity.Start}" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="15" HorizontalOptions="End">
+                    <DatePicker Date="{Binding Activity.End}" VerticalOptions="Center"/>
+                </StackLayout>
+
+            </VerticalStackLayout>
         </Grid>
     </Grid>
        
