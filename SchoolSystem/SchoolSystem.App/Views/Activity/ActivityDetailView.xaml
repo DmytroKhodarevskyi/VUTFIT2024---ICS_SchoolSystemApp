@@ -50,10 +50,6 @@
                     <Label Text="{Binding Activity.End}" FontSize="24"/>
                 </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Room: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.End}" FontSize="24"/>
-                </HorizontalStackLayout>
 
                 <HorizontalStackLayout Spacing="5">
                     <Label Text="Room: " FontSize="24" FontAttributes="Bold"/>
