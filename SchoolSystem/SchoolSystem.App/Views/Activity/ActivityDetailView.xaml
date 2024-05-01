@@ -11,6 +11,8 @@
                         Title="Activity Detail"
                         x:Name="ActivityDetailViewRoot"
                         x:DataType="activities:ActivityDetailViewModel">
+    <ScrollView>
+
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
@@ -48,10 +50,6 @@
                     <Label Text="{Binding Activity.End}" FontSize="24"/>
                 </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Room: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.End}" FontSize="24"/>
-                </HorizontalStackLayout>
 
                 <HorizontalStackLayout Spacing="5">
                     <Label Text="Room: " FontSize="24" FontAttributes="Bold"/>
@@ -71,4 +69,6 @@
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>
+    </ScrollView>
+
 </views2:ContentPageBase>

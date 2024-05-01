@@ -71,7 +71,7 @@ public partial class ActivityListViewModel(
         }
     }
 
-    public Interval Interval { get; set; } = Interval.All;
+    public Interval Interval { get; set; } = Interval.NoFilter;
 
     public DateTime? FilterStart { get; set; } = null;
 
@@ -130,33 +130,35 @@ public partial class ActivityListViewModel(
         DateTime now = DateTime.Now;
         switch (Interval)
         {
-            case Interval.Daily:
+            case Interval.Last24Hours:
                 FilterStart = now.AddDays(-1);
+                FilterEnd = now;  // Assuming you want to include up to the current moment.
                 break;
-            case Interval.Weekly:
+            case Interval.Last7Days:
                 FilterStart = now.AddDays(-7);
+                FilterEnd = now;
                 break;
-            case Interval.This_Month:
+            case Interval.CurrentMonth:
                 FilterStart = new DateTime(now.Year, now.Month, 1);
-                if (FilterStart.HasValue)
-                {
-                    FilterEnd = FilterStart.Value.AddMonths(1).AddDays(-1);
-                }
+                FilterEnd = FilterStart.Value.AddMonths(1).AddDays(-1);
                 break;
-            case Interval.Last_Month:
+            case Interval.PreviousMonth:
                 FilterStart = new DateTime(now.Year, now.Month, 1).AddMonths(-1);
                 FilterEnd = new DateTime(now.Year, now.Month, 1).AddDays(-1);
                 break;
-            case Interval.Yearly:
+            case Interval.LastYear:
                 FilterStart = now.AddYears(-1);
+                FilterEnd = now;
                 break;
-            case Interval.All:
-                FilterStart = GetMinTime(Activities, FilterStart);
-                FilterEnd = GetMaxTime(Activities, FilterEnd);
-                return;
+            case Interval.NoFilter:
+                // Assuming no need to set FilterStart or FilterEnd as we want all data
+                FilterStart = null;
+                FilterEnd = null;
+                break;
             default:
                 throw new Exception("Undefined interval");
         }
+
         FilterEnd = now;
     }
 
