@@ -11,11 +11,9 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
 
 
     Task<IEnumerable<ActivityListModel>> GetAsyncListBySubject(Guid subjectId);
-<<<<<<< HEAD
 
     Task<ActivityListModel> GetActivityByName(string name);
 
-=======
     
     enum Interval
     {
@@ -33,7 +31,6 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
         D105,
         D106,
     }
->>>>>>> filters
 }
 
 

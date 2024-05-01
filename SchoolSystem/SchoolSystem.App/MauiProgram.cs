@@ -27,7 +27,6 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        //ConfigureAppSettings(builder);
 
         builder.Services
             .AddDALServices(GetDALOptions(builder.Configuration))
@@ -43,23 +42,6 @@ public static class MauiProgram
         return app;
     }
 
-    private static void ConfigureAppSettings(MauiAppBuilder builder)
-    {
-        var configurationBuilder = new ConfigurationBuilder()
-            // .SetBasePath(Directory.GetCurrentDirectory())
-            // .AddJsonFile("appsettings.json")
-            .Build();
-        //
-        // var assembly = Assembly.GetExecutingAssembly();
-        // const string appSettingsFilePath = "SchoolSystem.App.appsettings.json";
-        // using var appSettingsStream = assembly.GetManifestResourceStream(appSettingsFilePath);
-        // if (appSettingsStream is not null)
-        // {
-        //     configurationBuilder.AddJsonStream(appSettingsStream);
-        // }
-        //
-        builder.Configuration.AddConfiguration(configurationBuilder);
-    }
 
     private static void RegisterRouting(INavigationService navigationService)
     {
@@ -81,7 +63,6 @@ public static class MauiProgram
             
         };
         
-       // configuration.GetSection("SchoolSystem:DAL").Bind(dalOptions);
         return dalOptions;
     }
 

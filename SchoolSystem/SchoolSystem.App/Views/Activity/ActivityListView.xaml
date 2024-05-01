@@ -22,6 +22,9 @@
 
         <HorizontalStackLayout
             Padding="700, 0, 0, 0">
+            <Label Text="Tag Filter"
+               VerticalTextAlignment="Center"
+                   Padding="10"></Label>
             <Entry x:Name="TagFilter" HorizontalOptions="Fill"
                    WidthRequest="100"
                    Text="{Binding Tag}" />

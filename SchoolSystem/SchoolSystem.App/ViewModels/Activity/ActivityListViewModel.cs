@@ -16,9 +16,7 @@ public partial class ActivityListViewModel(
     IMessengerService messengerService)
     : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
 {
-<<<<<<< HEAD
-    public IEnumerable<ActivityListModel> Activities { get; set; } =    activityFacade.GetAsync().Result;
-=======
+
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
     public Guid UserId { get; set; }
@@ -72,7 +70,6 @@ public partial class ActivityListViewModel(
             }
         }
     }
-    //public string SelectedFilter { get; set; } = Enum.GetName<Interval>(Interval.All);
 
     public Interval Interval { get; set; } = Interval.All;
 
@@ -82,13 +79,9 @@ public partial class ActivityListViewModel(
 
     public bool ManualFilter { get; set; }
 
->>>>>>> filters
 
     protected override async Task LoadDataAsync()
     {
-
-       // await base.LoadDataAsync();
-       // Activities = await activityFacade.GetAsync();
 
         await base.LoadDataAsync();
         Activities = await activityFacade.GetAsync();
@@ -104,7 +97,6 @@ public partial class ActivityListViewModel(
             FilterStart = GetMinTime(Activities, FilterStart);
         }
         Activities = await activityFacade.GetAsyncFilter(FilterStart, FilterEnd, Tag);
-        // Activities = await activityFacade.GetAsyncFilterTag(Tag);
     }
 
     public static DateTime? GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime? Start)
