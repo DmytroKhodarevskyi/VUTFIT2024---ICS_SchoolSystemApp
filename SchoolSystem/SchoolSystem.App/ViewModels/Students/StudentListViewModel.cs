@@ -7,32 +7,19 @@ using SchoolSystem.BL.Models;
 
 namespace SchoolSystem.App.ViewModels.Students;
 
-public partial class StudentListViewModel: ViewModelBase, IRecipient<EditMessage>, IRecipient<DeleteMessage<StudentListModel>>
+public partial class StudentListViewModel(
+    IStudentFacade studentFacade,
+    INavigationService navigationService,
+    IMessengerService messengerService)
+    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<StudentListModel>>
 {
-    
-    public StudentListViewModel(
-        IStudentFacade _studentFacade,
-        INavigationService _navigationService,
-        IMessengerService messengerService)
-        : base(messengerService)
-    {
-        studentFacade = _studentFacade;
-        navigationService = _navigationService;
-        viewModel = (AppShellViewModel)Shell.Current.BindingContext;
-        SubjectId = viewModel.SubjectId;
-    }
-    public Guid SubjectId { get; set; }
-    
-    private readonly IStudentFacade studentFacade;
-    private readonly INavigationService navigationService;
-    private AppShellViewModel viewModel;
-    
+
     public IEnumerable<StudentListModel> Students { get; set; } = null!;    
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Students = await studentFacade.GetStudentsByIdSubject(SubjectId);
+        Students = await studentFacade.GetAsync();
         
     }
 

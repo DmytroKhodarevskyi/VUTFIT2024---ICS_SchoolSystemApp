@@ -8,6 +8,7 @@
              xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
              xmlns:views2="clr-namespace:App.Views"
              Title="{x:Static texts:SubjectDetailViewTexts.Subject_MenuItem_Title}"
+             Style="{StaticResource ContentPageStyle}"
              x:Name="SubjectDetailViewRoot"
              x:DataType="subjects:SubjectDetailViewModel">
     <VerticalStackLayout Spacing="20">
@@ -21,6 +22,7 @@
 
             <Button Text="{x:Static texts:SubjectDetailViewTexts.EditButtonLabel}"
                     CornerRadius="5"
+                    BackgroundColor="{StaticResource PrimaryColor}"
                     Command="{Binding GoToEditCommand}" />
         </HorizontalStackLayout>
 

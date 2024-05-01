@@ -15,9 +15,6 @@ public partial class StudentDetailViewModel(
     IAlertService alertService)
     : ViewModelBase(messengerService), IRecipient<EditMessage>
 {
-    private AppShellViewModel _viewModel = 
-        (AppShellViewModel)Shell.Current.BindingContext;
-
     public Guid Id { get; set; }
     public StudentDetailedModel? Student { get; private set; }
 

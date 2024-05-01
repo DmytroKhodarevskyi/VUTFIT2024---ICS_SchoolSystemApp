@@ -58,7 +58,7 @@
 
                             <!-- Gesture Recognizers -->
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToStudentsListCommand}"
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                               CommandParameter="{Binding Id}" />
                             </Grid.GestureRecognizers>
                         </Grid>

@@ -2,30 +2,17 @@
 using CommunityToolkit.Mvvm.Messaging;
 using SchoolSystem.App.Messages;
 using SchoolSystem.App.Services.Interfaces;
-using SchoolSystem.App.ViewModels.Students;
 using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
 
 namespace SchoolSystem.App.ViewModels.Subjects;
 
-public partial class SubjectListViewModel: ViewModelBase, IRecipient<EditMessage>, IRecipient<DeleteMessage<SubjectListModel>>
+public partial class SubjectListViewModel(
+    ISubjectFacade subjectFacade,
+    INavigationService navigationService,
+    IMessengerService messengerService)
+    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<SubjectListModel>>
 {
-    
-    public SubjectListViewModel(
-        ISubjectFacade _subjectFacade,
-        INavigationService _navigationService,
-        IMessengerService messengerService)
-        : base(messengerService)
-    {
-        subjectFacade = _subjectFacade;
-        navigationService = _navigationService;
-        viewModel = (AppShellViewModel)Shell.Current.BindingContext;
-    }
-    
-    private readonly ISubjectFacade subjectFacade;
-    private readonly INavigationService navigationService;
-    private AppShellViewModel viewModel;
-
     public IEnumerable<SubjectListModel> Subjects { get; set; } = null!;
 
     protected override async Task LoadDataAsync()
@@ -35,13 +22,6 @@ public partial class SubjectListViewModel: ViewModelBase, IRecipient<EditMessage
         Subjects = await subjectFacade.GetAsync();
     }
 
-    [RelayCommand]
-    private async Task GoToStudentsListAsync(Guid id)
-    {
-        viewModel.SubjectId = id;
-        await navigationService.GoToAsync<StudentListViewModel>();
-    }
-    
     [RelayCommand]
     private async Task GoToCreateAsync()
     {

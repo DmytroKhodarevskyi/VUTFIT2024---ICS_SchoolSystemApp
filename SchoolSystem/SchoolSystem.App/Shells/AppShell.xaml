@@ -2,34 +2,37 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
-       xmlns:students="clr-namespace:SchoolSystem.App.Views.Student"
+       xmlns:subjects="clr-namespace:SchoolSystem.App.Views.Subject"
+       xmlns:evaluations="clr-namespace:SchoolSystem.App.Views.Evaluations"
        xmlns:a="clr-namespace:SchoolSystem.App.Views.Activity"
        xmlns:text="clr-namespace:SchoolSystem.App.Resources.Texts"
-       xmlns:subject="clr-namespace:SchoolSystem.App.Views.Subject"
+       xmlns:activity="clr-namespace:SchoolSystem.App.Views.Activity"
        x:Class="SchoolSystem.App.Shells.AppShell"
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
-    <ShellContent ContentTemplate="{DataTemplate subject:SubjectListView}" Route="subjects"></ShellContent>
-    <TabBar>
-        <Tab Title="Activities">
-            <ShellContent 
-                Title="Activities"
-                ContentTemplate="{DataTemplate a:ActivityListView}"
-                Route="activities"/>
-        </Tab>
-        <Tab Title="Students">
-            <ShellContent 
-                Title="Students"
-                ContentTemplate="{DataTemplate students:StudentListView}"
-                Route="students"/>
-        </Tab>
-        <Tab Title="Profile">
-            <ShellContent 
-                Title="Subject Overview"
-                ContentTemplate="{DataTemplate subject:SubjectDetailView}"
-                Route="subject"/>
-        </Tab>
-    </TabBar>
+    <Shell.MenuBarItems>
+        
+        <MenuBarItem 
+            Text="{x:Static text:AppShellTexts.File_MenuItem_Title}">
+            <MenuFlyoutItem Text= "{x:Static text:AppShellTexts.StudentMenuItem_Text}"
+                             Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentCommand}" />
+            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.SubjectMenuItem_Text}"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
+            <MenuFlyoutItem Text="{x:Static text:AppShellTexts.ActivityMenuItem_Text}"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToActivitiesCommand}" />
+            <MenuFlyoutItem Text="Evaluations"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToEvaluationCommand}" />
+            
+        </MenuBarItem>
+        
+    </Shell.MenuBarItems>
+    
+
+    <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
+    <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" />
+    <ShellContent ContentTemplate="{DataTemplate activity:ActivityListView}" Route="activities" />
+    <ShellContent ContentTemplate="{DataTemplate evaluations:EvaluationListView}" Route="evaluations" />
+
 </Shell>
 
     
