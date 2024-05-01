@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using DAL.Entities;
+using DAL.Mappers;
 
 namespace SchoolSystem.BL.Models
 {
@@ -7,7 +8,7 @@ namespace SchoolSystem.BL.Models
     {
         public string Name { get; set; } 
         public string Abbreviation { get; set; } 
-        public ObservableCollection<StudentListModel> Students { get; set; } = new();
+        public ObservableCollection<StudentSubjectModel> StudentSubjects { get; set; } = new();
         public ObservableCollection<ActivityListModel> Activities { get; set; } = new();
         
         public static SubjectDetailedModel Empty => new()
@@ -15,7 +16,7 @@ namespace SchoolSystem.BL.Models
             Id = Guid.NewGuid(),
             Name = string.Empty,
             Abbreviation = string.Empty,
-            Students = new ObservableCollection<StudentListModel>(),
+            StudentSubjects = new ObservableCollection<StudentSubjectModel>(),
             Activities = new ObservableCollection<ActivityListModel>()
         };
     }

@@ -5,9 +5,10 @@ public record StudentSubjectModel : baseModel
     public Guid StudentId { get; set; }
     public Guid SubjectId { get; set; }
     
-    public StudentSubjectModel(Guid studentId, Guid subjectId)
+    public static StudentSubjectModel Empty => new()
     {
-        StudentId = studentId;
-        SubjectId = subjectId;
-    }
+        Id = Guid.NewGuid(),
+        StudentId = Guid.Empty,
+        SubjectId = Guid.Empty
+    };
 }

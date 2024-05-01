@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Converters\StringToRoomEnumConverter.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Fody" Version="6.8.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -75,7 +79,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Converters\" />
 		<Folder Include="Messages\" />
 	</ItemGroup>
 
