@@ -7,7 +7,7 @@ using SchoolSystem.App.ViewModels;
 using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
 
-namespace Time2Plan.App.ViewModels;
+namespace SchoolSystem.App.ViewModels;
 
 [QueryProperty(nameof(Activity), nameof(Activity))]
 public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChanged
@@ -15,9 +15,9 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
     private readonly IAlertService _alertService;
-    private readonly IStudentFacade _studentFacade;
+    private readonly ISubjectFacade _subjectFacade;
 
-    public Guid UserId { get; set; }
+    public Guid SubjectId { get; set; }
     public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
     public DateTime EndDate { get; set; }
     public TimeSpan EndTime { get; set; }
@@ -25,34 +25,34 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
     public DateTime StartDate { get; set; }
     public TimeSpan StartTime { get; set; }
 
-    public UserDetailModel User { get; set; }
-    public string[] Projects { get; set; }
-    public string SelectedProject { get; set; }
+    public SubjectDetailedModel? Subject { get; set; }
+    public string[] Students { get; set; }
+    public string SelectedStudent { get; set; }
 
     public ActivityEditViewModel(
         IActivityFacade activityFacade,
         INavigationService navigationService,
         IMessengerService messengerService,
         IAlertService alertService,
-        IStudentFacade userFacade)
+        ISubjectFacade subjectFacade)
         : base(messengerService)
     {
         _activityFacade = activityFacade;
         _navigationService = navigationService;
         _alertService = alertService;
         var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
-        UserId = viewModel.UserId;
-        _studentFacade = userFacade;
+        SubjectId = viewModel.SubjectId;
+        _subjectFacade = subjectFacade;
     }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        User = await _studentFacade.GetAsync(UserId);
+        Subject = await _subjectFacade.GetAsync(SubjectId);
 
-        Projects = User.UserProjects.Select(up => up.ProjectName).ToArray();
-        SelectedProject = User.UserProjects.Where(up => up.ProjectId == Activity.SubjectId).Select(up => up.ProjectName).FirstOrDefault();
+        // Projects = Student.UserProjects.Select(up => up.ProjectName).ToArray();
+        // SelectedProject = Student.UserProjects.Where(up => up.ProjectId == Activity.SubjectId).Select(up => up.ProjectName).FirstOrDefault();
 
         EndDate = Activity?.End.Date ?? DateTime.Now;
         EndTime = Activity?.End.TimeOfDay ?? DateTime.Now.TimeOfDay;
@@ -71,22 +71,22 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
             return;
         }
 
-        var user_Activities = await _activityFacade.GetAsyncListStudent(UserId);
+        var student_Activities = await _activityFacade.GetAsyncListBySubject(SubjectId);
 
-        if (CheckActivitiesTime(user_Activities, Activity))
+        if (CheckActivitiesTime(student_Activities, Activity))
         {
             await _alertService.DisplayAsync("Activities Overlap", "Activity cannot be add because different activity is planned for this time.");
             return;
         }
 
-        if (SelectedProject is null)
+        if (SelectedStudent is null)
         {
             await _alertService.DisplayAsync("Project is not selected", "You must select a project when adding activity.");
             return;
         }
 
-        Activity.SubjectId = User.UserProjects.Where(up => up.ProjectName == SelectedProject).Select(p => p.ProjectId).FirstOrDefault();
-        Activity.StudentId = User.Id;
+        // Activity.SubjectId = Student.UserProjects.Where(up => up.ProjectName == SelectedProject).Select(p => p.ProjectId).FirstOrDefault();
+        Activity.SubjectId = SubjectId;
 
         await _activityFacade.SaveAsync(Activity);
         MessengerService.Send(new EditMessage { Id = Activity.Id });
