@@ -24,8 +24,13 @@ steps:
 
 - script: |
     dotnet workload install maui-android
-  displayName: 'Install .NET MAUI workload'
-  # This will install the latest stable version of the required workload.
+    dotnet workload install maui-ios
+    dotnet workload install maui-maccatalyst
+    dotnet workload install maui-windows
+  displayName: 'Install all .NET MAUI workloads'
+  # This will install the latest stable versions of the required workloads for Android, iOS, MacCatalyst, and Windows.
+
+
 
 # - task: DotNetCoreCLI@2
 #  inputs:
