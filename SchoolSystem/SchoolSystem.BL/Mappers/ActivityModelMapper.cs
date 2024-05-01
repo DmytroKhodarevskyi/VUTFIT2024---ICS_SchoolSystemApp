@@ -32,7 +32,6 @@ public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListM
                 Description = entity.Description,
                 Room = entity.Room,
                 SubjectId = entity.SubjectId,
-            
             };
     
     public override ActivityEntity MapToEntity(ActivityDetailModel model) =>

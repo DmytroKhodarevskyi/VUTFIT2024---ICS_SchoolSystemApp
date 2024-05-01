@@ -15,7 +15,7 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
         mapper), ISubjectFacade
 {
     private readonly IUnitOfWorkFactory _unitOfWorkFactory = unitOfWorkFactory;
-    public async Task<IEnumerable<SubjectListModel>> GetSubjectByName(string name)
+    public async Task<IEnumerable<SubjectListModel>> GetSubjectsByName(string name)
     {
         await using var uow = unitOfWorkFactory.Create();
 

@@ -12,13 +12,16 @@ namespace SchoolSystem.BL.Models
         
         public ObservableCollection<StudentSubjectModel> StudentSubjects { get; set; } = new();
         
+        public ObservableCollection<SubjectListModel> Subjects { get; set; } = new();
+        
         public static StudentDetailedModel Empty => new()
         {
             Id = Guid.NewGuid(),
             Name = string.Empty,
             Surname = string.Empty,
             Photo = string.Empty,
-            StudentSubjects = new ObservableCollection<StudentSubjectModel>()
+            StudentSubjects = new ObservableCollection<StudentSubjectModel>(),
+            Subjects = new ObservableCollection<SubjectListModel>()
         };
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SchoolSystem.App.Messages;
@@ -10,6 +11,7 @@ namespace SchoolSystem.App.ViewModels.Students;
 [QueryProperty(nameof(Id), nameof(Id))]
 public partial class StudentDetailViewModel(
     IStudentFacade studentFacade,
+    ISubjectFacade subjectFacade,
     INavigationService navigationService,
     IMessengerService messengerService,
     IAlertService alertService)
@@ -23,6 +25,8 @@ public partial class StudentDetailViewModel(
         await base.LoadDataAsync();
 
         Student = await studentFacade.GetAsync(Id);
+        
+        Student.Subjects = (ObservableCollection<SubjectListModel>)await subjectFacade.GetSubjectsByName(Student.Name);
     }
 
     [RelayCommand]
@@ -41,6 +45,13 @@ public partial class StudentDetailViewModel(
                 await alertService.DisplayAsync("Error", "Student cannot be deleted.");
             }
         }
+    }
+
+    [RelayCommand]
+    private async Task GoToAddSubjectAsync()
+    {
+        await navigationService.GoToAsync("/addSubject",
+            new Dictionary<string, object?> { [nameof(SubjectAddViewModel.StudentId)] = Id });
     }
 
     [RelayCommand]

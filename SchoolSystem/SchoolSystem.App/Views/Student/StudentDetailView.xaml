@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SchoolSystem.App.Views.Student.StudentDetailView"
-             xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
-             xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
-             xmlns:views1="clr-namespace:SchoolSystem.App.Views"
-             xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
-             xmlns:views2="clr-namespace:App.Views"
-             Title="Student Detail"
-             x:Name="StudentDetailViewRoot"
-             x:DataType="students:StudentDetailViewModel">
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="SchoolSystem.App.Views.Student.StudentDetailView"
+                        xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
+                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                        xmlns:views1="clr-namespace:SchoolSystem.App.Views"
+                        xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
+                        xmlns:views2="clr-namespace:App.Views"
+                        Title="Student Detail"
+                        x:Name="StudentDetailViewRoot"
+                        x:DataType="students:StudentDetailViewModel">
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
@@ -23,6 +23,12 @@
             <Button Text="Edit"
                     CornerRadius="5"
                     Command="{Binding GoToEditCommand}" />
+            <Button Padding="20, 6"
+                    HorizontalOptions="End" VerticalOptions="Start"
+                    Text="Register a new subject"
+                    Command="{Binding GoToAddSubjectCommand}"
+                    CornerRadius="5" FontFamily="MontserratMedium"
+                    FontSize="14" />
         </HorizontalStackLayout>
 
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
@@ -34,18 +40,18 @@
                                  Spacing="20">
 
                 <HorizontalStackLayout Spacing="5">
-                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Student.Name}" FontSize="24"/>
+                    <Label Text="Name: " FontSize="24" FontAttributes="Bold" />
+                    <Label Text="{Binding Student.Name}" FontSize="24" />
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout Spacing="5">
-                    <Label Text="Surname: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Student.Surname}" FontSize="24"/>
+                    <Label Text="Surname: " FontSize="24" FontAttributes="Bold" />
+                    <Label Text="{Binding Student.Surname}" FontSize="24" />
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout Spacing="5">
-                    <Label Text="Link: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Student.Photo}" FontSize="24"/>
+                    <Label Text="Link: " FontSize="24" FontAttributes="Bold" />
+                    <Label Text="{Binding Student.Photo}" FontSize="24" />
                 </HorizontalStackLayout>
 
             </VerticalStackLayout>
