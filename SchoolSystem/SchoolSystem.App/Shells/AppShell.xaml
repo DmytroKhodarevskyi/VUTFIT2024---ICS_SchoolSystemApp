@@ -2,15 +2,16 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:r="clr-namespace:SchoolSystem.App.Views.Student"
-       xmlns:subjects="clr-namespace:SchoolSystem.App.Views.Subject"
+       xmlns:students="clr-namespace:SchoolSystem.App.Views.Student"
        xmlns:evaluations="clr-namespace:SchoolSystem.App.Views.Evaluations"
        xmlns:a="clr-namespace:SchoolSystem.App.Views.Activity"
        xmlns:text="clr-namespace:SchoolSystem.App.Resources.Texts"
        xmlns:activity="clr-namespace:SchoolSystem.App.Views.Activity"
+       xmlns:subject="clr-namespace:SchoolSystem.App.Views.Subject"
        x:Class="SchoolSystem.App.Shells.AppShell"
        x:Name="AppShellRoot"
        FlyoutBehavior="Disabled">
-    <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students"></ShellContent>
+    <ShellContent ContentTemplate="{DataTemplate subject:SubjectListView}" Route="subjects"></ShellContent>
     <TabBar>
         <Tab Title="Activities">
             <ShellContent 
@@ -18,17 +19,17 @@
                 ContentTemplate="{DataTemplate a:ActivityListView}"
                 Route="activities"/>
         </Tab>
-        <Tab Title="Subjects">
+        <Tab Title="Students">
             <ShellContent 
-                Title="Subjects"
-                ContentTemplate="{DataTemplate subjects:SubjectListView}"
-                Route="subjects"/>
+                Title="Students"
+                ContentTemplate="{DataTemplate students:StudentListView}"
+                Route="students"/>
         </Tab>
         <Tab Title="Profile">
             <ShellContent 
-                Title="Profile"
-                ContentTemplate="{DataTemplate r:StudentDetailView}"
-                Route="profile"/>
+                Title="Subject Overview"
+                ContentTemplate="{DataTemplate subject:SubjectDetailView}"
+                Route="subject"/>
         </Tab>
     </TabBar>
 </Shell>
