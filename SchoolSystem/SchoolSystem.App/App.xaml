@@ -13,7 +13,7 @@
             
             <converters:NotEmptyConverter x:Key="NotEmptyConverter" />
             <converters:EnumToListConverter x:Key="EnumToListConverter" />
-
+                
         </ResourceDictionary>
     </Application.Resources>
 </Application>
