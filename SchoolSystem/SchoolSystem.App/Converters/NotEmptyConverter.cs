@@ -6,6 +6,7 @@ using Microsoft.Maui.Controls;
 
 namespace SchoolSystem.App.Converters;
 
+
 public class NotEmptyConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

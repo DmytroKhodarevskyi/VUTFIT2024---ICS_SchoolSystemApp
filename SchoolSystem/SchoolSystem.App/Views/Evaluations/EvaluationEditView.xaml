@@ -14,12 +14,19 @@
               ColumnDefinitions="*, Auto"
               ColumnSpacing="15">
 
-            <Button Grid.Column="1"
+            <Button
+                    Grid.Column="1"
                     VerticalOptions="Start"
+					Text="Save"
                     HeightRequest="30"
-                    Text="Save"
-                    CornerRadius="5"
-                    Command="{Binding SaveCommand}" />
+                    Command="{Binding SaveCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference ScoreEntry}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+            
         </Grid>
         <Grid Grid.Row="1"
               HorizontalOptions="Center" VerticalOptions="Start"
@@ -33,11 +40,10 @@
                                  WidthRequest="200"
                                  Spacing="10">
                 <Label Text="Score" />
-                <Entry HorizontalOptions="Fill"
-                       Text="{Binding Evaluation.Score}" 
-                       FontSize="18"/>
-               
-                
+                <Entry x:Name="ScoreEntry" HorizontalOptions="Fill" Text="{Binding Evaluation.Score}" />
+
+
+
             </VerticalStackLayout>
         </Grid>
     </Grid>
