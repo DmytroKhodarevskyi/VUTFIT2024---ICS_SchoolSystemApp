@@ -55,4 +55,23 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
 
         return mapper.MapToListModel(dbSet);
     }
+    
+    public async Task AddActivityToSubject(Guid subjectId, Guid activityId)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+        var subject = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get().FirstOrDefault(subject => subject.Id == subjectId);
+        var activity = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get().FirstOrDefault(activity => activity.Id == activityId);
+        subject!.Activities.Add(activity!);
+        await uow.CommitAsync();
+    }
+    
+    public async Task<SubjectListModel> GetSubjectByAbbrAsync(string abbreviation)
+    {
+        await using var uow = _unitOfWorkFactory.Create();
+
+        var dbSet = uow.GetRepository<SubjectEntity, SubjectEntityMapper>()
+            .Get().FirstOrDefault(subject => subject.Abbreviation.Contains(abbreviation));
+
+        return mapper.MapToListModel(dbSet);
+    }
 }

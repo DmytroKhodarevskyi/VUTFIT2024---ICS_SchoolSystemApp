@@ -14,6 +14,8 @@ public record ActivityListModel() : baseModel
     public  required Room Room { get; set; }
     public  required Guid? SubjectId { get; set; }
     
+    public string? SubjectAbr { get; set; }
+    
     public static ActivityListModel Empty => new()
     {
         Id = Guid.NewGuid(),
@@ -23,7 +25,8 @@ public record ActivityListModel() : baseModel
         Description = string.Empty,
         Tag = 0,
         Room = Room.D105,
-        SubjectId = Guid.Empty
+        SubjectId = Guid.Empty,
+        SubjectAbr = string.Empty
     };
        
 }

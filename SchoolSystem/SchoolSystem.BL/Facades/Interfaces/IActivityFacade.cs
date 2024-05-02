@@ -33,5 +33,3 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
         D106,
     }
 }
-
-

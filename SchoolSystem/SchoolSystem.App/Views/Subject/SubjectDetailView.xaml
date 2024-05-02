@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SchoolSystem.App.Views.Subject.SubjectDetailView"
-             xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
-             xmlns:subjects="clr-namespace:SchoolSystem.App.ViewModels.Subjects"
-             xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
-             xmlns:views2="clr-namespace:App.Views"
-             xmlns:models="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
-             Title="{x:Static texts:SubjectDetailViewTexts.Subject_MenuItem_Title}"
-             x:Name="SubjectDetailViewRoot"
-             x:DataType="subjects:SubjectDetailViewModel">
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="SchoolSystem.App.Views.Subject.SubjectDetailView"
+                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                        xmlns:subjects="clr-namespace:SchoolSystem.App.ViewModels.Subjects"
+                        xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
+                        xmlns:views2="clr-namespace:App.Views"
+                        xmlns:models="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
+                        Title="{x:Static texts:SubjectDetailViewTexts.Subject_MenuItem_Title}"
+                        x:Name="SubjectDetailViewRoot"
+                        x:DataType="subjects:SubjectDetailViewModel">
     <VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
@@ -25,77 +25,84 @@
                     Command="{Binding GoToEditCommand}" />
         </HorizontalStackLayout>
 
-        <Grid HorizontalOptions="Center" VerticalOptions="Start"
-              RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
-              RowSpacing="20" ColumnSpacing="20">
+        <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *, *"
+              RowSpacing="20">
 
-            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
-                                 Grid.Column="2"
-                                 Spacing="20">
+            <VerticalStackLayout Grid.Row="0"
+                                 Spacing="20"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center">
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Subject.Name}" FontSize="24"/>
+                <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                    <Label Text="Name: " FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="{Binding Subject.Name}" FontSize="24" HorizontalTextAlignment="Center" />
                 </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Abbreviation: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Subject.Abbreviation}" FontSize="24"/>
+                <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                    <Label Text="Abbreviation: " FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="{Binding Subject.Abbreviation}" FontSize="24" HorizontalTextAlignment="Center" />
                 </HorizontalStackLayout>
-            
-               
             </VerticalStackLayout>
-            <ListView Grid.Row="1"
-                  ItemsSource="{Binding  Subject.Activities}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:ActivityListModel">
-                    <ViewCell>
-                        <Grid Padding="20, 10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1"
-                                   Text="{Binding Name}" 
-                                   FontSize="16"
-                                   VerticalOptions="Center"
-                                   Padding="0, 0,10,0"
-                                   HorizontalOptions="Start"/>
-                            <Label Grid.Column="2"
-                                   Text="{Binding Start}"
-                                   FontSize="16"
-                                   Padding="10, 0"
-                                   HorizontalOptions="Start"
-                                   VerticalOptions="Center" /> 
-                            <Label Grid.Column="3"
-                                   Text="{Binding End}"
-                                   FontSize="16"
-                                   Padding="10, 0"
-                                   HorizontalOptions="Start"
-                                   VerticalOptions="Center" /> 
-                            <Label Grid.Column="4"
-                                   Text="{Binding Room}"
-                                   FontSize="16"
-                                   Padding="10, 0"
-                                   VerticalOptions="Center" /> 
-                            <Label Grid.Column="5"
-                                   Text="{Binding Tag}"
-                                   Padding="10, 0"
-                                   FontSize="16"
-                                   VerticalOptions="Center" />
 
-                            
-                        </Grid>
+            <Label FontSize="24"
+                   Padding="20, 0"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold" Grid.Row="1" Text="All planned activities for this subject:">
+            </Label>
 
-
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            <ListView Grid.Row="2"
+                      ItemsSource="{Binding Subject.Activities}"
+                      HorizontalOptions="Center">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ActivityListModel">
+                        <ViewCell>
+                            <Grid Padding="20, 10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Padding="0, 0,10,0" />
+                                <Label Grid.Column="2"
+                                       Text="{Binding Start}"
+                                       FontSize="16"
+                                       Padding="10, 0"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="3"
+                                       Text="{Binding End}"
+                                       FontSize="16"
+                                       Padding="10, 0"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="4"
+                                       Text="{Binding Room}"
+                                       FontSize="16"
+                                       Padding="10, 0"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="5"
+                                       Text="{Binding Tag}"
+                                       Padding="10, 0"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
+
     </VerticalStackLayout>
 </views2:ContentPageBase>

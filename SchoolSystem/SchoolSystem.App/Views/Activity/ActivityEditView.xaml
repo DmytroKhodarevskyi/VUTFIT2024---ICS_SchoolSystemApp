@@ -60,6 +60,9 @@
 
                 <Label Text="Description" />
                 <Entry x:Name="DescriptionEntry" HorizontalOptions="Fill" Text="{Binding Activity.Description}" />
+                <Label Text="Abbreviation" />
+
+                <Entry x:Name="AbbreviationEntry" HorizontalOptions="Fill" Text="{Binding Activity.SubjectAbr}" />
 
 
             </VerticalStackLayout>
