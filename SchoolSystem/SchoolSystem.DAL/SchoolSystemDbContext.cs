@@ -24,16 +24,14 @@ public class SchoolSystemDbContext(DbContextOptions options, bool seedDemoData =
         modelBuilder.Entity<StudentEntity>()
             .HasMany<EvaluationEntity>()
             .WithOne(s => s.Student);
-        
+
         modelBuilder.Entity<StudentEntity>()
             .HasMany<StudentSubjectEntity>()
-            .WithOne(s => s.Student)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithOne(s => s.Student);
         
         modelBuilder.Entity<SubjectEntity>()
             .HasMany<StudentSubjectEntity>()
-            .WithOne(s => s.Subject)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithOne(s => s.Subject);
         
         modelBuilder.Entity<ActivityEntity>()
             .HasOne(a => a.Subject)
@@ -51,8 +49,7 @@ public class SchoolSystemDbContext(DbContextOptions options, bool seedDemoData =
         modelBuilder.Entity<EvaluationEntity>()
             .HasOne(e => e.Student)
             .WithMany()
-            .HasForeignKey(e => e.StudentId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(e => e.StudentId);
 
         modelBuilder.Entity<SubjectEntity>()
             .HasMany(s => s.Activities)
