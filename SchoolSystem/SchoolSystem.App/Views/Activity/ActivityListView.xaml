@@ -11,19 +11,27 @@
                         Title="Activity list"
                         x:Name="ActivityListViewRoot"
                         x:DataType="activities:ActivityListViewModel">
-    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
-          RowSpacing="20">
+    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, Auto, *"
+          RowSpacing="10">
 
-        <Grid Padding="15,5" ColumnDefinitions="*,*,*,*">
 
-            <Label Padding="10, 0" Grid.Column="0" FontSize="24" Text="Activities" />
+        <Grid Padding="0,0,15,5" ColumnDefinitions="Auto,Auto,Auto, *" ColumnSpacing="20" >
 
             <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="1">
+                <Button Grid.Column="3"
+                        Padding="10, 6"
+                        HorizontalOptions="End" VerticalOptions="Start"
+                        Text="Reset Tag"
+                        Command="{Binding GoToCreateCommand}"
+
+                        CornerRadius="5" FontFamily="MontserratMedium"
+                        FontSize="14" />
                 <Label Text="Tag Filter"
                        VerticalTextAlignment="Center"
                        Padding="5">
                 </Label>
                 <Entry x:Name="TagFilter" HorizontalOptions="Fill"
+                       MinimumWidthRequest="50"
                        WidthRequest="100"
                        Text="{Binding Tag}" />
             </StackLayout>
@@ -39,6 +47,7 @@
                         SelectedIndex="1"
                         SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
             </StackLayout>
+
             <Button Grid.Column="3"
                     Padding="10, 6"
                     HorizontalOptions="End" VerticalOptions="Start"
@@ -50,10 +59,38 @@
 
         </Grid>
 
-        
+        <StackLayout
+            Padding="10, 0,0,0"
+            Spacing="10"
+            Grid.Row="1"
+            Orientation="Horizontal"
+            >
+            <StackLayout Orientation="Horizontal" Spacing="11" HorizontalOptions="Center" >
+                <Label Text="After" HorizontalOptions="Center" Padding="10"></Label>
+                <DatePicker 
+                    IsEnabled="{Binding SelectedFilter, Converter={StaticResource TimeFilterConverter}}"
+                    Date="{Binding FilterStart}"  />
+                <TimePicker 
+                    IsEnabled="{Binding SelectedFilter, Converter={StaticResource TimeFilterConverter}}"
+                    Time="{Binding TimeFilterStart}"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="11" HorizontalOptions="Center" >
+                <Label Text="Before" HorizontalOptions="Center" Padding="10"></Label>
+                <DatePicker 
+                    IsEnabled="{Binding SelectedFilter, Converter={StaticResource TimeFilterConverter}}"
+                    Date="{Binding FilterEnd}" />
+                <TimePicker 
+                    IsEnabled="{Binding SelectedFilter, Converter={StaticResource TimeFilterConverter}}"
+                    Time="{Binding TimeFilterEnd}"/>
+            </StackLayout>
+
+        </StackLayout>
+
+   
 
 
-        <ListView Grid.Row="1"
+        <ListView Grid.Row="2"
                   ItemsSource="{Binding Activities}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:ActivityListModel">

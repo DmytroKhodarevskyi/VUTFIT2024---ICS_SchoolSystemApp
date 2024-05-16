@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Reflection;
 using DAL.Entities;
 using DAL.Mappers;
@@ -60,6 +60,14 @@ public abstract class
 
     public virtual async Task<IEnumerable<TListModel>> GetAsync()
     {
+       //await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+       //аунList<TEntity> entities = await uow
+       //    .GetRepository<TEntity, TEntityMapper>()
+       //    .Get()
+       //    .ToListAsync().ConfigureAwait(false);
+       //
+       //return ModelMapper.MapToListModel(entities);
+
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<TEntity> entities = await uow
             .GetRepository<TEntity, TEntityMapper>()
