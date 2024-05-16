@@ -14,6 +14,13 @@ public class EvaluationFacade :
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
     private readonly EvaluationModelMapper _mapper;
 
+    protected override ICollection<string> IncludesNavigationPathDetail =>
+        new[]
+        {
+            $"{nameof(EvaluationEntity.Activity)}",
+            $"{nameof(EvaluationEntity.Student)}"
+        };
+
     public EvaluationFacade(IUnitOfWorkFactory unitOfWorkFactory, EvaluationModelMapper mapper)
         : base(unitOfWorkFactory, mapper)
     {
@@ -35,11 +42,11 @@ public class EvaluationFacade :
 
         return ModelMapper.MapToListModel(query);
     }
-    
+
     public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid? activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        
+
         if (activityId is null)
         {
             return new List<EvaluationListModel>();
@@ -51,11 +58,12 @@ public class EvaluationFacade :
 
         return ModelMapper.MapToListModel(query);
     }
-    
-    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivityAndStudent(Guid? activityId, Guid? studentId)
+
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivityAndStudent(Guid? activityId,
+        Guid? studentId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        
+
         if (activityId is null || studentId is null)
         {
             return new List<EvaluationListModel>();
@@ -67,11 +75,12 @@ public class EvaluationFacade :
 
         return ModelMapper.MapToListModel(query);
     }
-    
-    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListBySubjectAndStudent(Guid? subjectId, Guid? studentId)
+
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListBySubjectAndStudent(Guid? subjectId,
+        Guid? studentId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        
+
         if (subjectId is null || studentId is null)
         {
             return new List<EvaluationListModel>();
@@ -83,5 +92,4 @@ public class EvaluationFacade :
 
         return ModelMapper.MapToListModel(query);
     }
-    
 }

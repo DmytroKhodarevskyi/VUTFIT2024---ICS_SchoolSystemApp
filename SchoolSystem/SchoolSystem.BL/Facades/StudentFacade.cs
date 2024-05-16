@@ -13,6 +13,13 @@ namespace SchoolSystem.BL.Facades
             mapper), IStudentFacade
     {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory = unitOfWorkFactory;
+
+        protected override ICollection<string> IncludesNavigationPathDetail =>
+            new[]
+            {
+                $"{nameof(StudentEntity.Subjects)}"
+            };
+
         public async Task<IEnumerable<StudentListModel>> GetStudentByNameSurname(string Name, string Surname)
         {
             await using var uow = _unitOfWorkFactory.Create();
@@ -24,6 +31,7 @@ namespace SchoolSystem.BL.Facades
                 var model = mapper.MapToListModel(instance);
                 students.Add(model); // Use Add method to add the model to the list
             }
+
             return students;
         }
 
@@ -40,9 +48,10 @@ namespace SchoolSystem.BL.Facades
                 var model = mapper.MapToListModel(instance);
                 students.Add(model); // Use Add method to add the model to the list
             }
+
             return students;
         }
-        
+
         public async Task<StudentListModel> GetStudentByNameAsync(string name)
         {
             await using var uow = _unitOfWorkFactory.Create();
@@ -56,9 +65,10 @@ namespace SchoolSystem.BL.Facades
                 var model = mapper.MapToListModel(instance);
                 students.Add(model); // Use Add method to add the model to the list
             }
+
             return students.FirstOrDefault();
         }
-        
+
         public async Task<IEnumerable<StudentListModel>> GetStudentsByNameSubject(string name)
         {
             await using var uow = _unitOfWorkFactory.Create();
@@ -75,15 +85,17 @@ namespace SchoolSystem.BL.Facades
                     .Where(s => s.Id == id);
                 await students.ForEachAsync(s => dbSet.Add(s));
             }
+
             var studentsModels = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
             foreach (var instance in dbSet)
             {
                 var model = mapper.MapToListModel(instance);
                 studentsModels.Add(model); // Use Add method to add the model to the list
             }
+
             return studentsModels;
         }
-    
+
         public async Task<IEnumerable<StudentListModel>> GetStudentsByAbbrSubject(string abbreviation)
         {
             await using var uow = _unitOfWorkFactory.Create();
@@ -100,12 +112,14 @@ namespace SchoolSystem.BL.Facades
                     .Where(s => s.Id == id);
                 await students.ForEachAsync(s => dbSet.Add(s));
             }
+
             var studentsModels = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
             foreach (var instance in dbSet)
             {
                 var model = mapper.MapToListModel(instance);
                 studentsModels.Add(model); // Use Add method to add the model to the list
             }
+
             return studentsModels;
         }
     }

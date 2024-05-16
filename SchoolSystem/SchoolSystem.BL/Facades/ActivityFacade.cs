@@ -14,6 +14,13 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
     private readonly ActivityModelMapper _mapper;
 
+    protected override ICollection<string> IncludesNavigationPathDetail =>
+        new[]
+        {
+            $"{nameof(ActivityEntity.Evaluations)}",
+            $"{nameof(ActivityEntity.Subject)}"
+        };
+    
     public ActivityFacade(IUnitOfWorkFactory unitOfWorkFactory, ActivityModelMapper mapper)
         : base(unitOfWorkFactory, mapper)
     {

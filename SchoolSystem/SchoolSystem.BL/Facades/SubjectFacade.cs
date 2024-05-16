@@ -15,6 +15,14 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
         mapper), ISubjectFacade
 {
     private readonly IUnitOfWorkFactory _unitOfWorkFactory = unitOfWorkFactory;
+    
+    protected override ICollection<string> IncludesNavigationPathDetail =>
+        new[]
+        {
+            $"{nameof(SubjectEntity.Activities)}",
+            $"{nameof(SubjectEntity.Students)}"
+        };
+    
     public async Task<IEnumerable<SubjectListModel>> GetSubjectsByName(string name)
     {
         await using var uow = unitOfWorkFactory.Create();
