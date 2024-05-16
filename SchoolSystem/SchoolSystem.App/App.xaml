@@ -13,7 +13,9 @@
             
             <converters:NotEmptyConverter x:Key="NotEmptyConverter" />
             <converters:EnumToListConverter x:Key="EnumToListConverter" />
-                
-        </ResourceDictionary>
+            <converters:TimeFilterConverter x:Key="TimeFilterConverter" />
+
+
+</ResourceDictionary>
     </Application.Resources>
 </Application>
