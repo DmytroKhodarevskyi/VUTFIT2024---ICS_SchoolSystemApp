@@ -6,7 +6,7 @@ namespace SchoolSystem.BL.Facades.Interfaces;
 public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, ActivityDetailModel>
 {
     
-    Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? start, DateTime? end, int Tag);
+    Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? start, DateTime? end, int Tag, string selectedSort, bool Descending);
     Task<IEnumerable<ActivityListModel>> GetAsyncFilterTag(int Tag);
 
 
@@ -31,5 +31,14 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
         D104,
         D105,
         D106,
+    }
+
+    public enum SortBy
+    {
+        Subject,
+        Room,
+        Start,
+        End,
+        Tag
     }
 }
