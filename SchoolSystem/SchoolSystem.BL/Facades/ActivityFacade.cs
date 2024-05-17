@@ -50,9 +50,9 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
             }
         }
 
-        if (selectedSort == "Subject")
+        if (selectedSort == "Name")
         {
-            query = Descending ? query.OrderByDescending(e => e.Subject) : query.OrderBy(e => e.Subject);
+            query = Descending ? query.OrderByDescending(e => e.Name) : query.OrderBy(e => e.Name);
         }
         else if (selectedSort == "Start")
         {

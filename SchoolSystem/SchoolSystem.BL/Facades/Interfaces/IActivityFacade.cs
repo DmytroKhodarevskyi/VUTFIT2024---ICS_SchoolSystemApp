@@ -35,7 +35,7 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
 
     public enum SortBy
     {
-        Subject,
+        Name,
         Room,
         Start,
         End,
