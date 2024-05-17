@@ -28,23 +28,26 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
         _mapper = mapper;
     }
   
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? start, DateTime? end, int Tag, string selectedSort, bool Descending)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? start, DateTime? end, int Tag, string selectedSort, bool Descending, bool DoFilter)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
         IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
 
-        if (start != null)
+        if (DoFilter)
         {
-            query = query.Where(e => e.Start >= start);
-        }
-        if (end != null)
-        {
-            query = query.Where(e => e.End <= end);
-        }
-        if (Tag > 0)
-        {
-            query = query.Where(e => e.Tag == Tag);
+            if (start != null)
+            {
+                query = query.Where(e => e.Start >= start);
+            }
+            if (end != null)
+            {
+                query = query.Where(e => e.End <= end);
+            }
+            if (Tag > 0)
+            {
+                query = query.Where(e => e.Tag == Tag);
+            }
         }
 
         if (selectedSort == "Subject")

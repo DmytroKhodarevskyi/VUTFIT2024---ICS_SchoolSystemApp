@@ -91,7 +91,7 @@
 
         <StackLayout
             Padding="10, 0,0,0"
-            Spacing="10"
+            Spacing="20"
             Grid.Row="1"
             Orientation="Horizontal"
             >
@@ -113,6 +113,17 @@
                 <TimePicker 
                     IsEnabled="{Binding SelectedFilter, Converter={StaticResource TimeFilterConverter}}"
                     Time="{Binding TimeFilterEnd}"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="20">
+                <Label
+                    
+                    VerticalTextAlignment="Center"
+                    Text="EnableFiltering"
+                    ></Label>
+                <Switch
+                    IsToggled="{Binding DoFilter}"
+                    ></Switch>
             </StackLayout>
 
         </StackLayout>

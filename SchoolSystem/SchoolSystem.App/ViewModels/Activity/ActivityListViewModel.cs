@@ -208,6 +208,20 @@ public partial class ActivityListViewModel(
     }
 
 
+    private bool _dofilter = true;
+
+    public bool DoFilter
+    {
+        get => _dofilter;
+        set
+        {
+            _dofilter= value;
+            OnPropertyChanged(nameof(DoFilter));
+
+            LoadDataAsync(); // Ensure this is called to refresh the list
+        }
+    }
+
     protected override async Task LoadDataAsync()
     {
 
@@ -238,7 +252,7 @@ public partial class ActivityListViewModel(
         }
 
         // Activities = await activityFacade.GetAsyncFilter(FilterStart, FilterEnd, Tag);
-        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending);
+        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter);
     }
 
     public static DateTime? GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime? Start)
