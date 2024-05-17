@@ -20,7 +20,7 @@ public partial class ActivityListViewModel(
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
 
-    private int _tag = -1;
+    private int _tag = 0;
     public int Tag
     {
         get => _tag;
@@ -36,6 +36,24 @@ public partial class ActivityListViewModel(
     }
 
     public string[] Filters { get; set; } = Enum.GetNames(typeof(Interval));
+
+    public string[] Sort { get; set; } = Enum.GetNames(typeof(SortBy));
+
+    private string _selectedSort= "Subject";
+
+    public string SelectedSort
+    {
+        get => _selectedSort;
+        set
+        {
+            if (_selectedSort != value)
+            {
+                _selectedSort = value;
+                OnPropertyChanged(nameof(SelectedFilter));
+                LoadDataAsync();
+            }
+        }
+    }
 
     private string _selectedFilter = "NoFilter";
     // public string SelectedFilter
@@ -91,7 +109,7 @@ public partial class ActivityListViewModel(
     public Interval Interval { get; set; } = Interval.NoFilter;
 
     //public DateTime? FilterStart { get; set; } = null;
-    private DateTime? _filterStart = DateTime.Now;
+    private DateTime? _filterStart = DateTime.Now.AddYears(-5).AddHours(12);
 
     public DateTime? FilterStart
     {
@@ -112,7 +130,7 @@ public partial class ActivityListViewModel(
         }
     }
 
-    private DateTime? _filterEnd = DateTime.Now;
+    private DateTime? _filterEnd = DateTime.Now.AddHours(12);
     //public DateTime? FilterEnd { get; set; } = null;
 
    public DateTime? FilterEnd
@@ -127,20 +145,82 @@ public partial class ActivityListViewModel(
                {
                    OnPropertyChanged(nameof(FilterEnd));
                    ParseInterval(_selectedFilter);
-                }
+               }
 
                     
                LoadDataAsync(); // Ensure this is called to refresh the list
            }
        }
    }
-    public TimeSpan TimeFilterStart { get; set; }
 
+   private TimeSpan _timefilterstart;
+   public TimeSpan TimeFilterStart
+   {
+       get => _timefilterstart;
+       set
+       {
+           if (_timefilterstart != value)
+           {
+               _timefilterstart = value;
+               if (!ManualFilter)
+               {
+                   OnPropertyChanged(nameof(TimeFilterStart));
+                   ParseInterval(_selectedFilter);
+               }
+               LoadDataAsync(); // Ensure this is called to refresh the list
+           }
+       }
+    }
 
-    public TimeSpan TimeFilterEnd { get; set; }
+   private TimeSpan _timefilterend;
+   public TimeSpan TimeFilterEnd
+   {
+       get => _timefilterend;
+       set
+       {
+           if (_timefilterend != value)
+           {
+               _timefilterend = value;
+               if (!ManualFilter)
+               {
+                   OnPropertyChanged(nameof(TimeFilterEnd));
+                   ParseInterval(_selectedFilter);
+               }
+               LoadDataAsync(); // Ensure this is called to refresh the list
+           }
+       }
+    }
 
     public bool ManualFilter = true;
 
+    private bool _descending = false;
+
+    public bool Descending
+    {
+        get => _descending;
+        set
+        {
+            _descending = value;
+            OnPropertyChanged(nameof(Descending));
+
+            LoadDataAsync(); // Ensure this is called to refresh the list
+        }
+    }
+
+
+    private bool _dofilter = true;
+
+    public bool DoFilter
+    {
+        get => _dofilter;
+        set
+        {
+            _dofilter= value;
+            OnPropertyChanged(nameof(DoFilter));
+
+            LoadDataAsync(); // Ensure this is called to refresh the list
+        }
+    }
 
     protected override async Task LoadDataAsync()
     {
@@ -172,7 +252,7 @@ public partial class ActivityListViewModel(
         }
 
         // Activities = await activityFacade.GetAsyncFilter(FilterStart, FilterEnd, Tag);
-        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag);
+        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter);
     }
 
     public static DateTime? GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime? Start)
@@ -313,6 +393,12 @@ public partial class ActivityListViewModel(
     {
         await navigationService.GoToAsync<ActivityDetailViewModel>(
             new Dictionary<string, object?> { [nameof(ActivityDetailViewModel.Id)] = id });
+    }
+
+    [RelayCommand]
+    public void ResetTag()
+    {
+        Tag = 0;
     }
 
     public async void Receive(EditMessage message)

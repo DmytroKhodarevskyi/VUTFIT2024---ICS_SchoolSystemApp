@@ -29,7 +29,7 @@
                 HeightRequest="30"
                 Command="{Binding SaveCommand}">
                 <Button.IsEnabled>
-                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                    <MultiBinding Converter="{StaticResource SubjectSaveConverter}">
                         <Binding Source="{x:Reference NameEntry}" Path="Text" />
 
                         <Binding Source="{x:Reference TagEntry}" Path="Text" />

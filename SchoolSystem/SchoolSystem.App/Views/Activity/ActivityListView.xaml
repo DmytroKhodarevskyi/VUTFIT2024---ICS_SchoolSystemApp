@@ -15,14 +15,14 @@
           RowSpacing="10">
 
 
-        <Grid Padding="0,0,15,5" ColumnDefinitions="Auto,Auto,Auto, *" ColumnSpacing="20" >
+        <Grid Padding="0,0,15,5" ColumnDefinitions="Auto,Auto,Auto,Auto,*" ColumnSpacing="20" >
 
             <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="1">
                 <Button Grid.Column="3"
                         Padding="10, 6"
                         HorizontalOptions="End" VerticalOptions="Start"
                         Text="Reset Tag"
-                        Command="{Binding GoToCreateCommand}"
+                        Command="{Binding ResetTagCommand}"
 
                         CornerRadius="5" FontFamily="MontserratMedium"
                         FontSize="14" />
@@ -48,7 +48,37 @@
                         SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
             </StackLayout>
 
-            <Button Grid.Column="3"
+            <StackLayout
+                WidthRequest="350"
+                Orientation="Horizontal"
+                Spacing="15"
+                VerticalOptions="Center"
+                Grid.Column="3"
+                >
+                <Label
+                    VerticalTextAlignment="Center"
+                    Text="Sort By"
+                    ></Label>
+                <Picker
+                    WidthRequest="100"
+                    ItemsSource="{Binding Sort}"
+                    SelectedItem="{Binding SelectedSort}"
+                >
+                </Picker>
+                <Label
+                    VerticalTextAlignment="Center"
+                    Text="Descending"
+                    ></Label>
+                <Switch
+                    IsToggled="{Binding Descending}"
+                    >
+
+                </Switch>
+            </StackLayout>
+           
+
+
+            <Button Grid.Column="4"
                     Padding="10, 6"
                     HorizontalOptions="End" VerticalOptions="Start"
                     Text="Add Activity"
@@ -61,7 +91,7 @@
 
         <StackLayout
             Padding="10, 0,0,0"
-            Spacing="10"
+            Spacing="20"
             Grid.Row="1"
             Orientation="Horizontal"
             >
@@ -83,6 +113,17 @@
                 <TimePicker 
                     IsEnabled="{Binding SelectedFilter, Converter={StaticResource TimeFilterConverter}}"
                     Time="{Binding TimeFilterEnd}"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="20">
+                <Label
+                    
+                    VerticalTextAlignment="Center"
+                    Text="EnableFiltering"
+                    ></Label>
+                <Switch
+                    IsToggled="{Binding DoFilter}"
+                    ></Switch>
             </StackLayout>
 
         </StackLayout>
