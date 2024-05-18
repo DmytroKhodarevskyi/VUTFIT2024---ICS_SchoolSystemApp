@@ -208,7 +208,7 @@ public partial class ActivityListViewModel(
     }
 
 
-    private bool _dofilter = true;
+    private bool _dofilter = false;
 
     public bool DoFilter
     {
