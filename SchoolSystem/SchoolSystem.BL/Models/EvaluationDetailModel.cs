@@ -7,8 +7,8 @@ public record EvaluationDetailModel() : baseModel
 {
     public required int Score { get; set; }
     public string? Description { get; set; }    
-    public Guid? ActivityId { get; set; }
-    public Guid? StudentId { get; set; }
+    public Guid ActivityId { get; set; }
+    public Guid StudentId { get; set; }
     
     public StudentListModel? Student { get; set; }
     public ActivityListModel? Activity { get; set; }

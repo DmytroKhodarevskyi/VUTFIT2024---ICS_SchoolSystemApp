@@ -7,6 +7,6 @@ public interface IEvaluationFacade : IFacade<EvaluationEntity, EvaluationListMod
 {
     
     Task<IEnumerable<EvaluationListModel>> GetAsyncListByStudent(Guid? studentId);
-    Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid? activityId);
+    Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid activityId);
     Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivityAndStudent(Guid? activityId, Guid? studentId);
 }

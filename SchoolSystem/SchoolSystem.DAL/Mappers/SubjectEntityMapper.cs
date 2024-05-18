@@ -9,7 +9,7 @@ public class SubjectEntityMapper : IEntityMapper<SubjectEntity>
     {
         existingEntity.Name = newEntity.Name;
         existingEntity.Abbreviation = newEntity.Abbreviation;
-        existingEntity.StudentSubjects = newEntity.StudentSubjects;
+        // existingEntity.StudentSubjects = newEntity.StudentSubjects;
     }
 }
 

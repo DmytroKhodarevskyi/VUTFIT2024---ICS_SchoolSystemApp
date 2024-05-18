@@ -43,14 +43,9 @@ public class EvaluationFacade :
         return ModelMapper.MapToListModel(query);
     }
 
-    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid? activityId)
+    public async Task<IEnumerable<EvaluationListModel>> GetAsyncListByActivity(Guid activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-
-        if (activityId is null)
-        {
-            return new List<EvaluationListModel>();
-        }
 
         List<EvaluationEntity> query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
             .Where(e => e.ActivityId == activityId)

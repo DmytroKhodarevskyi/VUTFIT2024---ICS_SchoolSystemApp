@@ -1,62 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SchoolSystem.App.Views.Student.StudentDetailView"
-             xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
-             xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
-             xmlns:views1="clr-namespace:SchoolSystem.App.Views"
-             xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
-             xmlns:views2="clr-namespace:App.Views"
-             Title="Student Detail"
-             x:Name="StudentDetailViewRoot"
-             x:DataType="students:StudentDetailViewModel">
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="SchoolSystem.App.Views.Student.StudentDetailView"
+                        xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
+                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                        xmlns:views1="clr-namespace:SchoolSystem.App.Views"
+                        xmlns:models="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
+                        xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
+                        xmlns:views2="clr-namespace:App.Views"
+                        Title="Student Detail"
+                        x:Name="StudentDetailViewRoot"
+                        x:DataType="students:StudentDetailViewModel">
+
     <ScrollView>
         <VerticalStackLayout Spacing="20">
             <HorizontalStackLayout HorizontalOptions="End"
-                               Spacing="15"
-                               HeightRequest="60">
+                                   Spacing="15"
+                                   HeightRequest="60">
                 <Button Text="Delete"
-                    CornerRadius="5"
-                    BackgroundColor="Red"
-                    Command="{Binding DeleteCommand}" />
+                        CornerRadius="5"
+                        BackgroundColor="Red"
+                        Command="{Binding DeleteCommand}" />
                 <Button Text="Edit"
-                    CornerRadius="5"
-                    Command="{Binding GoToEditCommand}" />
+                        CornerRadius="5"
+                        Command="{Binding GoToEditCommand}" />
+                <Button Text="Add Subject"
+                        CornerRadius="5"
+                        Command="{Binding GoToAddSubjectCommand}" />
             </HorizontalStackLayout>
 
-
-            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start"
-              RowDefinitions="Auto"
-              ColumnDefinitions="*, *"
-              RowSpacing="20" ColumnSpacing="20">
-
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="Start"
+                  RowDefinitions="Auto, Auto, Auto"
+                  ColumnDefinitions="*, *"
+                  RowSpacing="20"
+                  ColumnSpacing="20">
 
                 <VerticalStackLayout Grid.Column="0"
-                                 Spacing="10"
-                                  Padding="50,50">
+                                     Spacing="10"
+                                     Padding="50,50">
                     <HorizontalStackLayout Spacing="5">
-                        <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
-                        <Label Text="{Binding Student.Name}" FontSize="24"/>
+                        <Label Text="Name: "
+                               FontSize="24"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Student.Name}"
+                               FontSize="24" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="5">
-                        <Label Text="Surname: " FontSize="24" FontAttributes="Bold"/>
-                        <Label Text="{Binding Student.Surname}" FontSize="24"/>
+                        <Label Text="Surname: "
+                               FontSize="24"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Student.Surname}"
+                               FontSize="24" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
 
-
-                <VerticalStackLayout
-                    Padding="450,0,0,0">
+                <VerticalStackLayout Padding="450,0,0,0">
                     <Image Grid.Column="1"
-                   HorizontalOptions="Fill" 
-                   VerticalOptions="Fill"
-                   Aspect="AspectFit"
-                   WidthRequest="320"
-                   HeightRequest="240"
-                   Source="{Binding Student.Photo, TargetNullValue='default.png'}"/>
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill"
+                           Aspect="AspectFit"
+                           WidthRequest="320"
+                           HeightRequest="240"
+                           Source="{Binding Student.Photo, TargetNullValue='default.png'}" />
                 </VerticalStackLayout>
 
+                <Label FontSize="24"
+                       Padding="20, 0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"
+                       Text="All student Subjects:" />
+
+                <ListView x:Name="SubjectListView"
+                          Grid.Row="2"
+                          Grid.ColumnSpan="2"
+                          ItemsSource="{Binding Student.Subjects}"
+                          HorizontalOptions="FillAndExpand"
+                          SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SubjectListModel">
+                            <ViewCell>
+                                <Frame Margin="10,5"
+                                       Padding="10"
+                                       HasShadow="True"
+                                       CornerRadius="5"
+                                       BackgroundColor="#2e2e2e">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                               Text="{Binding Name}"
+                                               FontSize="16"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center"
+                                               TextColor="White"
+                                               Padding="0, 0, 10, 0" />
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Abbreviation}"
+                                               FontSize="16"
+                                               Padding="10, 0"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center"
+                                               TextColor="White" />
+                                        <Button Grid.Column="2"
+                                                Text="Delete"
+                                                BackgroundColor="Red"
+                                                TextColor="White"
+                                                Command="{Binding Source={x:Reference StudentDetailViewRoot}, Path=BindingContext.DeleteSubjectCommand}"
+                                                CommandParameter="{Binding Abbreviation}"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Padding="10, 0" />
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>

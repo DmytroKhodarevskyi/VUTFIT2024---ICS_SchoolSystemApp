@@ -10,6 +10,6 @@ public class StudentEntityMapper : IEntityMapper<StudentEntity>
         existingEntity.Name = newEntity.Name;
         existingEntity.Surname = newEntity.Surname;
         existingEntity.Photo = newEntity.Photo;
-        existingEntity.StudentSubjects = newEntity.StudentSubjects;
+        // existingEntity.StudentSubjects = newEntity.StudentSubjects;
     }
 }

@@ -15,7 +15,7 @@ public record ActivityDetailModel() : baseModel
     public string? Description { get; set; } 
     public ICollection<EvaluationListModel>? Evaluations { get; set; } = new List<EvaluationListModel>();
     
-    public Guid? SubjectId { get; set; }
+    public Guid SubjectId { get; set; }
 
     public SubjectListModel? Subject { get; set; }
     

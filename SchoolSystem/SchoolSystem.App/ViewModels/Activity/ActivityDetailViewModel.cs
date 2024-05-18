@@ -10,6 +10,8 @@ namespace SchoolSystem.App.ViewModels.Activity;
 [QueryProperty(nameof(Id), nameof(Id))]
 public partial class ActivityDetailViewModel(
     IActivityFacade activityFacade,
+    ISubjectFacade subjectFacade,
+    IEvaluationFacade evaluationFacade,
     INavigationService navigationService,
     IMessengerService messengerService,
     IAlertService alertService)
@@ -17,12 +19,18 @@ public partial class ActivityDetailViewModel(
 {
     public Guid Id { get; set; }
     public ActivityDetailModel? Activity { get; private set; }
+    
+    public SubjectDetailedModel? Subject { get; private set; }
+    
+    public IEnumerable<EvaluationListModel> Evaluations { get; private set; } = null!;
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
         Activity = await activityFacade.GetAsync(Id);
+        Subject = await subjectFacade.GetAsync(Activity!.SubjectId);
+        Evaluations = await evaluationFacade.GetAsyncListByActivity(Id);
     }
 
     [RelayCommand]

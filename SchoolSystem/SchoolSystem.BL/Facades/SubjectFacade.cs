@@ -23,6 +23,7 @@ public class SubjectFacade(IUnitOfWorkFactory unitOfWorkFactory, SubjectModelMap
             $"{nameof(SubjectEntity.Students)}"
         };
     
+    
     public async Task<IEnumerable<SubjectListModel>> GetSubjectsByName(string name)
     {
         await using var uow = unitOfWorkFactory.Create();

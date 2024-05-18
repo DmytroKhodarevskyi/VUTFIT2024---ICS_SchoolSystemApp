@@ -25,17 +25,16 @@ public partial class SubjectAddViewModel(
         await base.LoadDataAsync();
 
         var subjectsEntities = await subjectFacade.GetAsync();
-        Subjects = subjectsEntities.Select(s => s.Name).ToArray();
+        Subjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
     }
 
     [RelayCommand]
     private async Task SaveAsync()
     {
         var student = await studentFacade.GetAsync(StudentId);
-        var subject = await subjectFacade.GetSubjectsByName(SelectedSubject);
+        var subject = await subjectFacade.GetSubjectByAbbrAsync(SelectedSubject);
         
-        student.Subjects.Add(subject.FirstOrDefault());
-        await studentFacade.SaveAsync(student);
+        await studentFacade.AddSubjectToStudentAsync(student.Id, subject.Id);
         MessengerService.Send(new EditMessage { Id = StudentId });
 
 

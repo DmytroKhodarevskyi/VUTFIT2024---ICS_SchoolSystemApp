@@ -29,10 +29,8 @@ public partial class ActivityEditViewModel(
     {
         Activity.Start = Activity.Start.Date + TimeOfDayStart;
         Activity.End = Activity.End.Date + TimeOfDayEnd;
-        var Subject = await subjectFacade.GetSubjectByAbbrAsync(Activity!.SubjectAbr);
-        var SubjectId = Subject.Id;
-        Activity.SubjectId = SubjectId;
-        Activity.Subject = Subject;
+        Activity.Subject = await subjectFacade.GetSubjectByAbbrAsync(Activity!.SubjectAbr);
+        Activity.SubjectId = Activity.Subject.Id;
         if (Activity.Start >= Activity.End)
         {
             await alertService.DisplayAsync("Invalid Time", "Activity cannot be add because start time is same or greater then end time.");

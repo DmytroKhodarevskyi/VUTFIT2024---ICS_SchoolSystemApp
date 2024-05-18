@@ -18,6 +18,7 @@ public partial class StudentDetailViewModel(
     : ViewModelBase(messengerService), IRecipient<EditMessage>
 {
     public Guid Id { get; set; }
+    
     public StudentDetailedModel? Student { get; private set; }
 
     protected override async Task LoadDataAsync()
@@ -25,8 +26,6 @@ public partial class StudentDetailViewModel(
         await base.LoadDataAsync();
 
         Student = await studentFacade.GetAsync(Id);
-        
-        Student.Subjects = new ObservableCollection<SubjectListModel>(await subjectFacade.GetSubjectsByName(Student.Name));
     }
 
     [RelayCommand]
@@ -60,6 +59,14 @@ public partial class StudentDetailViewModel(
         await navigationService.GoToAsync("/edit",
             new Dictionary<string, object?> { [nameof(StudentEditViewModel.Student)] = Student });
     }
+    
+    [RelayCommand]
+    private async Task DeleteSubjectAsync(string abbreviation)
+    {
+        await studentFacade.RemoveSubjectFromStudentAsync(Student!.Id, abbreviation);
+        MessengerService.Send(new EditMessage { Id = Student.Id });
+    }
+
 
     public async void Receive(EditMessage message)
     {
