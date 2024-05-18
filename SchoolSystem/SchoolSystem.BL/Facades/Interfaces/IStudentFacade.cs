@@ -8,6 +8,8 @@ public interface IStudentFacade : IFacade<StudentEntity, StudentListModel, Stude
     Task<IEnumerable<StudentListModel>> GetStudentsByNameAsync(string name);
 
     Task AddSubjectToStudentAsync(Guid studentId, Guid subjectId);
+
+    Task<IEnumerable<StudentListModel>> GetStudentsBySubjectAsync(string subjectAbbr);
     
     Task RemoveSubjectFromStudentAsync(Guid studentId, string subjectAbbr);
     Task<StudentListModel> GetStudentByNameAsync(string name);

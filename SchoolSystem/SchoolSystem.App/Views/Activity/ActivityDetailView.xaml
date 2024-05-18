@@ -6,69 +6,92 @@
                         xmlns:views="clr-namespace:SchoolSystem.App.Views;assembly=SchoolSystem.BL"
                         xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
                         xmlns:views1="clr-namespace:SchoolSystem.App.Views"
+                        xmlns:models="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
                         xmlns:activities="clr-namespace:SchoolSystem.App.ViewModels.Activity"
                         xmlns:views2="clr-namespace:App.Views"
                         Title="Activity Detail"
                         x:Name="ActivityDetailViewRoot"
                         x:DataType="activities:ActivityDetailViewModel">
     <ScrollView>
+        <VerticalStackLayout Spacing="20">
+            <HorizontalStackLayout HorizontalOptions="End"
+                                   Spacing="15"
+                                   HeightRequest="60">
+                <Button Text="Delete"
+                        CornerRadius="5"
+                        BackgroundColor="Red"
+                        Command="{Binding DeleteCommand}" />
 
-    <VerticalStackLayout Spacing="20">
-        <HorizontalStackLayout HorizontalOptions="End"
-                               Spacing="15"
-                               HeightRequest="60">
-            <Button Text="Delete"
-                    CornerRadius="5"
-                    BackgroundColor="Red"
-                    Command="{Binding DeleteCommand}" />
+                <Button Text="Edit"
+                        CornerRadius="5"
+                        Command="{Binding GoToEditCommand}" />
+            </HorizontalStackLayout>
 
-            <Button Text="Edit"
-                    CornerRadius="5"
-                    Command="{Binding GoToEditCommand}" />
-        </HorizontalStackLayout>
+            <Grid HorizontalOptions="Center" VerticalOptions="Start"
+                  RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto, Auto, Auto"
+                  RowSpacing="20" ColumnSpacing="20">
+                <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
+                                     Grid.Column="2"
+                                     Spacing="20">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Activity.Name}" FontSize="24"/>
+                    </HorizontalStackLayout>
 
-        <Grid HorizontalOptions="Center" VerticalOptions="Start"
-              RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto, Auto, Auto"
-              RowSpacing="20" ColumnSpacing="20">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Start: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Activity.Start}" FontSize="24"/>
+                    </HorizontalStackLayout>
 
-            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
-                                 Grid.Column="2"
-                                 Spacing="20">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="End: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Activity.End}" FontSize="24"/>
+                    </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Name: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.Name}" FontSize="24"/>
-                </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Room: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Activity.Room}" FontSize="24"/>
+                    </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Start: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.Start}" FontSize="24"/>
-                </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Tag: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Activity.Tag}" FontSize="24"/>
+                    </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="End: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.End}" FontSize="24"/>
-                </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Description: " FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="{Binding Activity.Description}" FontSize="24"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Grid>
 
+            <!-- New Section for Students and Evaluations -->
+            <VerticalStackLayout Spacing="20" Margin="20">
+                <Label Text="Registered Students" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Room: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.Room}" FontSize="24"/>
-                </HorizontalStackLayout>
-
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Tag: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.Tag}" FontSize="24"/>
-                </HorizontalStackLayout>
-
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Description: " FontSize="24" FontAttributes="Bold"/>
-                    <Label Text="{Binding Activity.Description}" FontSize="24"/>
-                </HorizontalStackLayout>
-                
+                <ListView ItemsSource="{Binding Students}" VerticalOptions="FillAndExpand">
+                    <ListView.Header>
+                        <Grid ColumnDefinitions="*,*,*,Auto">
+                            <Label Grid.Column="0" FontAttributes="Bold" Text="First Name"/>
+                            <Label Grid.Column="1" FontAttributes="Bold" Text="Last Name"/>
+                            <Label Grid.Column="2" FontAttributes="Bold" Text="Points"/>
+                            <Label Grid.Column="3" FontAttributes="Bold" Text="Action"/>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:StudentListModel">
+                            <ViewCell>
+                                <Grid ColumnDefinitions="*,*,*,Auto" Padding="5">
+                                    <Label Grid.Column="0" VerticalOptions="Center" Text="{Binding Name}"/>
+                                    <Label Grid.Column="1" VerticalOptions="Center" Text="{Binding Surname}"/>
+                                    <Entry Grid.Column="2" VerticalOptions="Center" Text="{Binding Source={x:Reference ActivityDetailViewRoot}, Path=BindingContext.[Id], Mode=TwoWay}" Keyboard="Numeric"/>
+                                    <Button Grid.Column="3" Text="Save" Command="{Binding Source={x:Reference ActivityDetailViewRoot}, Path=BindingContext.AddOrUpdateEvaluationCommand}" CommandParameter="{Binding Id}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </VerticalStackLayout>
-        </Grid>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
-
 </views2:ContentPageBase>

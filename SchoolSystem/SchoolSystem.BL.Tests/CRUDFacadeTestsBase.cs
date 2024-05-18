@@ -20,8 +20,8 @@ public class CRUDFacadeTestsBase : IAsyncLifetime
         
         DbContextFactory = new SchoolSystemDbContextSqLiteTestingFactory(dbname, seedTestingData: true);
         
-        ActivityMapper = new ActivityModelMapper();
         EvaluationMapper = new EvaluationModelMapper();
+        ActivityMapper = new ActivityModelMapper(EvaluationMapper);
         SubjectMapper = new SubjectModelMapper();
         StudentSubjectMapper = new StudentSubjectModelMapper();
         StudentMapper = new StudentModelMapper(SubjectMapper);

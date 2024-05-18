@@ -69,6 +69,24 @@ namespace SchoolSystem.BL.Facades
             return students.FirstOrDefault();
         }
         
+        public async Task<IEnumerable<StudentListModel>> GetStudentsBySubjectAsync(string subjectAbbr)
+        {
+            await using var uow = _unitOfWorkFactory.Create();
+
+            var query = uow.GetRepository<StudentEntity, StudentEntityMapper>()
+                .Get()
+                .Include($"{nameof(StudentEntity.Subjects)}")
+                .Where(student => student!.Subjects.Any(subject => subject.Abbreviation == subjectAbbr));
+            var students = new List<StudentListModel>(); 
+            foreach (var instance in query)
+            {
+                var model = mapper.MapToListModel(instance);
+                students.Add(model); 
+            }
+
+            return students;
+        }
+        
         public async Task AddSubjectToStudentAsync(Guid studentId, Guid subjectId)
         {
             await using var uow = _unitOfWorkFactory.Create();

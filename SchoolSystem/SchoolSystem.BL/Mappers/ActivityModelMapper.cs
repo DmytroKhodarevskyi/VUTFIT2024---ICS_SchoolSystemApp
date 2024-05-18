@@ -1,9 +1,11 @@
+using CommunityToolkit.Maui.Core.Extensions;
 using SchoolSystem.BL.Models;
 using DAL.Entities;
 
 namespace SchoolSystem.BL.Mappers;
 
-public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListModel, ActivityDetailModel>
+public class ActivityModelMapper(EvaluationModelMapper evaluationModelMapper)
+    : ModelMapperBase<ActivityEntity, ActivityListModel, ActivityDetailModel>
 {
     public override ActivityListModel MapToListModel(ActivityEntity? entity) => entity is null
         ? ActivityListModel.Empty
@@ -18,7 +20,6 @@ public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListM
             Room = entity.Room,
             SubjectId = entity.SubjectId,
             SubjectAbr = entity.Subject?.Abbreviation
-            
         };  
 
     public override ActivityDetailModel MapToDetailModel(ActivityEntity? entity) =>
@@ -34,8 +35,8 @@ public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListM
                 Description = entity.Description,
                 Room = entity.Room,
                 SubjectId = entity.SubjectId,
-                SubjectAbr = entity.Subject?.Abbreviation
-            
+                SubjectAbr = entity.Subject!.Abbreviation,
+                Evaluations = evaluationModelMapper.MapToListModel(entity!.Evaluations).ToObservableCollection()
             };
     
     public override ActivityEntity MapToEntity(ActivityDetailModel model) =>

@@ -7,6 +7,8 @@ namespace SchoolSystem.BL.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+        
+        public int Score { get; set; }
 
         public string? Photo { get; set; }
 
@@ -15,6 +17,7 @@ namespace SchoolSystem.BL.Models
             Id = Guid.NewGuid(),
             Name = string.Empty,
             Photo = null,
+            Score = 0,
             Surname = string.Empty
         };
     }

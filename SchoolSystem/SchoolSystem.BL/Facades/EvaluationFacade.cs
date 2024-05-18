@@ -87,4 +87,16 @@ public class EvaluationFacade :
 
         return ModelMapper.MapToListModel(query);
     }
+    
+    public async Task<EvaluationDetailModel> GetEvaluationByStudentAndActivity(Guid studentId, Guid activityId)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+
+        EvaluationEntity? query = uow.GetRepository<EvaluationEntity, EvaluationEntityMapper>().Get()
+            .FirstOrDefault(e => e.StudentId == studentId && e.ActivityId == activityId);
+
+        return (query is null
+            ? null
+            : ModelMapper.MapToDetailModel(query))!;
+    }
 }
