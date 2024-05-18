@@ -14,6 +14,7 @@
             <converters:NotEmptyConverter x:Key="NotEmptyConverter" />
             <converters:EnumToListConverter x:Key="EnumToListConverter" />
             <converters:TimeFilterConverter x:Key="TimeFilterConverter" />
+            <converters:SubjectSaveConverter x:Key="SubjectSaveConverter" />
 
 
 </ResourceDictionary>

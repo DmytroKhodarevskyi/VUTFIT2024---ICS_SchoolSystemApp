@@ -25,10 +25,10 @@ public record ActivityDetailModel() : baseModel
     {
         Id = Guid.NewGuid(),
         Name = string.Empty,
-        Start = DateTime.MinValue,
-        End = DateTime.MinValue,
+        Start = DateTime.Today,
+        End = DateTime.Today.AddDays(1),
         Room = Room.D105,
-        Tag = 0,
+        Tag = 1,
         Description = string.Empty,
         SubjectId = default,
         Evaluations = new ObservableCollection<EvaluationListModel>(),

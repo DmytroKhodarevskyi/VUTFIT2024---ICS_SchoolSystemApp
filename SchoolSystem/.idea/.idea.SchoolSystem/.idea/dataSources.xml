@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="Data Source=SchoolSystem" uuid="08299b69-51e2-48d6-9f65-8555a010a326">
-      <driver-ref>fc45c222-202a-4aac-b595-e9689dba5f42</driver-ref>
+      <driver-ref>b150d86a-8ea6-476a-8056-d1d2aa7efe47</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/SchoolSystem.DAL/Data Source=SchoolSystem</jdbc-url>
