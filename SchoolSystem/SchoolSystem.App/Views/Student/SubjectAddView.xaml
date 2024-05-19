@@ -5,30 +5,49 @@
                        xmlns:students="clr-namespace:SchoolSystem.App.ViewModels.Students"
                        xmlns:views2="clr-namespace:App.Views"
                        x:Class="SchoolSystem.App.Views.Student.SubjectAddView"
-                       Title="Registration of subject"
+                       Title="Subject Registration"
                        x:Name="SubjectAddViewRoot"
                        x:DataType="students:SubjectAddViewModel">
-    <Grid RowDefinitions="70, *">
-        <Grid Grid.Row="0"
-              ColumnDefinitions="*, Auto"
-              ColumnSpacing="15">
 
-            <Button
-                    Grid.Column="1"
-                    VerticalOptions="Start"
-					Text="Save"
-                    HeightRequest="30"
-                    Command="{Binding SaveCommand}">
-            </Button>
-            
-        </Grid>
-        <Grid Grid.Row="1"
-              HorizontalOptions="Center" VerticalOptions="Start"
-              RowDefinitions="170, *" ColumnDefinitions="Auto, *, Auto"
-              RowSpacing="20" ColumnSpacing="20">
-            <Picker Title="Select a subject that you want to register" ItemsSource="{Binding Subjects}"
-                    SelectedItem="{Binding SelectedSubject}"></Picker>
-           
+    <!-- Main Grid Layout -->
+    <Grid Padding="20">
+        <!-- Header Row -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Label Grid.Row="0" Text="Register a Subject"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="0, 20, 0, 20" />
+
+        <!-- Main Content Grid -->
+        <Grid Grid.Row="1" VerticalOptions="StartAndExpand" RowDefinitions="Auto, Auto" RowSpacing="20">
+            <!-- Subject Picker -->
+            <Picker Title="Select a subject to register"
+                    ItemsSource="{Binding Subjects}"
+                    SelectedItem="{Binding SelectedSubject}"
+                    FontSize="Medium"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+
+            <!-- Save Button -->
+            <Button Grid.Row="1"
+                    Text="Save"
+                    HeightRequest="40"
+                    WidthRequest="100"
+                    CornerRadius="20"
+                    BackgroundColor="LightBlue"
+                    TextColor="White"
+                    Command="{Binding SaveCommand}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="0, 20, 0, 0" />
         </Grid>
     </Grid>
+
 </views2:ContentPageBase>

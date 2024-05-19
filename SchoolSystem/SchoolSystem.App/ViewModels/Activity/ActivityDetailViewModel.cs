@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SchoolSystem.App.ViewModels.Evaluations;
 
 namespace SchoolSystem.App.ViewModels.Activity;
 
@@ -61,8 +62,12 @@ public partial class ActivityDetailViewModel(
         Students.Clear();
         foreach (var student in students)
         {
-            var evaluation = evaluations.FirstOrDefault(e => e.StudentId == student.Id);
-            SetStudentPoints(student.Id, evaluation?.Score.ToString() ?? string.Empty);
+            var evaluation = await evaluationFacade.GetEvaluationByStudentAndActivity(student.Id, Activity!.Id);
+            if (evaluation != null)
+            {
+                student.Score = evaluation.Score;
+            }
+            // SetStudentPoints(student.Id, evaluation?.Score.ToString() ?? string.Empty);
             Students.Add(student);
         }
 
@@ -101,31 +106,42 @@ public partial class ActivityDetailViewModel(
     [RelayCommand]
     private async Task AddOrUpdateEvaluationAsync(Guid studentId)
     {
-        if (_studentPoints.TryGetValue(studentId, out var pointsText) && int.TryParse(pointsText, out int points))
+        var evaluation = await evaluationFacade.GetEvaluationByStudentAndActivity(studentId, Activity!.Id);
+        var score = Students.First(s => s.Id == studentId).Score;
+        if (evaluation == null)
         {
-            var evaluation = await evaluationFacade.GetEvaluationByStudentAndActivity(studentId, Activity!.Id);
-
-            if (evaluation == null)
+            evaluation = new EvaluationDetailModel
             {
-                evaluation = new EvaluationDetailModel
-                {
-                    ActivityId = Activity!.Id,
-                    StudentId = studentId,
-                    Score = points
-                };
-                await evaluationFacade.SaveAsync(evaluation);
-                Evaluations.Add(new EvaluationListModel { Id = evaluation.Id, StudentId = studentId, Score = points });
-            }
-            else
-            {
-                evaluation.Score = points;
-                await evaluationFacade.SaveAsync(evaluation);
-            }
-            await LoadDataAsync();
+                ActivityId = Activity!.Id,
+                StudentId = studentId,
+                Score = score
+            };
+            await evaluationFacade.SaveAsync(evaluation);
+            if(score != null)
+                Evaluations.Add(new EvaluationListModel { Id = evaluation.Id, StudentId = studentId, Score = score});
         }
         else
         {
-            await alertService.DisplayAsync("Error", "Invalid points input.");
+            evaluation.Score = score;
+            await evaluationFacade.SaveAsync(evaluation);
+        }
+        await LoadDataAsync();
+    }
+    
+    [RelayCommand]
+    private async Task GoToEvaluationEditAsync(Guid studentId)
+    {
+        var evaluation = await evaluationFacade.GetEvaluationByStudentAndActivity(studentId, Activity!.Id);
+        Guid id = evaluation?.Id ?? Guid.Empty;
+
+        if (id == Guid.Empty)
+        {
+            await alertService.DisplayAsync("Error", "Evaluation is not set yet.");
+        }
+        else
+        {
+            await navigationService.GoToAsync<EvaluationDetailViewModel>(
+                new Dictionary<string, object?> { [nameof(EvaluationDetailViewModel.Id)] = id });
         }
     }
 

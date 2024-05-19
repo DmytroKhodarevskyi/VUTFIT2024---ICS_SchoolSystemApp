@@ -41,6 +41,7 @@
                         SelectedItem="{Binding SelectedActivity}"></Picker>
                 <Picker Title="Select student that you want to evaluate" ItemsSource="{Binding Students}"
                         SelectedItem="{Binding SelectedStudent}"></Picker>
+                
                
                 
             </VerticalStackLayout>

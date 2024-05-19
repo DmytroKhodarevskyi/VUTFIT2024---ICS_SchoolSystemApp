@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         x:Class="SchoolSystem.App.Views.Activity.ActivityDetailView"
@@ -71,21 +69,23 @@
 
                 <ListView ItemsSource="{Binding Students}" VerticalOptions="FillAndExpand">
                     <ListView.Header>
-                        <Grid ColumnDefinitions="*,*,*,Auto">
+                        <Grid ColumnDefinitions="*,*,*,*,Auto">
                             <Label Grid.Column="0" FontAttributes="Bold" Text="First Name"/>
                             <Label Grid.Column="1" FontAttributes="Bold" Text="Last Name"/>
                             <Label Grid.Column="2" FontAttributes="Bold" Text="Points"/>
                             <Label Grid.Column="3" FontAttributes="Bold" Text="Action"/>
+                            <Label Grid.Column="4" FontAttributes="Bold" Text="Edit"/>
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="models:StudentListModel">
                             <ViewCell>
-                                <Grid ColumnDefinitions="*,*,*,Auto" Padding="5">
+                                <Grid ColumnDefinitions="*,*,*,*,Auto" Padding="5">
                                     <Label Grid.Column="0" VerticalOptions="Center" Text="{Binding Name}"/>
                                     <Label Grid.Column="1" VerticalOptions="Center" Text="{Binding Surname}"/>
-                                    <Entry Grid.Column="2" VerticalOptions="Center" Text="{Binding Source={x:Reference ActivityDetailViewRoot}, Path=BindingContext.[Id], Mode=TwoWay}" Keyboard="Numeric"/>
+                                    <Entry Grid.Column="2" VerticalOptions="Center" Text="{Binding Score, Mode=TwoWay}" Keyboard="Numeric"/>
                                     <Button Grid.Column="3" Text="Save" Command="{Binding Source={x:Reference ActivityDetailViewRoot}, Path=BindingContext.AddOrUpdateEvaluationCommand}" CommandParameter="{Binding Id}"/>
+                                    <Button Grid.Column="4" Text="Edit Evaluation" Command="{Binding Source={x:Reference ActivityDetailViewRoot}, Path=BindingContext.GoToEvaluationEditCommand}" CommandParameter="{Binding Id}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

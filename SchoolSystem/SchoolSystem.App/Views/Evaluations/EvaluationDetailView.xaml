@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:view="clr-namespace:SchoolSystem.App.Views.Evaluations"
@@ -35,7 +33,33 @@
                     <Label Text="Score: " FontSize="24" FontAttributes="Bold"/>
                     <Label Text="{Binding Evaluation.Score}" FontSize="24"/>
                 </HorizontalStackLayout>
+                
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Student: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Evaluation.StudentName}" FontSize="24"/>
+                    <Label Text="{Binding Evaluation.StudentSurname}" FontSize="24"/>
+                </HorizontalStackLayout>
+                
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Activity name: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Activity.Name}" FontSize="24"/>
+                </HorizontalStackLayout>
+                
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Activity description: " FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="{Binding Activity.Description}" FontSize="24"/>
+                </HorizontalStackLayout>
 
+                <!-- New Entry for Evaluation Description -->
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Evaluation description: " FontSize="24" FontAttributes="Bold"/>
+                    <Entry Text="{Binding Evaluation.Description}" FontSize="24"/>
+                </HorizontalStackLayout>
+
+                <!-- Button for Saving New Description -->
+                <Button Text="Save Description"
+                        FontSize="24"
+                        Command="{Binding SaveDescriptionCommand}" />
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

@@ -87,6 +87,22 @@ namespace SchoolSystem.BL.Facades
             return students;
         }
         
+        public async Task<string> GetStudentNameByIdAsync(Guid? id)
+        {
+            await using var uow = _unitOfWorkFactory.Create();
+            var student = await uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
+                .FirstOrDefaultAsync(s => s.Id == id);
+            return student?.Name ?? string.Empty;
+        }
+        
+        public async Task<string> GetStudentSurnameByIdAsync(Guid? id)
+        {
+            await using var uow = _unitOfWorkFactory.Create();
+            var student = await uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
+                .FirstOrDefaultAsync(s => s.Id == id);
+            return student?.Surname ?? string.Empty;
+        }
+        
         public async Task AddSubjectToStudentAsync(Guid studentId, Guid subjectId)
         {
             await using var uow = _unitOfWorkFactory.Create();

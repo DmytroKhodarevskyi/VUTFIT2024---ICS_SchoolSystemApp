@@ -20,8 +20,6 @@
                             Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectCommand}" />
             <MenuFlyoutItem Text="Activities"
                             Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToActivitiesCommand}" />
-            <MenuFlyoutItem Text="Evaluations"
-                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToEvaluationCommand}" />
             
         </MenuBarItem>
         
@@ -31,7 +29,6 @@
     <ShellContent ContentTemplate="{DataTemplate r:StudentListView}" Route="students" />
     <ShellContent ContentTemplate="{DataTemplate subjects:SubjectListView}" Route= "subjects" />
     <ShellContent ContentTemplate="{DataTemplate activity:ActivityListView}" Route="activities" />
-    <ShellContent ContentTemplate="{DataTemplate evaluations:EvaluationListView}" Route="evaluations" />
 
 </Shell>
 

@@ -31,16 +31,19 @@ public class NavigationService : INavigationService
         new("//subjects/detail/edit", typeof(SubjectEditView), typeof(SubjectEditViewModel)),
         //evaluations
         
-        new("//evaluations", typeof(EvaluationListView), typeof(EvaluationListViewModel)),
-        new("//evaluations/detail", typeof(EvaluationDetailView), typeof(EvaluationDetailViewModel)),
-        
-        new("//evaluations/edit", typeof(EvaluationEditView), typeof(EvaluationEditViewModel)),
-        new("//evaluations/detail/edit", typeof(EvaluationEditView), typeof(EvaluationEditViewModel)),
+        // new("//evaluations", typeof(EvaluationListView), typeof(EvaluationListViewModel)),
+        // new("//evaluations/detail", typeof(EvaluationDetailView), typeof(EvaluationDetailViewModel)),
+        //
+        // new("//evaluations/edit", typeof(EvaluationEditView), typeof(EvaluationEditViewModel)),
+        // new("//evaluations/detail/edit", typeof(EvaluationEditView), typeof(EvaluationEditViewModel)),
        //activity
         new("//activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
         new("//activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
         new("//activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
         new("//activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
+        new("//activities/detail/evaluation", typeof(EvaluationDetailView), typeof(EvaluationDetailViewModel)),
+
+
         
         new( "//students/detail/addSubject", typeof(SubjectAddView), typeof(SubjectAddViewModel)),
     };
