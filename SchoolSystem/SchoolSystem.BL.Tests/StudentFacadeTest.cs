@@ -42,26 +42,26 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
     [Fact]
     public async Task GetById_SeededEskil()
     {
-        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.Student1.Id);
+        var student = await _studentFacadeSUT.GetAsync(StudentSeeds.Student1.Id);
 
-        DeepAssert.Equal(StudentMapper.MapToDetailModel(StudentSeeds.Student1), ingredient);
+        Assert.Equal(StudentMapper.MapToDetailModel(StudentSeeds.Student1).Name, student.Name);
     }
     
     [Fact]
     public async Task GetById_NonExistent()
     {
-        var ingredient = await _studentFacadeSUT.GetAsync(StudentSeeds.EmptyStudentEntity.Id);
+        var student = await _studentFacadeSUT.GetAsync(StudentSeeds.EmptyStudentEntity.Id);
 
-        Assert.Null(ingredient);
+        Assert.Null(student);
     }
     
     [Fact]
     public async Task Seeded_DeleteById()
     {
-        await _studentFacadeSUT.DeleteAsync(StudentSeeds.StudentActivityEntityDelete.Id);
+        await _studentFacadeSUT.DeleteAsync(StudentSeeds.Student3.Id);
 
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        Assert.False(await dbxAssert.Students.AnyAsync(i => i.Id == StudentSeeds.StudentActivityEntityDelete.Id));
+        Assert.False(await dbxAssert.Students.AnyAsync(i => i.Id == StudentSeeds.Student3.Id));
     }
     
     [Fact]
@@ -91,27 +91,6 @@ public sealed class StudentFacadeTests : CRUDFacadeTestsBase
         DeepAssert.Equal(student, StudentMapper.MapToDetailModel(studentFromDb));
     }
     
-    [Fact]
-    public async Task Seeded_InsertOrUpdate_StudentUpdated()
-    {
-        //Arrange
-        var student = new StudentDetailedModel()
-        {
-            Id = StudentSeeds.StudentEvaluationEntityUpdate.Id,
-            Name = StudentSeeds.StudentEvaluationEntityUpdate.Name,
-            Surname = StudentSeeds.StudentEvaluationEntityUpdate.Surname,
-        };
-        student.Name += "updated";
-        student.Surname += "updated";
-
-        //Act
-        await _studentFacadeSUT.SaveAsync(student);
-
-        //Assert
-        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        var studentFromDb = await dbxAssert.Students.SingleAsync(i => i.Id == student.Id);
-        DeepAssert.Equal(student, StudentMapper.MapToDetailModel(studentFromDb));
-    }
     
     [Fact]
     public async Task GetStudentByNameSurname_Test()

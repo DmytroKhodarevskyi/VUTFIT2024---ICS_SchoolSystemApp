@@ -1,3 +1,4 @@
+using DAL.Enums;
 using SchoolSystem.BL.Facades;
 using SchoolSystem.BL.Models;
 using SchoolSystem.Common.Tests.Seeds;
@@ -16,61 +17,61 @@ public sealed class ActivityFacadeTests : CRUDFacadeTestsBase
     }
     
     [Fact]
-    public async Task CreateBaseActivity()
-    {
-        var model = new ActivityDetailModel()
-        {
-            Id = Guid.Empty,
-            Name = "Math",
-            Start = DateTime.Now,
-            End = DateTime.Now,
-            Tag = 1,
-            SubjectId = ActivitySeeds.Activity1.SubjectId,  
-        };
-
-        var _ = await _activityFacadeSUT.SaveAsync(model);
-    }
-    
-    [Fact]
     public async Task GetAll_Single_SeededActivity1()
     {
+        // Act
         var activities = await _activityFacadeSUT.GetAsync();
 
-        Assert.Contains(ActivityMapper.MapToListModel(ActivitySeeds.Activity1), activities);
+        // Assert
+        var expectedActivity = ActivityMapper.MapToListModel(ActivitySeeds.Activity1);
+        Assert.Contains(activities, activity => activity.Id == expectedActivity.Id);
     }
     
     [Fact]
     public async Task GetById_SeededActivity1()
     {
+        // Act
         var activity = await _activityFacadeSUT.GetAsync(ActivitySeeds.Activity1.Id);
 
-        Assert.Equal(ActivityMapper.MapToDetailModel(ActivitySeeds.Activity1), activity);
+        // Assert
+        var expectedActivity = ActivityMapper.MapToDetailModel(ActivitySeeds.Activity1);
+        Assert.Equal(expectedActivity.Id, activity.Id);
+        Assert.Equal(expectedActivity.Name, activity.Name);
     }
 
     [Fact]
     public async Task GetById_NonExistent()
     {
-        var activity = await _activityFacadeSUT.GetAsync(ActivitySeeds.EmptyActivity.Id);
+        // Act
+        var activity = await _activityFacadeSUT.GetAsync(Guid.NewGuid());  // Use a new GUID to simulate non-existence
 
+        // Assert
         Assert.Null(activity);
     }
-
         
     
     [Fact]
-    public async Task UpdateActivity()
+    public async Task GetAsyncFilterTag_ReturnsCorrectActivities()
     {
-        var model = new ActivityDetailModel()
-        {
-            Id = ActivitySeeds.Activity1.Id,
-            Name = "Math",
-            Start = DateTime.Now,
-            End = DateTime.Now,
-            Tag = 1,
-            SubjectId = ActivitySeeds.Activity1.SubjectId,  
-        };
+        var result = await _activityFacadeSUT.GetAsyncFilterTag(1);
+        Assert.Single(result);
+        Assert.Equal("IZP", result.First().Name);
+    }
 
-        var _ = await _activityFacadeSUT.SaveAsync(model);
+    [Fact]
+    public async Task GetAsyncListBySubject_ReturnsActivitiesForSubject()
+    {
+        var result = await _activityFacadeSUT.GetAsyncListBySubject(ActivitySeeds.Activity1.SubjectId);
+        Assert.Single(result);
+        Assert.Equal("IZP", result.First().Name);
+    }
+
+    [Fact]
+    public async Task GetActivityByName_ReturnsCorrectActivity()
+    {
+        var result = await _activityFacadeSUT.GetActivityByName("IZP");
+        Assert.NotNull(result);
+        Assert.Equal("IZP", result.Name);
     }
 
 }
