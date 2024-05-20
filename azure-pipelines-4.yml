@@ -51,6 +51,7 @@ steps:
     projects: '**/SchoolSystem.sln'
     arguments: '--configuration $(buildConfiguration) --no-build'
 
-  - script: dotnet nuget locals all --clear
-    displayName: 'Clear NuGet Cache'
+- script: dotnet nuget locals all --clear
+  displayName: 'Clear NuGet Cache'
+
 
