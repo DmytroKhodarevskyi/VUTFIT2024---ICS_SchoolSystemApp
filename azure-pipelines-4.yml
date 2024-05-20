@@ -21,29 +21,23 @@ steps:
     packageType: 'sdk'
     version: '8.0.x'
 
-
 - script: |
     dotnet workload install maui-android
     dotnet workload install maui-ios
     dotnet workload install maui-maccatalyst
     dotnet workload install maui-windows
   displayName: 'Install all .NET MAUI workloads'
-  # This will install the latest stable versions of the required workloads for Android, iOS, MacCatalyst, and Windows.
-
-
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
-    arguments: '-r win-x64'
-
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '**/SchoolSystem.sln'
-    arguments: '--configuration $(buildConfiguration) --no-restore -r win-x64'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -53,5 +47,17 @@ steps:
 
 - script: dotnet nuget locals all --clear
   displayName: 'Clear NuGet Cache'
+
+# If specific projects need to be published with a runtime identifier:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'path/to/your/project.csproj'
+    arguments: '--configuration $(buildConfiguration) --runtime win-x64 --output publishOutput'
+    zipAfterPublish: false
+
+# Additional tasks such as deploying or additional scripts can be added below.
+
 
 
