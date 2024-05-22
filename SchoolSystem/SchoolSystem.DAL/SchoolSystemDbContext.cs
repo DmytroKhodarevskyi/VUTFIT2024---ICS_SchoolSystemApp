@@ -9,7 +9,6 @@ public class SchoolSystemDbContext(DbContextOptions options, bool seedDemoData =
     public DbSet<SubjectEntity> Subjects => Set<SubjectEntity>();
     public DbSet<EvaluationEntity> Evaluations => Set<EvaluationEntity>();
     public DbSet<ActivityEntity> Activities => Set<ActivityEntity>();
-    public DbSet<StudentSubjectEntity> StudentSubjects => Set<StudentSubjectEntity>();  
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,19 +18,10 @@ public class SchoolSystemDbContext(DbContextOptions options, bool seedDemoData =
         modelBuilder.Entity<SubjectEntity>().HasKey(s => s.Id);
         modelBuilder.Entity<EvaluationEntity>().HasKey(e => e.Id);
         modelBuilder.Entity<StudentEntity>().HasKey(s => s.Id);
-        modelBuilder.Entity<StudentSubjectEntity>().HasKey(s => s.Id);
         
         modelBuilder.Entity<StudentEntity>()
             .HasMany<EvaluationEntity>()
             .WithOne(s => s.Student);
-
-        modelBuilder.Entity<StudentEntity>()
-            .HasMany<StudentSubjectEntity>()
-            .WithOne(s => s.Student);
-        
-        modelBuilder.Entity<SubjectEntity>()
-            .HasMany<StudentSubjectEntity>()
-            .WithOne(s => s.Subject);
         
         modelBuilder.Entity<ActivityEntity>()
             .HasOne(a => a.Subject)
@@ -39,7 +29,6 @@ public class SchoolSystemDbContext(DbContextOptions options, bool seedDemoData =
             .HasForeignKey(a => a.SubjectId)
             .OnDelete(DeleteBehavior.Cascade);
         
-
         modelBuilder.Entity<EvaluationEntity>()
             .HasOne(e => e.Activity)
             .WithMany(a => a.Evaluations)

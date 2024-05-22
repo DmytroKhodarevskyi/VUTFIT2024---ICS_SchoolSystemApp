@@ -60,7 +60,7 @@ public static class EvaluationSeeds
     
     public static readonly EvaluationEntity EvaluationEntityDelete2 = Evaluation2 with { Id = Guid.Parse("0d4fa150-1234-4d46-a511-4c666166e12e"),
         Student = null,
-        Activity = null };
+        Activity = null, };
     
     public static readonly EvaluationEntity EvaluationEntityUpdate3 = Evaluation3 with { Id = Guid.Parse("0d4fa150-7777-1147-a511-4c666166e12e"),
         Student = null,
@@ -85,16 +85,18 @@ public static class EvaluationSeeds
         Evaluation1.ActivityId = ActivitySeeds.Activity1.Id;
         Evaluation2.ActivityId = ActivitySeeds.Activity2.Id;
         Evaluation3.ActivityId = ActivitySeeds.Activity2.Id;
+        EvaluationEntityDelete2.StudentId = StudentSeeds.Student1.Id;
+        EvaluationEntityDelete2.ActivityId = ActivitySeeds.Activity2.Id;
     }
     
     public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<EvaluationEntity>().HasData(
-            Evaluation1 with {Student = null, Activity = null}, Evaluation2 with {Student = null, Activity = null}, Evaluation3 with {Student = null, Activity = null}
+            Evaluation1 with {Student = null, Activity = null}, Evaluation2 with {Student = null, Activity = null}, Evaluation3 with {Student = null, Activity = null},
             // EvaluationEntityWithNoStudAct,
             // EvaluationEntityUpdated1,
             // EvaluationEntityDeleted1,
             // EvaluationEntityUpdate2,
-            // EvaluationEntityDelete2,
+            EvaluationEntityDelete2
             // EvaluationEntityUpdate3,
             // EvaluationEntityDelete3
             );
