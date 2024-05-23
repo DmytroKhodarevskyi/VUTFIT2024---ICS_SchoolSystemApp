@@ -10,7 +10,7 @@
                         x:DataType="students:StudentListViewModel"
                         Title="Students list"
                         x:Name="StudentListViewRoot">
-    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
+    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, Auto, *"
           RowSpacing="20">
         <Label Grid.Row="0"
                Padding="20, 0"
@@ -27,8 +27,15 @@
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"/>
 
-        <CollectionView Grid.Row="1"
-                        ItemsSource="{Binding Students}"
+        <SearchBar Grid.Row="1"
+                   Placeholder="Search Students"
+                   Text="{Binding SearchQuery}"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Start"
+                   Margin="20,0" />
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding FilteredStudents}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="m:StudentListModel">
@@ -48,18 +55,17 @@
                                    Padding="5"
                                    FontSize="16"/>
 
-
                             <Image Grid.Column="2"
                                    HorizontalOptions="Start" 
-                                    VerticalOptions="Center"
-                                    Margin="-10,0, 10,0"
-                                    Aspect="AspectFill"
-                                    WidthRequest="50" HeightRequest="60"
-                                    Source="{Binding Photo, TargetNullValue='default.png'}" />
+                                   VerticalOptions="Center"
+                                   Margin="-10,0, 10,0"
+                                   Aspect="AspectFill"
+                                   WidthRequest="50" HeightRequest="60"
+                                   Source="{Binding Photo, TargetNullValue='default.png'}" />
 
-                                <Grid.GestureRecognizers>
+                            <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={x:Reference StudentListViewRoot}, Path=BindingContext.GoToDetailCommand}"
-                                                    CommandParameter="{Binding Id}" />
+                                                      CommandParameter="{Binding Id}" />
                             </Grid.GestureRecognizers>
                         </Grid>
                     </Frame>
