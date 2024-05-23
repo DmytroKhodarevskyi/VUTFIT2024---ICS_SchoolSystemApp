@@ -30,7 +30,7 @@ namespace SchoolSystem.App.ViewModels.Students
         {
             await base.LoadDataAsync();
             Students = await studentFacade.GetAsync();
-            FilterStudents(); // Ensure initial load applies the filter
+            FilterStudents(); 
         }
 
         partial void OnSearchQueryChanged(string value)
