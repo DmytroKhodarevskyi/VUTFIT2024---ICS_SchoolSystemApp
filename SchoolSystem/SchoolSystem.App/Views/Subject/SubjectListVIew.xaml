@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views2:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SchoolSystem.App.Views.Subject.SubjectListView"
-             xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
-             xmlns:subjects="clr-namespace:SchoolSystem.App.ViewModels.Subjects"
-             xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
-             xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
-             xmlns:views2="clr-namespace:App.Views"
-             Title="{x:Static texts:SubjectListViewTexts.SubjectList_MenuTitle}"
-             x:Name="SubjectListViewRoot"
-             x:DataType="subjects:SubjectListViewModel">
-    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="SchoolSystem.App.Views.Subject.SubjectListView"
+                        xmlns:vm="clr-namespace:SchoolSystem.App.ViewModels"
+                        xmlns:subjects="clr-namespace:SchoolSystem.App.ViewModels.Subjects"
+                        xmlns:m="clr-namespace:SchoolSystem.BL.Models;assembly=SchoolSystem.BL"
+                        xmlns:texts="clr-namespace:SchoolSystem.App.Resources.Texts"
+                        xmlns:views2="clr-namespace:App.Views"
+                        Title="{x:Static texts:SubjectListViewTexts.SubjectList_MenuTitle}"
+                        x:Name="SubjectListViewRoot"
+                        x:DataType="subjects:SubjectListViewModel">
+    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, Auto, *"
           RowSpacing="20">
         <Label Grid.Row="0"
                FontSize="24"
@@ -27,12 +27,15 @@
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"/>
 
-        
+        <SearchBar Grid.Row="1"
+                   Placeholder="Search Subjects"
+                   Text="{Binding SearchQuery}"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Start"
+                   Margin="20,0" />
 
-
-
-        <ListView Grid.Row="1"
-          ItemsSource="{Binding Subjects}">
+        <ListView Grid.Row="2"
+                  ItemsSource="{Binding FilteredSubjects}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:SubjectListModel">
                     <ViewCell>
@@ -61,7 +64,7 @@
                             <!-- Gesture Recognizers -->
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
-                                              CommandParameter="{Binding Id}" />
+                                                      CommandParameter="{Binding Id}" />
                             </Grid.GestureRecognizers>
                         </Grid>
                     </ViewCell>
