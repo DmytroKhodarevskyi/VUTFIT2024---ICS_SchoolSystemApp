@@ -35,8 +35,6 @@ public class ActivityModelMapper(EvaluationModelMapper evaluationModelMapper)
                 Description = entity.Description,
                 Room = entity.Room,
                 SubjectId = entity.SubjectId,
-                SubjectAbr = entity.Subject!.Abbreviation,
-                Evaluations = evaluationModelMapper.MapToListModel(entity!.Evaluations).ToObservableCollection()
             };
     
     public override ActivityEntity MapToEntity(ActivityDetailModel model) =>
