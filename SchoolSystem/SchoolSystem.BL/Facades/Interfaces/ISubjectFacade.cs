@@ -9,4 +9,10 @@ public interface ISubjectFacade : IFacade<SubjectEntity, SubjectListModel, Subje
     Task AddActivityToSubject(Guid subjectId, Guid activityId);
     
     Task<IEnumerable<SubjectListModel>> GetSubjectsByName(string name);
+
+    public enum SortBy
+    {
+        Name,
+        Abbreviation
+    }
 }

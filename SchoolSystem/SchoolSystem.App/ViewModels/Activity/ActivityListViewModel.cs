@@ -88,7 +88,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
             if (_selectedSort != value)
             {
                 _selectedSort = value;
-                OnPropertyChanged(nameof(SelectedFilter));
+                OnPropertyChanged(nameof(SelectedSort));
                 LoadDataAsync();
             }
         }

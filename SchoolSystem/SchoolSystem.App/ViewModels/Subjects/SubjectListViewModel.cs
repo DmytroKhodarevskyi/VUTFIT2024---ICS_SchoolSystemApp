@@ -8,12 +8,45 @@ using SchoolSystem.BL.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SchoolSystem.App.ViewModels.Subjects
 {
     public partial class SubjectListViewModel : ViewModelBase, IRecipient<EditMessage>, IRecipient<DeleteMessage<SubjectListModel>>
     {
         public ObservableCollection<SubjectListModel> FilteredSubjects { get; } = new ObservableCollection<SubjectListModel>();
+
+        public string[] Sort { get; set; } = Enum.GetNames(typeof(ISubjectFacade.SortBy));
+
+        private bool _descending = false;
+
+        public bool Descending
+        {
+            get => _descending;
+            set
+            {
+                _descending = value;
+                OnPropertyChanged(nameof(Descending));
+
+                LoadDataAsync(); // Ensure this is called to refresh the list
+            }
+        }
+
+        private string _selectedSort = "Name";
+
+        public string SelectedSort
+        {
+            get => _selectedSort;
+            set
+            {
+                if (_selectedSort != value)
+                {
+                    _selectedSort = value;
+                    OnPropertyChanged(nameof(SelectedSort));
+                    LoadDataAsync();
+                }
+            }
+        }
 
         [ObservableProperty]
         private string searchQuery = string.Empty;
@@ -44,7 +77,27 @@ namespace SchoolSystem.App.ViewModels.Subjects
         {
             if (Subjects != null)
             {
-                var filtered = Subjects
+                IEnumerable<SubjectListModel> sorted;
+
+                // Sorting based on the SelectedSort property
+                if (SelectedSort == "Name")
+                {
+                    sorted = Descending 
+                        ? Subjects.OrderByDescending(e => e.Name) 
+                        : Subjects.OrderBy(e => e.Name);
+                }
+                else if (SelectedSort == "Abbreviation")
+                {
+                    sorted = Descending
+                        ? Subjects.OrderByDescending(e => e.Abbreviation)
+                        : Subjects.OrderBy(e => e.Abbreviation);
+                }
+                else
+                {
+                    sorted = Subjects; // Default no sort
+                }
+
+                var filtered = sorted
                     .Where(s => s.Name.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
                                 s.Abbreviation.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
                     .ToList();

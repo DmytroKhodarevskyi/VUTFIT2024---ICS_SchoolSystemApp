@@ -19,6 +19,34 @@
                FontAttributes="Bold"
                Text="Students" />
 
+        <HorizontalStackLayout
+                Spacing="20"
+                Grid.Row="0"
+                WidthRequest="470"
+        >
+            <Label
+                Text="Sort By"
+                VerticalTextAlignment="Center"
+                >
+
+            </Label>
+            <Picker
+                ItemsSource="{Binding Sort}"
+                SelectedItem="{Binding SelectedSort}"
+                WidthRequest="200"
+            >
+            </Picker>
+
+            <Label
+                Text="Descending"
+                VerticalTextAlignment="Center"
+            ></Label>
+            <Switch
+                IsToggled="{Binding Descending}"
+            ></Switch>
+
+        </HorizontalStackLayout>
+        
         <Button Grid.Row="0"
                 Padding="20, 6"
                 HorizontalOptions="End" VerticalOptions="Start"

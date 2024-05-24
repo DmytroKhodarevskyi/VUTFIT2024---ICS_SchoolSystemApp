@@ -19,6 +19,29 @@
                FontAttributes="Bold"
                Text="{x:Static texts:SubjectListViewTexts.SubjectList_Title}"/>
 
+        <HorizontalStackLayout
+            WidthRequest="450"
+            Spacing="20"
+            Grid.Row="0"
+            >
+            <Label
+                Text="Sort By"
+                VerticalTextAlignment="Center"
+                ></Label>
+            <Picker
+                WidthRequest="150"
+                ItemsSource="{Binding Sort}"
+                SelectedItem="{Binding SelectedSort}"
+                ></Picker>
+            <Label
+                Text="Descending"
+                VerticalTextAlignment="Center"
+            ></Label>
+            <Switch
+                IsToggled="{Binding Descending}"
+            ></Switch>
+        </HorizontalStackLayout>
+
         <Button Grid.Row="0"
                 Padding="20, 6"
                 HorizontalOptions="End" VerticalOptions="End"
