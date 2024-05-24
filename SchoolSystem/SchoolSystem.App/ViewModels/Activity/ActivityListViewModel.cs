@@ -242,7 +242,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         Activities = await activityFacade.GetAsync();
     
         var subjectsEntities = await subjectFacade.GetAsync();
-        if (Subjects == null || Subjects.Length == 0)
+        if (Subjects == null || Subjects.Length == 0 || _selectedSubject == String.Empty)
             Subjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
       
     
