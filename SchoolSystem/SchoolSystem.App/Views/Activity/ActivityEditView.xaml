@@ -62,9 +62,10 @@
                 <Entry x:Name="DescriptionEntry" HorizontalOptions="Fill" Text="{Binding Activity.Description}" />
                 <Label Text="Abbreviation" />
 
-                <HorizontalStackLayout Spacing="5">
-                    <Label Text="Subject: " FontSize="24" FontAttributes="Bold"/>
-                    <Picker ItemsSource="{Binding Subjects}"
+                <HorizontalStackLayout Spacing="10" WidthRequest="280">
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="Subject: " FontSize="24" FontAttributes="Bold"/>
+                    <Picker 
+                            ItemsSource="{Binding Subjects}"
                             SelectedItem="{Binding SelectedSubject}"
                             HorizontalOptions="Fill"
                             Title="Select a subject"/>

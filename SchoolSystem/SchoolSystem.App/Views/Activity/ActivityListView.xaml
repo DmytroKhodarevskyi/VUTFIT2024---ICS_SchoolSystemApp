@@ -11,7 +11,7 @@
                         Title="Activity list"
                         x:Name="ActivityListViewRoot"
                         x:DataType="activities:ActivityListViewModel">
-    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, Auto, *"
+    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, Auto, Auto, *"
           RowSpacing="10">
 
 
@@ -31,8 +31,8 @@
                        Padding="5">
                 </Label>
                 <Entry x:Name="TagFilter" HorizontalOptions="Fill"
-                       MinimumWidthRequest="50"
-                       WidthRequest="100"
+                       MinimumWidthRequest="30"
+                       WidthRequest="60"
                        Text="{Binding Tag}" />
             </StackLayout>
 
@@ -42,7 +42,7 @@
                        Padding="0">
                 </Label>
                 <Picker x:Name="PickerFilter"
-                        WidthRequest="200"
+                        WidthRequest="150"
                         ItemsSource="{Binding Filters}"
                         SelectedIndex="1"
                         SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" />
@@ -117,7 +117,6 @@
 
             <StackLayout Orientation="Horizontal" Spacing="20">
                 <Label
-                    
                     VerticalTextAlignment="Center"
                     Text="EnableFiltering"
                     ></Label>
@@ -128,10 +127,28 @@
 
         </StackLayout>
 
+        <StackLayout
+            Padding="10, 0,0,0"
+            Spacing="20"
+            Grid.Row="2"
+            Orientation="Horizontal">
+            <Label
+                Padding="10"
+                VerticalTextAlignment="Center"
+                Text="Select Subject"
+                ></Label>
+            <Picker
+                WidthRequest="100"
+                ItemsSource="{Binding Subjects}"
+                SelectedItem="{Binding SelectedSubject}"
+            >
+            </Picker>
+        </StackLayout>
+
    
 
 
-        <ListView Grid.Row="2"
+        <ListView Grid.Row="3"
                   ItemsSource="{Binding Activities}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:ActivityListModel">
