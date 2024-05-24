@@ -52,8 +52,6 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
 
             if (!string.IsNullOrEmpty(Subject))
             {
-                //query = query.Where(e => e.Subject?.Name == Subject);
-                //query = query.Where(e => (e.Subject?.Name ?? "") == (Subject ?? ""));
            
                 query = query.Where(e => e.Subject != null && e.Subject.Name == Subject);
            

@@ -11,12 +11,6 @@ using static SchoolSystem.BL.Facades.Interfaces.IActivityFacade;
 
 namespace SchoolSystem.App.ViewModels.Activity;
 
-//public partial class ActivityListViewModel(
-//    IActivityFacade activityFacade,
-//    ISubjectFacade subjectFacade,
-//    INavigationService navigationService,
-//    IMessengerService messengerService)
-//    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
 
 public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
 {
@@ -43,7 +37,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
     public string[] Subjects { get; private set; } = Array.Empty<string>();
 
     private string _selectedSubject = string.Empty;
-    //public string SelectedSubject { get; set; } = string.Empty;
 
     public string SelectedSubject
     {
@@ -63,23 +56,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         }
     }
 
-    //public string SelectedSubject
-    //{
-    //    get => _selectedSubject;
-    //    set
-    //    {
-    //        if (_selectedSubject != value)
-    //        {
-    //            _selectedSubject = value;
-    //            OnPropertyChanged(nameof(SelectedSubject));
-    //
-    //            if (value != null) // Only reload data if a valid selection is made
-    //            {
-    //                LoadDataAsync();
-    //            }
-    //        }
-    //    }
-    //}
 
 
 
@@ -119,20 +95,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
     }
 
     private string _selectedFilter = "NoFilter";
-    // public string SelectedFilter
-    // {
-    //     get => _selectedFilter;
-    //     set
-    //     {
-    //         if (_selectedFilter != value)
-    //         {
-    //             _selectedFilter = value;
-    //             OnPropertyChanged(nameof(SelectedFilter));
-    //             ParseInterval(_selectedFilter);
-    //             LoadDataAsync();  // Ensure this is called to refresh the list
-    //         }
-    //     }
-    // }
+
     
     public string SelectedFilter
     {
@@ -152,22 +115,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         }
     }
 
-
-    //private string _selectedFilterTag;
-    //public string SelectedFilterTag
-    //{
-    //    get => _selectedFilterTag;
-    //    set
-    //    {
-    //        if (_selectedFilterTag != value)
-    //        {
-    //            _selectedFilterTag = value;
-    //            OnPropertyChanged(nameof(SelectedFilterTag));
-    //            ParseInterval(_selectedFilterTag);
-    //            LoadDataAsync();  // Ensure this is called to refresh the list
-    //        }
-    //    }
-    //}
 
     public Interval Interval { get; set; } = Interval.NoFilter;
 
@@ -285,52 +232,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         }
     }
 
-    //protected override async Task LoadDataAsync()
-    //{
-    //    await base.LoadDataAsync();
-    //
-    //    // Fetch Activities
-    //    Activities = await activityFacade.GetAsync();
-    //
-    //    // Fetch Subjects and maintain the current selection if it still exists
-    //    var previousSubject = _selectedSubject;
-    //    var subjectsEntities = await subjectFacade.GetAsync();
-    //    Subjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
-    //
-    //    // Check if the previous selected subject still exists, otherwise reset
-    //    if (!Subjects.Contains(previousSubject) && Subjects.Any())
-    //    {
-    //        _selectedSubject = Subjects.FirstOrDefault();
-    //        OnPropertyChanged(nameof(SelectedSubject)); // This triggers UI update
-    //    }
-    //
-    //    // This check is necessary to prevent unnecessary loading when the subjects are initially populated.
-    //    if (_selectedSubject != previousSubject)
-    //    {
-    //        // Call methods that are dependent on the selected subject
-    //        if (FilterStart.HasValue)
-    //        {
-    //            _filterStart = FilterStart.Value.Date + TimeFilterStart;
-    //        }
-    //        if (FilterEnd.HasValue)
-    //        {
-    //            _filterEnd = FilterEnd.Value.Date + TimeFilterEnd;
-    //        }
-    //
-    //        ParseInterval(SelectedFilter);
-    //
-    //        if (FilterEnd == null)
-    //        {
-    //            FilterEnd = GetMaxTime(Activities, FilterEnd);
-    //        }
-    //        if (FilterStart == null)
-    //        {
-    //            FilterStart = GetMinTime(Activities, FilterStart);
-    //        }
-    //
-    //        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter, _selectedSubject);
-    //    }
-    //}
+   
 
 
     protected override async Task LoadDataAsync()
@@ -342,23 +244,16 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         var subjectsEntities = await subjectFacade.GetAsync();
         if (Subjects == null || Subjects.Length == 0)
             Subjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
-        //SelectedSubject = Subjects.FirstOrDefault();
-        //_selectedSubject = Subjects.FirstOrDefault();
-        //if (string.IsNullOrEmpty(_selectedSubject))
-        //{
-        //    _selectedSubject = Subjects.FirstOrDefault();
-        //}
+      
     
         if (FilterStart.HasValue)
         {
             // Combine the date part of FilterStart with the time part of TimeFilterStart
-            // FilterStart = FilterStart.Value.Date + TimeFilterStart;
             _filterStart = FilterStart.Value.Date + TimeFilterStart;
         }
         if (FilterEnd.HasValue)
         {
             // Combine the date part of FilterStart with the time part of TimeFilterStart
-            // FilterEnd = FilterEnd.Value.Date + TimeFilterEnd;
             _filterEnd = FilterEnd.Value.Date + TimeFilterEnd;
         }
     
@@ -373,55 +268,9 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
             FilterStart = GetMinTime(Activities, FilterStart);
         }
     
-        // Activities = await activityFacade.GetAsyncFilter(FilterStart, FilterEnd, Tag);
-        //if (SelectedSubject != null)
         Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter, SelectedSubject);
     }
 
-    //protected override async Task LoadDataAsync()
-    //{
-    //    await base.LoadDataAsync();
-    //
-    //    // Fetching activities might not need to reset the subjects.
-    //    Activities = await activityFacade.GetAsync();
-    //
-    //    // Fetch and update subjects only if they are likely to have changed.
-    //    var subjectsEntities = await subjectFacade.GetAsync();
-    //    string[] newSubjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
-    //
-    //    // Check if the current selected subject still exists in the new list.
-    //    if (!newSubjects.Contains(_selectedSubject))
-    //    {
-    //        _selectedSubject = newSubjects.FirstOrDefault(); // Set to first or default to null if empty.
-    //        OnPropertyChanged(nameof(SelectedSubject)); // Notify any bound controls to update.
-    //    }
-    //
-    //    Subjects = newSubjects; // Update the subjects list last to avoid race conditions with the selected subject.
-    //
-    //    // Consider if you need to reload activities based on the selected subject or other filters.
-    //    if (FilterStart.HasValue)
-    //    {
-    //        _filterStart = FilterStart.Value.Date + TimeFilterStart;
-    //    }
-    //    if (FilterEnd.HasValue)
-    //    {
-    //        _filterEnd = FilterEnd.Value.Date + TimeFilterEnd;
-    //    }
-    //
-    //    ParseInterval(SelectedFilter);
-    //
-    //    if (FilterEnd == null)
-    //    {
-    //        FilterEnd = GetMaxTime(Activities, FilterEnd);
-    //    }
-    //    if (FilterStart == null)
-    //    {
-    //        FilterStart = GetMinTime(Activities, FilterStart);
-    //    }
-    //
-    //    // Use the updated filter parameters including the potentially updated selected subject.
-    //    Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter, _selectedSubject);
-    //}
 
     public static DateTime? GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime? Start)
     {
@@ -445,68 +294,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         }
         return End;
     }
-    // private void ParseInterval(string selectedFilter)
-    // {
-    //     if (selectedFilter == "NoFilter")
-    //         ManualFilter = true;
-    //     else
-    //         ManualFilter = false;
-    //
-    //     if (ManualFilter)
-    //         return;
-    //
-    //     if (selectedFilter == null)
-    //         return;
-    //
-    //     Interval = (Interval)Enum.Parse(typeof(Interval), SelectedFilter);
-    //
-    //     DateTime now = DateTime.Now;
-    //     switch (Interval)
-    //     {
-    //         case Interval.Last24Hours:
-    //             //FilterStart = now.AddDays(-1);
-    //             _filterStart = now.AddDays(-1);
-    //             //FilterEnd = now;  // Assuming you want to include up to the current moment.
-    //             _filterEnd = now;
-    //             break;
-    //         case Interval.Last7Days:
-    //             //FilterStart = now.AddDays(-7);
-    //             _filterStart = now.AddDays(-7);
-    //             //FilterEnd = now;
-    //             _filterEnd = now;
-    //             break;
-    //         case Interval.CurrentMonth:
-    //             // FilterStart = new DateTime(now.Year, now.Month, 1);
-    //             // FilterEnd = FilterStart.Value.AddMonths(1).AddDays(-1);
-    //             _filterStart = new DateTime(now.Year, now.Month, 1);
-    //             _filterEnd = _filterStart.Value.AddMonths(1).AddDays(-1);
-    //             break;
-    //         case Interval.PreviousMonth:
-    //             // FilterStart = new DateTime(now.Year, now.Month, 1).AddMonths(-1);
-    //             // FilterEnd = new DateTime(now.Year, now.Month, 1).AddDays(-1);
-    //             _filterStart = new DateTime(now.Year, now.Month, 1).AddMonths(-1);
-    //             _filterEnd = new DateTime(now.Year, now.Month, 1).AddDays(-1);
-    //             break;
-    //         case Interval.LastYear:
-    //             // FilterStart = now.AddYears(-1);
-    //             // FilterEnd = now;
-    //             _filterStart = now.AddYears(-1);
-    //             _filterEnd = now;
-    //             break;
-    //         case Interval.NoFilter:
-    //             // Assuming no need to set FilterStart or FilterEnd as we want all data
-    //             // FilterStart = null;
-    //             // FilterEnd = null;
-    //             _filterStart = null;
-    //             _filterEnd = null;
-    //             break;
-    //         default:
-    //             throw new Exception("Undefined interval");
-    //     }
-    //
-    //     //FilterEnd = now;
-    //     _filterEnd = now;
-    // }
 
     private void ParseInterval(string selectedFilter)
     {
@@ -546,7 +333,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         // Only trigger updates if in manual filter mode
         OnPropertyChanged(nameof(FilterStart));
         OnPropertyChanged(nameof(FilterEnd));
-        //LoadDataAsync();
     }
 
     
@@ -578,7 +364,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
     {
         await LoadDataAsync();
     }
-
 
 
     [RelayCommand]
