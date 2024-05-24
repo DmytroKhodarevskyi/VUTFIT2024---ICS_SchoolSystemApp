@@ -18,4 +18,9 @@ public interface IStudentFacade : IFacade<StudentEntity, StudentListModel, Stude
 
     Task<string> GetStudentSurnameByIdAsync(Guid? id);
 
+    public enum SortBy
+    {
+        Name,
+        Surname
+    }
 }

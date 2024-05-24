@@ -16,6 +16,21 @@ namespace SchoolSystem.App.ViewModels.Students
         [ObservableProperty]
         private string searchQuery = string.Empty;
 
+        public string[] Sort { get; set; } = Enum.GetNames(typeof(IStudentFacade.SortBy));
+        private string _selectedSort = "Name";
+        public string SelectedSort
+        {
+            get => _selectedSort;
+            set
+            {
+                if (_selectedSort != value)
+                {
+                    _selectedSort = value;
+                    OnPropertyChanged(nameof(SelectedSort));
+                    LoadDataAsync();
+                }
+            }
+        }
         public IEnumerable<StudentListModel> Students { get; set; } = null!;
 
         public StudentListViewModel(IStudentFacade studentFacade, INavigationService navigationService, IMessengerService messengerService)
@@ -25,6 +40,8 @@ namespace SchoolSystem.App.ViewModels.Students
             this.navigationService = navigationService;
             this.messengerService = messengerService;
         }
+
+
 
         protected override async Task LoadDataAsync()
         {
@@ -42,7 +59,23 @@ namespace SchoolSystem.App.ViewModels.Students
         {
             if (Students != null)
             {
-                var filtered = Students
+                IEnumerable<StudentListModel> sorted;
+
+                // Sorting based on the SelectedSort property
+                if (SelectedSort == "Name")
+                {
+                    sorted = Students.OrderBy(s => s.Name);
+                }
+                else if (SelectedSort == "Surname")
+                {
+                    sorted = Students.OrderBy(s => s.Surname);
+                }
+                else
+                {
+                    sorted = Students; // Default no sort
+                }
+
+                var filtered = sorted
                     .Where(s => s.Name.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
                                 s.Surname.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
                     .ToList();
@@ -54,6 +87,8 @@ namespace SchoolSystem.App.ViewModels.Students
                 }
             }
         }
+
+
 
         [RelayCommand]
         private async Task GoToCreateAsync()
