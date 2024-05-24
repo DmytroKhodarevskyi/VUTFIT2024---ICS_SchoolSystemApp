@@ -6,18 +6,81 @@ using SchoolSystem.BL.Facades;
 using SchoolSystem.BL.Facades.Interfaces;
 using SchoolSystem.BL.Models;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using static SchoolSystem.BL.Facades.Interfaces.IActivityFacade;
 
 namespace SchoolSystem.App.ViewModels.Activity;
 
-public partial class ActivityListViewModel(
-    IActivityFacade activityFacade,
-    INavigationService navigationService,
-    IMessengerService messengerService)
-    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
+//public partial class ActivityListViewModel(
+//    IActivityFacade activityFacade,
+//    ISubjectFacade subjectFacade,
+//    INavigationService navigationService,
+//    IMessengerService messengerService)
+//    : ViewModelBase(messengerService), IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
+
+public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessage>, IRecipient<DeleteMessage<ActivityListModel>>
 {
+    private readonly IActivityFacade activityFacade;
+    private readonly ISubjectFacade subjectFacade;
+    private readonly INavigationService navigationService;
+
+    public ActivityListViewModel(
+        IActivityFacade activityFacade,
+        ISubjectFacade subjectFacade,
+        INavigationService navigationService,
+        IMessengerService messengerService)
+        : base(messengerService)
+    {
+        this.activityFacade = activityFacade;
+        this.subjectFacade = subjectFacade;
+        this.navigationService = navigationService;
+        LoadDataAsync(); // Initialize and load data
+    }
+
 
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
+
+    public string[] Subjects { get; private set; } = Array.Empty<string>();
+
+    private string _selectedSubject = string.Empty;
+    //public string SelectedSubject { get; set; } = string.Empty;
+
+    public string SelectedSubject
+    {
+        get => _selectedSubject;
+        set
+        {
+            if (_selectedSubject != value)
+            {
+                if (value != null)
+                {
+                    _selectedSubject = value;
+                    OnPropertyChanged(nameof(SelectedSubject));
+                    LoadDataAsync();
+                }
+               
+            }
+        }
+    }
+
+    //public string SelectedSubject
+    //{
+    //    get => _selectedSubject;
+    //    set
+    //    {
+    //        if (_selectedSubject != value)
+    //        {
+    //            _selectedSubject = value;
+    //            OnPropertyChanged(nameof(SelectedSubject));
+    //
+    //            if (value != null) // Only reload data if a valid selection is made
+    //            {
+    //                LoadDataAsync();
+    //            }
+    //        }
+    //    }
+    //}
+
 
 
     private int _tag = 0;
@@ -222,11 +285,70 @@ public partial class ActivityListViewModel(
         }
     }
 
+    //protected override async Task LoadDataAsync()
+    //{
+    //    await base.LoadDataAsync();
+    //
+    //    // Fetch Activities
+    //    Activities = await activityFacade.GetAsync();
+    //
+    //    // Fetch Subjects and maintain the current selection if it still exists
+    //    var previousSubject = _selectedSubject;
+    //    var subjectsEntities = await subjectFacade.GetAsync();
+    //    Subjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
+    //
+    //    // Check if the previous selected subject still exists, otherwise reset
+    //    if (!Subjects.Contains(previousSubject) && Subjects.Any())
+    //    {
+    //        _selectedSubject = Subjects.FirstOrDefault();
+    //        OnPropertyChanged(nameof(SelectedSubject)); // This triggers UI update
+    //    }
+    //
+    //    // This check is necessary to prevent unnecessary loading when the subjects are initially populated.
+    //    if (_selectedSubject != previousSubject)
+    //    {
+    //        // Call methods that are dependent on the selected subject
+    //        if (FilterStart.HasValue)
+    //        {
+    //            _filterStart = FilterStart.Value.Date + TimeFilterStart;
+    //        }
+    //        if (FilterEnd.HasValue)
+    //        {
+    //            _filterEnd = FilterEnd.Value.Date + TimeFilterEnd;
+    //        }
+    //
+    //        ParseInterval(SelectedFilter);
+    //
+    //        if (FilterEnd == null)
+    //        {
+    //            FilterEnd = GetMaxTime(Activities, FilterEnd);
+    //        }
+    //        if (FilterStart == null)
+    //        {
+    //            FilterStart = GetMinTime(Activities, FilterStart);
+    //        }
+    //
+    //        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter, _selectedSubject);
+    //    }
+    //}
+
+
     protected override async Task LoadDataAsync()
     {
-
+    
         await base.LoadDataAsync();
         Activities = await activityFacade.GetAsync();
+    
+        var subjectsEntities = await subjectFacade.GetAsync();
+        if (Subjects == null || Subjects.Length == 0)
+            Subjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
+        //SelectedSubject = Subjects.FirstOrDefault();
+        //_selectedSubject = Subjects.FirstOrDefault();
+        //if (string.IsNullOrEmpty(_selectedSubject))
+        //{
+        //    _selectedSubject = Subjects.FirstOrDefault();
+        //}
+    
         if (FilterStart.HasValue)
         {
             // Combine the date part of FilterStart with the time part of TimeFilterStart
@@ -239,9 +361,9 @@ public partial class ActivityListViewModel(
             // FilterEnd = FilterEnd.Value.Date + TimeFilterEnd;
             _filterEnd = FilterEnd.Value.Date + TimeFilterEnd;
         }
-
+    
         ParseInterval(SelectedFilter);
-
+    
         if (FilterEnd == null)
         {
             FilterEnd = GetMaxTime(Activities, FilterEnd);
@@ -250,10 +372,56 @@ public partial class ActivityListViewModel(
         {
             FilterStart = GetMinTime(Activities, FilterStart);
         }
-
+    
         // Activities = await activityFacade.GetAsyncFilter(FilterStart, FilterEnd, Tag);
-        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter);
+        //if (SelectedSubject != null)
+        Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter, SelectedSubject);
     }
+
+    //protected override async Task LoadDataAsync()
+    //{
+    //    await base.LoadDataAsync();
+    //
+    //    // Fetching activities might not need to reset the subjects.
+    //    Activities = await activityFacade.GetAsync();
+    //
+    //    // Fetch and update subjects only if they are likely to have changed.
+    //    var subjectsEntities = await subjectFacade.GetAsync();
+    //    string[] newSubjects = subjectsEntities.Select(s => s.Abbreviation).ToArray();
+    //
+    //    // Check if the current selected subject still exists in the new list.
+    //    if (!newSubjects.Contains(_selectedSubject))
+    //    {
+    //        _selectedSubject = newSubjects.FirstOrDefault(); // Set to first or default to null if empty.
+    //        OnPropertyChanged(nameof(SelectedSubject)); // Notify any bound controls to update.
+    //    }
+    //
+    //    Subjects = newSubjects; // Update the subjects list last to avoid race conditions with the selected subject.
+    //
+    //    // Consider if you need to reload activities based on the selected subject or other filters.
+    //    if (FilterStart.HasValue)
+    //    {
+    //        _filterStart = FilterStart.Value.Date + TimeFilterStart;
+    //    }
+    //    if (FilterEnd.HasValue)
+    //    {
+    //        _filterEnd = FilterEnd.Value.Date + TimeFilterEnd;
+    //    }
+    //
+    //    ParseInterval(SelectedFilter);
+    //
+    //    if (FilterEnd == null)
+    //    {
+    //        FilterEnd = GetMaxTime(Activities, FilterEnd);
+    //    }
+    //    if (FilterStart == null)
+    //    {
+    //        FilterStart = GetMinTime(Activities, FilterStart);
+    //    }
+    //
+    //    // Use the updated filter parameters including the potentially updated selected subject.
+    //    Activities = await activityFacade.GetAsyncFilter(_filterStart, _filterEnd, Tag, SelectedSort, Descending, DoFilter, _selectedSubject);
+    //}
 
     public static DateTime? GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime? Start)
     {

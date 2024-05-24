@@ -28,7 +28,8 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
         _mapper = mapper;
     }
   
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? start, DateTime? end, int Tag, string selectedSort, bool Descending, bool DoFilter)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? start, DateTime? end,
+        int Tag, string selectedSort, bool Descending, bool DoFilter, string Subject)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
@@ -47,6 +48,15 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
             if (Tag > 0)
             {
                 query = query.Where(e => e.Tag == Tag);
+            }
+
+            if (!string.IsNullOrEmpty(Subject))
+            {
+                //query = query.Where(e => e.Subject?.Name == Subject);
+                //query = query.Where(e => (e.Subject?.Name ?? "") == (Subject ?? ""));
+           
+                query = query.Where(e => e.Subject != null && e.Subject.Name == Subject);
+           
             }
         }
 
