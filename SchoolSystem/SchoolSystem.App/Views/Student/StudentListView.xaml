@@ -22,7 +22,7 @@
         <HorizontalStackLayout
                 Spacing="20"
                 Grid.Row="0"
-                WidthRequest="300"
+                WidthRequest="470"
         >
             <Label
                 Text="Sort By"
@@ -35,8 +35,15 @@
                 SelectedItem="{Binding SelectedSort}"
                 WidthRequest="200"
             >
-
             </Picker>
+
+            <Label
+                Text="Descending"
+                VerticalTextAlignment="Center"
+            ></Label>
+            <Switch
+                IsToggled="{Binding Descending}"
+            ></Switch>
 
         </HorizontalStackLayout>
         

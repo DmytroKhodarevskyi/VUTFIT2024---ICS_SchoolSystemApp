@@ -17,6 +17,21 @@ namespace SchoolSystem.App.ViewModels.Students
         private string searchQuery = string.Empty;
 
         public string[] Sort { get; set; } = Enum.GetNames(typeof(IStudentFacade.SortBy));
+
+        private bool _descending = false;
+
+        public bool Descending
+        {
+            get => _descending;
+            set
+            {
+                _descending = value;
+                OnPropertyChanged(nameof(Descending));
+
+                LoadDataAsync(); // Ensure this is called to refresh the list
+            }
+        }
+
         private string _selectedSort = "Name";
         public string SelectedSort
         {
@@ -64,11 +79,16 @@ namespace SchoolSystem.App.ViewModels.Students
                 // Sorting based on the SelectedSort property
                 if (SelectedSort == "Name")
                 {
-                    sorted = Students.OrderBy(s => s.Name);
+                    //sorted = Students.OrderBy(s => s.Name);
+                    sorted = Descending
+                        ? Students.OrderByDescending(e => e.Name)
+                        : Students.OrderBy(e => e.Name);
                 }
                 else if (SelectedSort == "Surname")
                 {
-                    sorted = Students.OrderBy(s => s.Surname);
+                    sorted = Descending
+                        ? Students.OrderByDescending(e => e.Surname)
+                        : Students.OrderBy(e => e.Surname);
                 }
                 else
                 {
