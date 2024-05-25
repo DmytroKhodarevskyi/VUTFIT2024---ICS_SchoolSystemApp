@@ -22,6 +22,65 @@ steps:
     dotnet workload install maui-maccatalyst
     dotnet workload install maui-windows
   displayName: 'Install all .NET MAUI workloads'
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET 8.0'
+  inputs:
+    packageType: 'sdk'
+    version: '8.0.x'
+
+- script: |
+    dotnet workload install maui-android
+    dotnet workload install maui-ios
+    dotnet workload install maui-maccatalyst
+    dotnet workload install maui-windows
+  displayName: 'Install all .NET MAUI workloads'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet packages with Runtime Identifier'
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    arguments: '--runtime win-x64'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build solution'
+  inputs:
+    command: 'build'
+    projects: '**/SchoolSystem.sln'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run tests'
+  inputs:
+    command: 'test'
+    projects: '**/SchoolSystem.sln'
+    arguments: '--configuration $(buildConfiguration) --no-build'
+
+- script: dotnet nuget locals all --clear
+  displayName: 'Clear NuGet Cache'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish project with runtime identifier'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'path/to/your/project.csproj'
+    arguments: '--configuration $(buildConfiguration) --runtime win-x64 --self-contained --output publishOutput'
+    zipAfterPublish: false
+
+# Additional tasks such as deploying or additional scripts can be added below.
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet packages'
