@@ -77,6 +77,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 		<PackageReference Include="Scrutor" Version="4.2.2" />
+		<PackageReference Include="TerribleDev.RuntimeIdentifier.MSBuild" Version="1.0.1" />
 		<ProjectReference Include="..\SchoolSystem.BL\SchoolSystem.BL.csproj" />
 		<ProjectReference Include="..\SchoolSystem.DAL\SchoolSystem.DAL.csproj" />
 	</ItemGroup>
