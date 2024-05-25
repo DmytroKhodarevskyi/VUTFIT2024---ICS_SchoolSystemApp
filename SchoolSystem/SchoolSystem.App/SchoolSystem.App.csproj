@@ -183,4 +183,8 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="appsettings.json" />
+	</ItemGroup>
+
 </Project>

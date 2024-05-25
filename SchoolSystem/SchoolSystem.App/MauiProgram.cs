@@ -1,70 +1,68 @@
-﻿using CommunityToolkit.Maui;
+﻿using System.Reflection;
 using Microsoft.Extensions.Logging;
-using System.Reflection;
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
-using SchoolSystem.BL;
+using CommunityToolkit.Maui;
 using DAL.Migrator;
 using DAL.Options;
-using DAL;
-using SchoolSystem.App.Services;
+using Microsoft.Extensions.Configuration;
 using SchoolSystem.App.Services.Interfaces;
+using SchoolSystem.BL;
 using SchoolSystem.DAL;
+using DAL.Migrator;
+using DAL.Options;
 
-[assembly:System.Resources.NeutralResourcesLanguage("en")]
 namespace SchoolSystem.App;
-public static class MauiProgram
-{
-    public static MauiApp CreateMauiApp()
-    {
+
+public static class MauiProgram {
+    public static MauiApp CreateMauiApp() {
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .ConfigureFonts(fonts =>
-            {
+            .ConfigureFonts(fonts => {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
-
-
-        builder.Services
-            .AddDALServices(GetDALOptions(builder.Configuration))
-            .AddAppServices()
-            .AddBLServices();
+            })
+            .ConfigureAppSettings();
         
-
+        builder.Services
+            .AddDALServices(builder.Configuration.GetDALOptions())
+            .AddBLServices()
+            .AddAppServices();
+        
+#if DEBUG
+        builder.Logging.AddDebug();
+#endif
+        
         var app = builder.Build();
-
-        MigrateDb(app.Services.GetRequiredService<IDbMigrator>());
+        
+        app.Services.GetRequiredService<IDbMigrator>().Migrate();
         RegisterRouting(app.Services.GetRequiredService<INavigationService>());
-
-        return app;
+        
+        return builder.Build();
     }
-
-
-    private static void RegisterRouting(INavigationService navigationService)
-    {
-        foreach (var route in navigationService.Routes)
-        {
+    
+    private static void RegisterRouting(INavigationService navigationService) {
+        foreach (var route in navigationService.Routes) {
             Routing.RegisterRoute(route.Route, route.ViewType);
         }
     }
-
-    private static DALOptions GetDALOptions(IConfiguration configuration)
-    {
-        // Extract values
-        DALOptions dalOptions = new()
-        {
-            DatabaseDirectory = FileSystem.AppDataDirectory,
-            DatabaseName = "schoolsystem.db",
-            RecreateDatabaseEachTime = false,
-            SeedDemoData = false
-            
-        };
+    
+    private static void ConfigureAppSettings(this MauiAppBuilder builder) {
+        var configBuilder = new ConfigurationBuilder();
+        const string appSettingsPath = "SchoolSystem.App.appsettings.json";
+        using var appSettingsStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(appSettingsPath);
+        if (appSettingsStream is not null) {
+            configBuilder.AddJsonStream(appSettingsStream);
+        }
         
-        return dalOptions;
+        builder.Configuration.AddConfiguration(configBuilder.Build());
     }
-
-    private static void MigrateDb(IDbMigrator migrator) => migrator.Migrate();
+    
+    private static DALOptions GetDALOptions(this IConfiguration config) {
+        var opts = new DALOptions {
+            DatabaseDirectory = FileSystem.AppDataDirectory
+        };
+        config.GetSection("SchoolSystem:DAL").Bind(opts);
+        return opts;
+    }
 }
