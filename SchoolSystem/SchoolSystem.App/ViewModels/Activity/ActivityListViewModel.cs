@@ -118,8 +118,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
 
     public Interval Interval { get; set; } = Interval.NoFilter;
 
-    //public DateTime? FilterStart { get; set; } = null;
-    private DateTime? _filterStart = DateTime.Now.AddYears(-5).AddHours(12);
+    private DateTime? _filterStart = DateTime.Now.AddHours(12);
 
     public DateTime? FilterStart
     {
@@ -140,8 +139,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
         }
     }
 
-    private DateTime? _filterEnd = DateTime.Now.AddHours(12);
-    //public DateTime? FilterEnd { get; set; } = null;
+    private DateTime? _filterEnd = DateTime.Now.AddDays(2).AddHours(12);
 
    public DateTime? FilterEnd
    {
@@ -213,7 +211,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<EditMessa
             _descending = value;
             OnPropertyChanged(nameof(Descending));
 
-            LoadDataAsync(); // Ensure this is called to refresh the list
+            LoadDataAsync(); 
         }
     }
 
