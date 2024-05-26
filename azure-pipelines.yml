@@ -6,7 +6,6 @@ steps:
     version: '8.0.x'
 
 - script: |
-    dotnet workload restore
     dotnet workload install maui
   displayName: 'Install .NET MAUI Workloads'
 - task: NuGetCommand@2
