@@ -14,7 +14,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'dotnet workload install maui'
+    script: 'dotnet workload install maui dotnet restore -r win-x64'
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
