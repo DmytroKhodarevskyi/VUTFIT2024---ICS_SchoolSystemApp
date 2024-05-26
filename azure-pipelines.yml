@@ -15,7 +15,16 @@ steps:
   inputs:
     version: '8.0.x'
     includePreviewVersions: true 
-
+- task: CmdLine@2
+  displayName: 'Install .NET MAUI Workloads'
+  inputs:
+    script: |
+      dotnet workload install maui
+      dotnet workload install maui-android
+      dotnet workload install maui-ios
+      dotnet workload install maui-maccatalyst
+      dotnet workload install maui-windows
+    failOnStderr: false
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
 
