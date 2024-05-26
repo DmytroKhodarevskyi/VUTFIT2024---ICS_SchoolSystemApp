@@ -13,7 +13,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-        <RuntimeIdentifiers>maccatalyst-arm64;win10-x64</RuntimeIdentifiers>
+        <RuntimeIdentifiers>maccatalyst-arm64;win-x64</RuntimeIdentifiers>
 
 		<!-- Display name -->
 		<ApplicationTitle>SchoolSystem.App</ApplicationTitle>
