@@ -1,46 +1,59 @@
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET 8.0'
+  displayName: 'Setup .NET 8 SDK'
   inputs:
     packageType: 'sdk'
     version: '8.0.x'
 
 - script: |
-    dotnet workload install maui-android
     dotnet workload install maui-ios
     dotnet workload install maui-maccatalyst
     dotnet workload install maui-windows
-  displayName: 'Install all .NET MAUI workloads'
+  displayName: 'Install .NET MAUI Workloads for iOS, macOS, and Windows'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Restore NuGet packages with Runtime Identifier'
+  displayName: 'Restore NuGet packages'
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
-    arguments: '--runtime win-x64'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build solution'
   inputs:
     command: 'build'
     projects: '**/SchoolSystem.sln'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
+    arguments: '--configuration Release --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run tests'
   inputs:
     command: 'test'
-    projects: '**/SchoolSystem.sln'
-    arguments: '--configuration $(buildConfiguration) --no-build'
-
-- script: dotnet nuget locals all --clear
-  displayName: 'Clear NuGet Cache'
+    projects: '**/*.csproj'
+    arguments: '--configuration Release --no-build'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Publish project with runtime identifier'
+  displayName: 'Publish Windows Project'
   inputs:
     command: 'publish'
     publishWebProjects: false
     projects: 'path/to/your/project.csproj'
-    arguments: '--configuration $(buildConfiguration) --runtime win-x64 --self-contained --output publishOutput'
+    arguments: '--configuration Release --runtime win-x64 --output publishOutput/windows'
+    zipAfterPublish: false
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish iOS Project'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'path/to/your/project.csproj'
+    arguments: '--configuration Release --runtime ios-x64 --output publishOutput/ios'
+    zipAfterPublish: false
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish macOS Project'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'path/to/your/project.csproj'
+    arguments: '--configuration Release --runtime maccatalyst-x64 --output publishOutput/macos'
     zipAfterPublish: false
