@@ -1,3 +1,7 @@
+
+trigger:
+- main
+
 steps:
 - task: UseDotNet@2
   displayName: 'Setup .NET 8 SDK'
