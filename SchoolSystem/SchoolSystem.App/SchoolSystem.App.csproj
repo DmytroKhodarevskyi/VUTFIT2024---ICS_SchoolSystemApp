@@ -13,7 +13,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-        <RuntimeIdentifiers>maccatalyst-arm64;win-x64</RuntimeIdentifiers>
+		<RuntimeIdentifier Condition="'$(BuildingFor)' == 'MacCatalyst'">maccatalyst-arm64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="'$(BuildingFor)' == 'Windows'">win-x64</RuntimeIdentifier>
 
 		<!-- Display name -->
 		<ApplicationTitle>SchoolSystem.App</ApplicationTitle>
