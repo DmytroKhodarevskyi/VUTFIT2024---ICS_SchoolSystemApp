@@ -13,8 +13,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<RuntimeIdentifier ondition="$([MSBuild]::IsOSPlatform('maccatalyst'))">maccatalyst-arm64</RuntimeIdentifier>
-		<RuntimeIdentifier ondition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('maccatalyst'))">maccatalyst-arm64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</RuntimeIdentifier>
 
 		<!-- Display name -->
 		<ApplicationTitle>SchoolSystem.App</ApplicationTitle>
