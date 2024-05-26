@@ -38,7 +38,7 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
+    arguments: '--configuration $(buildConfiguration) --no-restore -r win-x64'
 
 - task: DotNetCoreCLI@2
   displayName: 'DotNet Test'
