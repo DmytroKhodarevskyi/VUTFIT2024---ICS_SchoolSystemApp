@@ -10,11 +10,11 @@ steps:
   displayName: 'Install .NET MAUI Workloads'
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages'
-
   inputs:
     command: 'restore'
     restoreSolution: '**/*.sln'
     feedsToUse: 'select'
+    includeNuGetOrg: true 
 
 - task: DotNetCoreCLI@2
   displayName: 'Build solution'
