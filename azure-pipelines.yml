@@ -13,11 +13,19 @@ steps:
     dotnet workload install maui-windows
   displayName: 'Install .NET MAUI Workloads for macOS, and Windows'
 
+- task: XamariniOS@2
+  inputs:
+    solutionFile: '**/*.sln'
+    configuration: 'Release'
+    packageApp: true
+    buildForSimulator: true
+    runNugetRestore: false
+    projects: '**/*.csproj'
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet packages'
   inputs:
     command: 'restore'
-    projects: '**/*.csproj'
+
 
 - task: DotNetCoreCLI@2
   displayName: 'Build solution'
