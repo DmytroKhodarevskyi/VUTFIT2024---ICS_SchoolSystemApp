@@ -14,6 +14,12 @@ steps:
   displayName: 'Install .NET MAUI Workloads for macOS, and Windows'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet packages'
+  inputs:
+    command: 'restore'
+
+
+- task: DotNetCoreCLI@2
   displayName: 'Build solution'
   inputs:
     command: 'build'
