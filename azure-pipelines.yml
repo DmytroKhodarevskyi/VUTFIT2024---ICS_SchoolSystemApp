@@ -6,6 +6,9 @@ steps:
     version: '8.0.x'
 
 - script: |
+    dotnet workload restore
+    dotnet workload install maui-ios
+    dotnet workload install maui-android
     dotnet workload install maui-maccatalyst
     dotnet workload install maui-windows
   displayName: 'Install .NET MAUI Workloads for macOS, and Windows'
@@ -39,6 +42,14 @@ steps:
     arguments: '--configuration Release --runtime win-x64 --output publishOutput/windows'
     zipAfterPublish: false
 
+- task: DotNetCoreCLI@2
+  displayName: 'Publish iOS Project'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'path/to/your/project.csproj'
+    arguments: '--configuration Release --runtime ios-x64 --output publishOutput/ios'
+    zipAfterPublish: false
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish macOS Project'
