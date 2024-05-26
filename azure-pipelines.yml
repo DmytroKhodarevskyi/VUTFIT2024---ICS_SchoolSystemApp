@@ -1,62 +1,46 @@
-
 trigger:
 - main
 
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
 steps:
 - task: UseDotNet@2
-  displayName: 'Setup .NET 8 SDK'
+  displayName: 'Use .NET SDK'
   inputs:
-    packageType: 'sdk'
     version: '8.0.x'
+    includePreviewVersions: true 
 
-- script: |
-    dotnet workload install maui-windows
-  displayName: 'Install .NET MAUI Workloads'
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
+
 - task: NuGetCommand@2
-  displayName: 'Restore NuGet packages'
+  displayName: 'NuGet restore'
   inputs:
-    command: 'restore'
-    restoreSolution: '**/*.sln'
-    feedsToUse: 'select'
-    includeNuGetOrg: true 
+    restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build solution'
+  displayName: 'DotNet Build'
   inputs:
     command: 'build'
-    projects: '**/SchoolSystem.sln'
-    arguments: '--configuration Release --no-restore'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Run tests'
+  displayName: 'DotNet Test'
   inputs:
     command: 'test'
-    projects: '**/*.csproj'
-    arguments: '--configuration Release --no-build'
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-build --collect "Code coverage"'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Publish Windows Project'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
   inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'path/to/your/project.csproj'
-    arguments: '--configuration Release --runtime win-x64 --output publishOutput/windows'
-    zipAfterPublish: false
-
-- task: DotNetCoreCLI@2
-  displayName: 'Publish iOS Project'
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'path/to/your/project.csproj'
-    arguments: '--configuration Release --runtime ios-x64 --output publishOutput/ios'
-    zipAfterPublish: false
-
-- task: DotNetCoreCLI@2
-  displayName: 'Publish macOS Project'
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'path/to/your/project.csproj'
-    arguments: '--configuration Release --runtime maccatalyst-x64 --output publishOutput/macos'
-    zipAfterPublish: false
+    PathtoPublish: 'path_to_your_artifacts'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
