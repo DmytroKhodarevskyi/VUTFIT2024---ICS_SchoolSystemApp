@@ -34,11 +34,25 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'DotNet Build'
+  displayName: 'DotNet Build for Windows'
   inputs:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration) --no-restore -r win-x64'
+
+- task: DotNetCoreCLI@2
+  displayName: 'DotNet Build for iOS'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-restore -r ios-x64'
+
+- task: DotNetCoreCLI@2
+  displayName: 'DotNet Build for MacCatalyst'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-restore -r maccatalyst-x64'
 
 - task: DotNetCoreCLI@2
   displayName: 'DotNet Test'
