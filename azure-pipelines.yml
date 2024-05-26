@@ -7,11 +7,8 @@ steps:
 
 - script: |
     dotnet workload restore
-    dotnet workload install maui-ios
-    dotnet workload install maui-android
-    dotnet workload install maui-maccatalyst
-    dotnet workload install maui-windows
-  displayName: 'Install .NET MAUI Workloads for macOS, and Windows'
+    dotnet workload install maui
+  displayName: 'Install .NET MAUI Workloads'
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages'
 
