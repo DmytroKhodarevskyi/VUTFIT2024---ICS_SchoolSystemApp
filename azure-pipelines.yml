@@ -6,7 +6,6 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
@@ -37,9 +36,9 @@ steps:
     projects: '**/*Tests.csproj'
     arguments: '--configuration $(buildConfiguration) --build --collect "Code coverage"'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifacts'
+- task: DotNetCoreCLI@2
   inputs:
-    PathtoPublish: 'path_to_your_artifacts'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    command: test
+    projects: '**/*Tests/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
