@@ -31,13 +31,6 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'DotNet Build for Windows'
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore -r win-x64'
-
-- task: DotNetCoreCLI@2
   displayName: 'DotNet Test'
   inputs:
     command: 'test'
