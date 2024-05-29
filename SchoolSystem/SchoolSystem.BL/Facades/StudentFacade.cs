@@ -146,60 +146,6 @@ namespace SchoolSystem.BL.Facades
             student.Subjects.Remove(subject);
             await uow.CommitAsync();
         }
-       
 
-        // public async Task<IEnumerable<StudentListModel>> GetStudentsByNameSubject(string name)
-        // {
-        //     await using var uow = _unitOfWorkFactory.Create();
-        //
-        //     var ids = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
-        //         .Where(subject => subject.Name == name)
-        //         .SelectMany(subject => subject.StudentSubjects)
-        //         .Select(ss => ss.StudentId);
-        //
-        //     var dbSet = new List<StudentEntity>();
-        //     foreach (var id in ids)
-        //     {
-        //         var students = uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
-        //             .Where(s => s.Id == id);
-        //         await students.ForEachAsync(s => dbSet.Add(s));
-        //     }
-        //
-        //     var studentsModels = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
-        //     foreach (var instance in dbSet)
-        //     {
-        //         var model = mapper.MapToListModel(instance);
-        //         studentsModels.Add(model); // Use Add method to add the model to the list
-        //     }
-        //
-        //     return studentsModels;
-        // }
-
-        // public async Task<IEnumerable<StudentListModel>> GetStudentsByAbbrSubject(string abbreviation)
-        // {
-        //     await using var uow = _unitOfWorkFactory.Create();
-        //
-        //     var ids = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get()
-        //         .Where(subject => subject.Abbreviation == abbreviation)
-        //         .SelectMany(subject => subject.StudentSubjects)
-        //         .Select(ss => ss.StudentId);
-        //
-        //     var dbSet = new List<StudentEntity>();
-        //     foreach (var id in ids)
-        //     {
-        //         var students = uow.GetRepository<StudentEntity, StudentEntityMapper>().Get()
-        //             .Where(s => s.Id == id);
-        //         await students.ForEachAsync(s => dbSet.Add(s));
-        //     }
-        //
-        //     var studentsModels = new List<StudentListModel>(); // Directly instantiate as List<StudentDetailedModel>
-        //     foreach (var instance in dbSet)
-        //     {
-        //         var model = mapper.MapToListModel(instance);
-        //         studentsModels.Add(model); // Use Add method to add the model to the list
-        //     }
-        //
-        //     return studentsModels;
-        // }
     }
 }

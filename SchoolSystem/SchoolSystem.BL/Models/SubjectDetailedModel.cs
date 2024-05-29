@@ -8,7 +8,6 @@ namespace SchoolSystem.BL.Models
     {
         public string Name { get; set; } 
         public string Abbreviation { get; set; } 
-        // public ObservableCollection<StudentSubjectModel> StudentSubjects { get; set; } = new();
         public ObservableCollection<ActivityListModel> Activities { get; set; } = new();
         
         public static SubjectDetailedModel Empty => new()
@@ -16,7 +15,6 @@ namespace SchoolSystem.BL.Models
             Id = Guid.NewGuid(),
             Name = string.Empty,
             Abbreviation = string.Empty,
-            // StudentSubjects = new ObservableCollection<StudentSubjectModel>(),
             Activities = new ObservableCollection<ActivityListModel>()
         };
     }

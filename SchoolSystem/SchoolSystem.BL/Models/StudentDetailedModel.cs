@@ -10,8 +10,6 @@ namespace SchoolSystem.BL.Models
         public required string Surname { get; set; } 
         public string? Photo { get; set; }
         
-        // public ObservableCollection<StudentSubjectModel> StudentSubjects { get; set; } = new();
-        
         public ObservableCollection<SubjectListModel> Subjects { get; set; } = new();
         
         public static StudentDetailedModel Empty => new()
@@ -21,7 +19,6 @@ namespace SchoolSystem.BL.Models
             Surname = string.Empty,
 
             Photo = null,
-            // StudentSubjects = new ObservableCollection<StudentSubjectModel>(),
             Subjects = new ObservableCollection<SubjectListModel>()
 
         };

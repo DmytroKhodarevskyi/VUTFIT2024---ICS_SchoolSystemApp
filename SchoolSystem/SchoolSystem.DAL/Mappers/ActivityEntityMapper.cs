@@ -1,6 +1,4 @@
 
-// using SchoolSystem.DAL;
-
 using DAL.Entities;
 
 namespace DAL.Mappers;
