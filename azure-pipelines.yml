@@ -14,31 +14,20 @@ steps:
   inputs:
     version: '8.0.x'
     includePreviewVersions: true 
-- task: CmdLine@2
-  displayName: 'Install .NET MAUI Workloads'
+- task: PowerShell@2
+  displayName: 'Install MAUI'
   inputs:
-    script: |
-      dotnet workload install maui
-      dotnet workload install maui-windows
-    failOnStderr: false
-- task: NuGetToolInstaller@1
-  displayName: 'Install NuGet'
+    targetType: 'inline'
+    script: 'dotnet workload install maui'
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
+- task: PowerShell@2
+  displayName: 'Restore packages'
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: DotNetCoreCLI@2
-  displayName: 'DotNet Test'
-  inputs:
-    command: 'test'
-    projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --build --collect "Code coverage"'
+    targetType: 'inline'
+    script: 'dotnet restore $(solution)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: test
     projects: '**/*Tests/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
-
