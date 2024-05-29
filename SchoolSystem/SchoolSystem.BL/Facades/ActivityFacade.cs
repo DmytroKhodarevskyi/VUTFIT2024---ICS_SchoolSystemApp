@@ -52,8 +52,14 @@ public class ActivityFacade : CrudFacade<ActivityEntity, ActivityListModel, Acti
 
             if (!string.IsNullOrEmpty(Subject))
             {
-           
-                query = query.Where(e => e.Subject != null && e.Subject.Name == Subject);
+                var repository = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Get();
+
+                var subjectId = repository
+                    .Where(s => s.Abbreviation == Subject)
+                    .Select(s => s.Id)
+                    .FirstOrDefault();
+
+                query = query.Where(e => e.Subject != null && e.SubjectId == subjectId);
            
             }
         }
