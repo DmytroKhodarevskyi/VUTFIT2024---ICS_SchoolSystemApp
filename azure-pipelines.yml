@@ -1,0 +1,43 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK'
+  inputs:
+    version: '8.0.x'
+    includePreviewVersions: true 
+- task: CmdLine@2
+  displayName: 'Install .NET MAUI Workloads'
+  inputs:
+    script: |
+      dotnet workload install maui
+      dotnet workload install maui-windows
+    failOnStderr: false
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Tests/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
+  inputs:
+    PathtoPublish: 'path_to_your_artifacts'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
