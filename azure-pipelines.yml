@@ -35,7 +35,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build --collect "Code coverage"'
+    arguments: '--configuration $(buildConfiguration) --build --collect "Code coverage"'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacts'
