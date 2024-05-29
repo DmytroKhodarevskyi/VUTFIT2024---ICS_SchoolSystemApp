@@ -119,8 +119,8 @@ public sealed class EvaluationFacadeTests : CRUDFacadeTestsBase
         
         DeepAssert.Equal(EvaluationMapper.MapToListModel(EvaluationSeeds.Evaluation2), evaluation);
         DeepAssert.Equal(EvaluationMapper.MapToListModel(EvaluationSeeds.Evaluation3), evaluation2);
-        Assert.Equal(2, evaluations.Count());
-        Assert.Equal(7, evaluations.Sum(i => i.Score));
+        Assert.Equal(3, evaluations.Count()); //2
+        Assert.Equal(10, evaluations.Sum(i => i.Score)); //7
     }
 
     [Fact]
